@@ -1,0 +1,194 @@
+\contentsline {section}{\numberline {1}Modello a strati}{7}{section.1}%
+\contentsline {subsection}{\numberline {1.1}Definizione}{7}{subsection.1.1}%
+\contentsline {subsection}{\numberline {1.2}Il modello OSI}{8}{subsection.1.2}%
+\contentsline {section}{\numberline {2}L3: rete}{9}{section.2}%
+\contentsline {subsection}{\numberline {2.1}Packet switching}{9}{subsection.2.1}%
+\contentsline {subsubsection}{\numberline {2.1.1}Datagram}{10}{subsubsection.2.1.1}%
+\contentsline {subsubsection}{\numberline {2.1.2}QoS}{10}{subsubsection.2.1.2}%
+\contentsline {subsection}{\numberline {2.2}Protocolli}{11}{subsection.2.2}%
+\contentsline {subsubsection}{\numberline {2.2.1}It.png Pv4}{11}{subsubsection.2.2.1}%
+\contentsline {section}{\numberline {3}L4: Trasporto}{12}{section.3}%
+\contentsline {subsection}{\numberline {3.1}Multiplexing-Demultiplexing}{12}{subsection.3.1}%
+\contentsline {subsubsection}{\numberline {3.1.1}UDP}{13}{subsubsection.3.1.1}%
+\contentsline {subsubsection}{\numberline {3.1.2}TCP}{13}{subsubsection.3.1.2}%
+\contentsline {subsection}{\numberline {3.2}Client-Server}{13}{subsection.3.2}%
+\contentsline {section}{\numberline {4}HTTP (applicativo)}{13}{section.4}%
+\contentsline {subsection}{\numberline {4.1}Funzionamento}{13}{subsection.4.1}%
+\contentsline {subsubsection}{\numberline {4.1.1}URL}{14}{subsubsection.4.1.1}%
+\contentsline {subsection}{\numberline {4.2}Richiesta}{14}{subsection.4.2}%
+\contentsline {subsubsection}{\numberline {4.2.1}GET}{15}{subsubsection.4.2.1}%
+\contentsline {subsubsection}{\numberline {4.2.2}HEAD}{15}{subsubsection.4.2.2}%
+\contentsline {subsubsection}{\numberline {4.2.3}POST}{15}{subsubsection.4.2.3}%
+\contentsline {subsubsection}{\numberline {4.2.4}PUT}{15}{subsubsection.4.2.4}%
+\contentsline {subsection}{\numberline {4.3}Risposta}{15}{subsection.4.3}%
+\contentsline {subsubsection}{\numberline {4.3.1}Status Code}{16}{subsubsection.4.3.1}%
+\contentsline {subsection}{\numberline {4.4}Header}{16}{subsection.4.4}%
+\contentsline {subsubsection}{\numberline {4.4.1}Header generali}{16}{subsubsection.4.4.1}%
+\contentsline {subsubsection}{\numberline {4.4.2}Header risposta}{16}{subsubsection.4.4.2}%
+\contentsline {subsubsection}{\numberline {4.4.3}Header identità}{17}{subsubsection.4.4.3}%
+\contentsline {subsection}{\numberline {4.5}Cookies}{17}{subsection.4.5}%
+\contentsline {subsection}{\numberline {4.6}Connessioni}{18}{subsection.4.6}%
+\contentsline {subsection}{\numberline {4.7}Web Caching}{18}{subsection.4.7}%
+\contentsline {subsection}{\numberline {4.8}Browser Web}{19}{subsection.4.8}%
+\contentsline {section}{\numberline {5}DNS (applicativo)}{19}{section.5}%
+\contentsline {subsection}{\numberline {5.1}Soluzioni}{19}{subsection.5.1}%
+\contentsline {subsection}{\numberline {5.2}Attori}{20}{subsection.5.2}%
+\contentsline {subsection}{\numberline {5.3}Tipologie di DNS}{20}{subsection.5.3}%
+\contentsline {subsubsection}{\numberline {5.3.1}Root Name Server}{20}{subsubsection.5.3.1}%
+\contentsline {subsubsection}{\numberline {5.3.2}Top Level Domain}{20}{subsubsection.5.3.2}%
+\contentsline {subsubsection}{\numberline {5.3.3}Authoritative}{21}{subsubsection.5.3.3}%
+\contentsline {subsubsection}{\numberline {5.3.4}Local Name Server}{21}{subsubsection.5.3.4}%
+\contentsline {subsection}{\numberline {5.4}Risoluzioni DNS}{21}{subsection.5.4}%
+\contentsline {subsubsection}{\numberline {5.4.1}Query Iterative}{21}{subsubsection.5.4.1}%
+\contentsline {subsubsection}{\numberline {5.4.2}Query Recursive}{22}{subsubsection.5.4.2}%
+\contentsline {subsection}{\numberline {5.5}Caching}{22}{subsection.5.5}%
+\contentsline {subsubsection}{\numberline {5.5.1}Resource Records}{22}{subsubsection.5.5.1}%
+\contentsline {subsection}{\numberline {5.6}Protocollo DNS}{23}{subsection.5.6}%
+\contentsline {section}{\numberline {6}FTP (applicativo/trasporto)}{23}{section.6}%
+\contentsline {subsection}{\numberline {6.1}Funzionamento}{23}{subsection.6.1}%
+\contentsline {subsubsection}{\numberline {6.1.1}Controllo}{24}{subsubsection.6.1.1}%
+\contentsline {subsection}{\numberline {6.2}FTP Attivo/Passivo}{24}{subsection.6.2}%
+\contentsline {section}{\numberline {7}SMTP (applicativo)}{25}{section.7}%
+\contentsline {subsection}{\numberline {7.1}Funzionamento}{25}{subsection.7.1}%
+\contentsline {subsection}{\numberline {7.2}Protocollo FTP}{25}{subsection.7.2}%
+\contentsline {subsubsection}{\numberline {7.2.1}MIME}{26}{subsubsection.7.2.1}%
+\contentsline {subsection}{\numberline {7.3}POP3}{26}{subsection.7.3}%
+\contentsline {subsubsection}{\numberline {7.3.1}Caratteristiche principali di POP3}{26}{subsubsection.7.3.1}%
+\contentsline {subsubsection}{\numberline {7.3.2}Esempi di utilizzo}{27}{subsubsection.7.3.2}%
+\contentsline {subsubsection}{\numberline {7.3.3}Limiti di POP3}{27}{subsubsection.7.3.3}%
+\contentsline {subsubsection}{\numberline {7.3.4}Differenze rispetto ad altri protocolli}{27}{subsubsection.7.3.4}%
+\contentsline {section}{\numberline {8}CDN (applicativo)}{27}{section.8}%
+\contentsline {section}{\numberline {9}P2P}{27}{section.9}%
+\contentsline {subsection}{\numberline {9.1}Directory centralizzata/decentralizzata}{28}{subsection.9.1}%
+\contentsline {subsubsection}{\numberline {9.1.1}Directory centralizzata}{28}{subsubsection.9.1.1}%
+\contentsline {subsubsection}{\numberline {9.1.2}Directory decentralizzata}{29}{subsubsection.9.1.2}%
+\contentsline {section}{\numberline {10}IPv4 (rete)}{29}{section.10}%
+\contentsline {subsection}{\numberline {10.1}Header IPv4}{30}{subsection.10.1}%
+\contentsline {subsubsection}{\numberline {10.1.1}Identification, Flags, Fragment offset}{30}{subsubsection.10.1.1}%
+\contentsline {subsubsection}{\numberline {10.1.2}Frammentazione e riassemblaggio}{31}{subsubsection.10.1.2}%
+\contentsline {subsubsection}{\numberline {10.1.3}Opzioni dell'header IPv4}{31}{subsubsection.10.1.3}%
+\contentsline {subsection}{\numberline {10.2}Indirizzi IP}{32}{subsection.10.2}%
+\contentsline {subsubsection}{\numberline {10.2.1}Indirizzi IP e classi}{32}{subsubsection.10.2.1}%
+\contentsline {subsection}{\numberline {10.3}Netmask}{33}{subsection.10.3}%
+\contentsline {subsubsection}{\numberline {10.3.1}Fixed Length Subnet Mask}{34}{subsubsection.10.3.1}%
+\contentsline {subsubsection}{\numberline {10.3.2}Variable Length Subnet Mask}{34}{subsubsection.10.3.2}%
+\contentsline {subsection}{\numberline {10.4}Router}{35}{subsection.10.4}%
+\contentsline {subsubsection}{\numberline {10.4.1}Forwarding/Routing}{35}{subsubsection.10.4.1}%
+\contentsline {subsubsection}{\numberline {10.4.2}Routing Statico e Dinamico}{36}{subsubsection.10.4.2}%
+\contentsline {section}{\numberline {11}Protocollo ARP (data link)}{36}{section.11}%
+\contentsline {subsection}{\numberline {11.1}Ethernet}{37}{subsection.11.1}%
+\contentsline {subsection}{\numberline {11.2}ARP}{37}{subsection.11.2}%
+\contentsline {subsubsection}{\numberline {11.2.1}ARP Packet Fomat}{39}{subsubsection.11.2.1}%
+\contentsline {subsubsection}{\numberline {11.2.2}Gratuitos ARP}{39}{subsubsection.11.2.2}%
+\contentsline {subsubsection}{\numberline {11.2.3}ARP Probe}{40}{subsubsection.11.2.3}%
+\contentsline {subsubsection}{\numberline {11.2.4}ARP Announcement}{40}{subsubsection.11.2.4}%
+\contentsline {section}{\numberline {12}Internet Control Message Protocol (ICMP Applicativo)}{41}{section.12}%
+\contentsline {subsection}{\numberline {12.1}Scopo di ICMP}{41}{subsection.12.1}%
+\contentsline {subsection}{\numberline {12.2}Funzionamento di ICMP}{41}{subsection.12.2}%
+\contentsline {subsubsection}{\numberline {12.2.1}Struttura di un messaggio ICMP}{41}{subsubsection.12.2.1}%
+\contentsline {subsubsection}{\numberline {12.2.2}Esempi di messaggi ICMP}{42}{subsubsection.12.2.2}%
+\contentsline {subsection}{\numberline {12.3}Sicurezza e ICMP}{42}{subsection.12.3}%
+\contentsline {section}{\numberline {13}NAT (rete)}{42}{section.13}%
+\contentsline {subsection}{\numberline {13.1}Funzionamento}{42}{subsection.13.1}%
+\contentsline {section}{\numberline {14}Protocollo DHCP (applicativo)}{43}{section.14}%
+\contentsline {subsection}{\numberline {14.1}Cos'è il DHCP}{43}{subsection.14.1}%
+\contentsline {subsection}{\numberline {14.2}A cosa serve il DHCP?}{43}{subsection.14.2}%
+\contentsline {subsection}{\numberline {14.3}Funzionamento del DHCP}{44}{subsection.14.3}%
+\contentsline {subsection}{\numberline {14.4}Vantaggi del DHCP}{44}{subsection.14.4}%
+\contentsline {section}{\numberline {15}Routing (rete)}{45}{section.15}%
+\contentsline {subsection}{\numberline {15.1}Tipologie di routing}{45}{subsection.15.1}%
+\contentsline {subsection}{\numberline {15.2}Tecniche di routing}{46}{subsection.15.2}%
+\contentsline {section}{\numberline {16}Routing Distance Vector}{46}{section.16}%
+\contentsline {subsection}{\numberline {16.1}Equazione di Bellman-Ford}{47}{subsection.16.1}%
+\contentsline {subsection}{\numberline {16.2}Velocità di Convergenza}{47}{subsection.16.2}%
+\contentsline {subsection}{\numberline {16.3}Poisoned Reverse}{47}{subsection.16.3}%
+\contentsline {section}{\numberline {17}Link-State e Dijkstra}{47}{section.17}%
+\contentsline {subsection}{\numberline {17.1}Routing Link-State}{47}{subsection.17.1}%
+\contentsline {subsubsection}{\numberline {17.1.1}LSP flooding}{48}{subsubsection.17.1.1}%
+\contentsline {subsubsection}{\numberline {17.1.2}Gestione LSP}{49}{subsubsection.17.1.2}%
+\contentsline {subsubsection}{\numberline {17.1.3}Architettura Link-State}{49}{subsubsection.17.1.3}%
+\contentsline {subsection}{\numberline {17.2}Algoritmo di Dijkstra}{50}{subsection.17.2}%
+\contentsline {subsubsection}{\numberline {17.2.1}Descrizione dell'Algoritmo}{50}{subsubsection.17.2.1}%
+\contentsline {section}{\numberline {18}Protocollo OSPF (rete)}{50}{section.18}%
+\contentsline {section}{\numberline {19}Routing gerarchico (rete)}{51}{section.19}%
+\contentsline {subsection}{\numberline {19.1}Tipi di AS}{52}{subsection.19.1}%
+\contentsline {subsection}{\numberline {19.2}Instradamento gerarchico}{53}{subsection.19.2}%
+\contentsline {section}{\numberline {20}Multicast}{53}{section.20}%
+\contentsline {subsection}{\numberline {20.1}Indirizzo Multicast IPv4}{53}{subsection.20.1}%
+\contentsline {subsection}{\numberline {20.2}Multicast ethernet}{54}{subsection.20.2}%
+\contentsline {subsection}{\numberline {20.3}Multicast Router}{54}{subsection.20.3}%
+\contentsline {subsection}{\numberline {20.4}Protocolli multicast}{54}{subsection.20.4}%
+\contentsline {subsubsection}{\numberline {20.4.1}IGMP}{55}{subsubsection.20.4.1}%
+\contentsline {subsection}{\numberline {20.5}Routing Multicast}{56}{subsection.20.5}%
+\contentsline {subsubsection}{\numberline {20.5.1}Group-Shared Tree}{57}{subsubsection.20.5.1}%
+\contentsline {subsubsection}{\numberline {20.5.2}Source-based Tree}{57}{subsubsection.20.5.2}%
+\contentsline {section}{\numberline {21}MBone (rete)}{58}{section.21}%
+\contentsline {section}{\numberline {22}IPv6}{58}{section.22}%
+\contentsline {subsection}{\numberline {22.1}Differenze}{58}{subsection.22.1}%
+\contentsline {subsection}{\numberline {22.2}Header}{59}{subsection.22.2}%
+\contentsline {subsubsection}{\numberline {22.2.1}Header principale}{59}{subsubsection.22.2.1}%
+\contentsline {subsubsection}{\numberline {22.2.2}Extension Header}{59}{subsubsection.22.2.2}%
+\contentsline {subsection}{\numberline {22.3}Indirizzi IPv6}{60}{subsection.22.3}%
+\contentsline {subsection}{\numberline {22.4}Indirizzi IPv6 Unicast}{60}{subsection.22.4}%
+\contentsline {subsubsection}{\numberline {22.4.1}Indirizzi Link-Local}{61}{subsubsection.22.4.1}%
+\contentsline {subsubsection}{\numberline {22.4.2}Indirizzi IPv6 Global Unicast}{61}{subsubsection.22.4.2}%
+\contentsline {subsubsection}{\numberline {22.4.3}Indirizzi IPv6 Multicast}{61}{subsubsection.22.4.3}%
+\contentsline {subsection}{\numberline {22.5}Assegnazione ad Host}{62}{subsection.22.5}%
+\contentsline {subsection}{\numberline {22.6}ICMPv6}{62}{subsection.22.6}%
+\contentsline {subsection}{\numberline {22.7}Mapping IPv6 - IPv4}{62}{subsection.22.7}%
+\contentsline {section}{\numberline {23}Multimedia (trasporto (trasporto))}{63}{section.23}%
+\contentsline {subsection}{\numberline {23.1}Live/Pre-registrate}{63}{subsection.23.1}%
+\contentsline {subsubsection}{\numberline {23.1.1}Pre-registrate}{63}{subsubsection.23.1.1}%
+\contentsline {subsubsection}{\numberline {23.1.2}Live}{63}{subsubsection.23.1.2}%
+\contentsline {section}{\numberline {24}RTP/RTCP (applicativo/trasporto)}{64}{section.24}%
+\contentsline {subsection}{\numberline {24.1}RTP}{64}{subsection.24.1}%
+\contentsline {subsection}{\numberline {24.2}Struttura}{64}{subsection.24.2}%
+\contentsline {subsubsection}{\numberline {24.2.1}Header RTP}{65}{subsubsection.24.2.1}%
+\contentsline {subsection}{\numberline {24.3}Sessione RTP}{65}{subsection.24.3}%
+\contentsline {subsection}{\numberline {24.4}RTCP}{65}{subsection.24.4}%
+\contentsline {section}{\numberline {25}Trasmissione affidabile (trasporto)}{66}{section.25}%
+\contentsline {subsection}{\numberline {25.1}Soluzioni}{66}{subsection.25.1}%
+\contentsline {subsection}{\numberline {25.2}Stop and Wait}{67}{subsection.25.2}%
+\contentsline {subsection}{\numberline {25.3}Pipelining}{68}{subsection.25.3}%
+\contentsline {subsubsection}{\numberline {25.3.1}Go Back-N}{68}{subsubsection.25.3.1}%
+\contentsline {subsubsection}{\numberline {25.3.2}Ripetizione selettiva}{69}{subsubsection.25.3.2}%
+\contentsline {section}{\numberline {26}TCP}{69}{section.26}%
+\contentsline {subsection}{\numberline {26.1}Struttura}{70}{subsection.26.1}%
+\contentsline {subsubsection}{\numberline {26.1.1}Opzioni header TCP}{70}{subsubsection.26.1.1}%
+\contentsline {subsection}{\numberline {26.2}Affidabilità}{71}{subsection.26.2}%
+\contentsline {subsection}{\numberline {26.3}Connection Establishment}{72}{subsection.26.3}%
+\contentsline {subsection}{\numberline {26.4}Schema riassuntivo ACK}{73}{subsection.26.4}%
+\contentsline {subsection}{\numberline {26.5}Flow Control}{73}{subsection.26.5}%
+\contentsline {subsection}{\numberline {26.6}Congestion Control}{74}{subsection.26.6}%
+\contentsline {subsubsection}{\numberline {26.6.1}TCP congestion control}{75}{subsubsection.26.6.1}%
+\contentsline {section}{\numberline {27}Ethernet (data link)}{76}{section.27}%
+\contentsline {subsection}{\numberline {27.1}Indirizzi LAN}{76}{subsection.27.1}%
+\contentsline {subsection}{\numberline {27.2}Ethernet}{77}{subsection.27.2}%
+\contentsline {subsubsection}{\numberline {27.2.1}CSMA/CD}{77}{subsubsection.27.2.1}%
+\contentsline {subsection}{\numberline {27.3}Standard Ethernet Storici e Moderni}{78}{subsection.27.3}%
+\contentsline {subsection}{\numberline {27.4}Differenze tra Cavi UTP}{79}{subsection.27.4}%
+\contentsline {section}{\numberline {28}Dispositivi LAN (data link)}{79}{section.28}%
+\contentsline {subsection}{\numberline {28.1}Hub}{79}{subsection.28.1}%
+\contentsline {subsection}{\numberline {28.2}Bridge}{80}{subsection.28.2}%
+\contentsline {subsection}{\numberline {28.3}Switch}{80}{subsection.28.3}%
+\contentsline {section}{\numberline {29}VLAN (data link)}{81}{section.29}%
+\contentsline {subsection}{\numberline {29.1}Funzionamento}{82}{subsection.29.1}%
+\contentsline {subsection}{\numberline {29.2}Comunicazione tra VLAN}{83}{subsection.29.2}%
+\contentsline {subsection}{\numberline {29.3}VLAN trunking}{84}{subsection.29.3}%
+\contentsline {section}{\numberline {30}Crittografia}{85}{section.30}%
+\contentsline {subsection}{\numberline {30.1}Chiave simmetrica}{85}{subsection.30.1}%
+\contentsline {subsubsection}{\numberline {30.1.1}Cipher block-chaining}{87}{subsubsection.30.1.1}%
+\contentsline {subsection}{\numberline {30.2}Chiave pubblica}{87}{subsection.30.2}%
+\contentsline {section}{\numberline {31}Sicurezza}{88}{section.31}%
+\contentsline {subsection}{\numberline {31.1}Hashing functions}{88}{subsection.31.1}%
+\contentsline {subsubsection}{\numberline {31.1.1}Collisioni}{89}{subsubsection.31.1.1}%
+\contentsline {subsubsection}{\numberline {31.1.2}Message Authentication Code}{89}{subsubsection.31.1.2}%
+\contentsline {subsection}{\numberline {31.2}Firma Digitale}{89}{subsection.31.2}%
+\contentsline {subsection}{\numberline {31.3}Certificazione della chiave pubblica}{90}{subsection.31.3}%
+\contentsline {subsection}{\numberline {31.4}Autenticazione}{91}{subsection.31.4}%
+\contentsline {subsection}{\numberline {31.5}Email sicura}{92}{subsection.31.5}%
+\contentsline {section}{\numberline {32}Wireless}{93}{section.32}%
+\contentsline {subsection}{\numberline {32.1}Wireless LAN 802.11}{94}{subsection.32.1}%
+\contentsline {subsubsection}{\numberline {32.1.1}Associazione}{94}{subsubsection.32.1.1}%
+\contentsline {subsubsection}{\numberline {32.1.2}Metodo di accesso}{95}{subsubsection.32.1.2}%
+\contentsline {subsection}{\numberline {32.2}CSMA/CA}{95}{subsection.32.2}%

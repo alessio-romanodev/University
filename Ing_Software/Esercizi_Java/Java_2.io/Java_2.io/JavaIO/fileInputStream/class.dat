@@ -1,0 +1,15 @@
+import java.io.*;
+pubihslghòjksfdhgjkfdhgdcxbcvbc
+dfgdfhgf
+                    count++;
+                    tot+=String.valueOf((char)input);
+                }
+            }            
+            file.close();
+            System.out.println("\nBytes read: " + count);
+            System.out.println("sequenza letta: "+tot);
+        } catch (IOException e) {
+            System.out.println("Error -- " + e.toString());
+        }
+    }
+}

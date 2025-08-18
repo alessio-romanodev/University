@@ -1,0 +1,61 @@
+04-28 10:55:22 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "ENTITIES" already exists; SQL statement:
+CREATE TABLE ENTITIES(ID INT PRIMARY KEY,
+   STATOENTITIES  VARCHAR(255)) [42101-176]
+04-28 11:12:30 jdbc[3]: null
+org.h2.message.DbException: The connection was not closed by the application and is garbage collected [90018-176]
+	at org.h2.message.DbException.get(DbException.java:178)
+	at org.h2.message.DbException.get(DbException.java:154)
+	at org.h2.message.DbException.get(DbException.java:143)
+	at org.h2.jdbc.JdbcConnection.closeOld(JdbcConnection.java:173)
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:118)
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:91)
+	at org.h2.Driver.connect(Driver.java:74)
+	at org.h2.server.web.WebServer.getConnection(WebServer.java:684)
+	at org.h2.server.web.WebApp.login(WebApp.java:958)
+	at org.h2.server.web.WebApp.process(WebApp.java:212)
+	at org.h2.server.web.WebApp.processRequest(WebApp.java:171)
+	at org.h2.server.web.WebThread.process(WebThread.java:138)
+	at org.h2.server.web.WebThread.run(WebThread.java:94)
+	at java.lang.Thread.run(Thread.java:745)
+Caused by: org.h2.jdbc.JdbcSQLException: The connection was not closed by the application and is garbage collected [90018-176]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:344)
+	... 14 more
+04-28 11:13:48 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Column "HELLO" not found; SQL statement:
+UPDATE ENTITIES SET STATO=hello WHERE ID=1; [42122-176]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:344)
+	at org.h2.message.DbException.get(DbException.java:178)
+	at org.h2.message.DbException.get(DbException.java:154)
+	at org.h2.expression.ExpressionColumn.optimize(ExpressionColumn.java:148)
+	at org.h2.command.dml.Update.prepare(Update.java:189)
+	at org.h2.command.Parser.prepareCommand(Parser.java:248)
+	at org.h2.engine.Session.prepareLocal(Session.java:442)
+	at org.h2.engine.Session.prepareCommand(Session.java:384)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1188)
+	at org.h2.jdbc.JdbcStatement.executeUpdateInternal(JdbcStatement.java:128)
+	at org.h2.jdbc.JdbcStatement.executeUpdate(JdbcStatement.java:117)
+	at it.unina.is.russo.ken.daoexaple.EntityDAO.update(EntityDAO.java:60)
+	at it.unina.is.russo.ken.daoexaple.EsempioDAO.main(EsempioDAO.java:11)
+05-10 00:13:53 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: No data is available [2000-176]
+05-10 00:16:07 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Column "NAME" not found [42122-176]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:344)
+	at org.h2.message.DbException.get(DbException.java:178)
+	at org.h2.message.DbException.get(DbException.java:154)
+	at org.h2.jdbc.JdbcResultSet.getColumnIndex(JdbcResultSet.java:3148)
+	at org.h2.jdbc.JdbcResultSet.get(JdbcResultSet.java:3210)
+	at org.h2.jdbc.JdbcResultSet.getString(JdbcResultSet.java:304)
+	at it.unina.is.russo.ken.daoexaple.EntityDAO.read(EntityDAO.java:40)
+	at it.unina.is.russo.ken.daoexaple.EsempioDAO.main(EsempioDAO.java:7)
+05-10 00:17:13 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Column "NAME" not found [42122-176]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:344)
+	at org.h2.message.DbException.get(DbException.java:178)
+	at org.h2.message.DbException.get(DbException.java:154)
+	at org.h2.jdbc.JdbcResultSet.getColumnIndex(JdbcResultSet.java:3148)
+	at org.h2.jdbc.JdbcResultSet.get(JdbcResultSet.java:3210)
+	at org.h2.jdbc.JdbcResultSet.getString(JdbcResultSet.java:304)
+	at it.unina.is.russo.ken.daoexaple.EntityDAO.read(EntityDAO.java:40)
+	at it.unina.is.russo.ken.daoexaple.EsempioDAO.main(EsempioDAO.java:7)

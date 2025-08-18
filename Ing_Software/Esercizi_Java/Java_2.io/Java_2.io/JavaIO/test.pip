@@ -1,0 +1,41 @@
+
+//: c12:Redirecting.java
+// Demonstrates standard I/O redirection.
+// {Clean: test.out}
+import java.io.*;
+
+public class Redirect {
+  // Throw exceptions to console:
+  public static void main(String[] args)
+  throws IOException {
+	try{
+    PrintStream oldOut = System.out;
+    InputStream oldIn = System.in;
+    PrintStream oldErr = System.err;
+    
+    BufferedInputStream in = new BufferedInputStream(
+      new FileInputStream("./StandardInOut/Redirect.java"));
+    PrintStream out = new PrintStream(
+      new BufferedOutputStream(
+        new FileOutputStream("test.pip")));
+    System.setIn(in);
+    System.setOut(out);
+    System.setErr(out);
+    BufferedReader br = new BufferedReader(
+      new InputStreamReader(System.in));
+    String s;
+    while((s = br.readLine()) != null)
+      System.out.println(s);
+    out.flush();// make sure to write!
+    out.close(); 
+    
+    //restore
+    
+    System.setOut(oldOut);
+    System.setIn(oldIn);
+    System.setErr(oldErr);
+	 } catch (IOException e) {
+         System.out.println("Error -- " + e.toString());
+     }
+  }
+}

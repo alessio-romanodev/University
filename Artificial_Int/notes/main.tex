@@ -1,0 +1,137 @@
+\documentclass[12pt, a4paper]{article}
+
+\input{header.tex}
+
+\title{Intelligenza Artificiale\\ \large\textbf{Sperli' Giancarlo} \\ a.a. 2023-2024}
+
+\author{\textbf{Author}\\ Alessio Romano}
+
+\begin{document}
+\maketitle
+
+\newpage
+\tableofcontents
+\newpage
+
+\section{Agenti e Ambienti}
+Definiamo \textbf{agente} come qualsiasi cosa che possa essere vista come un sistema che percepisce l'ambiente in cui opera mediante sensori e agisce su di esso mediante attuatori. L'\textbf{ambiente} può essere qualsiasi cosa ma nelle pratica è quella parte che influenza ciò che l'agente percepisce e sulla quale influiscono le azioni dell'agente. 
+\begin{itemize}
+  \item Per effettuare la descrizione di un agente, è necessario specificare per ogni sequenza percettiva, l'azione intrapresa dall'agente.
+\end{itemize}
+\subsection{Agenti razionali}
+Un \textbf{agente razionale}, è un agente che \textit{fa la cosa giusta}. In ambito di intelligenza artificiale, ci si riferisce alla nozione di \textbf{consequenzialismo}, dunque valutiamo il comportamento di un agente considerando le consequenze delle sequenze di azioni intraprese da quest ultimo. La razionalità dipende da 4 fattori principali:
+\begin{itemize}
+  \item La misura di prestazione che definisce il criterio del successo
+  \item La conoscenza pregressa dell'agente
+  \item Le azioni che l'agente può effettuare
+  \item La sequenza percettiva dell'agente fino all'istante corrente
+\end{itemize}
+Riformulando possiamo definire un \textbf{agente razionale}, come un agente che per ogni possibile sequenza di percezioni, sceglie azioni che massimizzano il valore atteso della sua misura di prestazione. Dunque un agente razionale non può prescindere da:
+\begin{itemize}
+  \item \textbf{Misura di prestazione}
+  \item \textbf{Conoscenza dell'ambiente}
+  \item \textbf{Sensori}
+  \item \textbf{Attuatori}
+\end{itemize}
+\subsection{Ambienti}
+Il concetto i ambiente si riferisce a tutto ciò con cui un agente interagisce. Un ambiente ha diverse proprietà:
+\begin{itemize}
+  \item \textbf{Osservabilità}: 
+    \begin{itemize}
+      \item se i sensori di un agente gli danno accesso allo stato completo dell'ambiente in ogni momento allora diciamo che l'ambiente operativo è \textbf{completamente osservabile} 
+      \item se solo parte dell'ambiente è percettibile in un dato momento allora si dice \textbf{parzialmente osservabile}
+      \item se l'agente non è in grado di osservare l'ambiente si dice \textbf{inosservabile}.
+    \end{itemize}
+  \item \textbf{Singolarità dell'agente}: 
+    \begin{itemize}
+      \item Un agente che opera da solo in un ambiente definisce un \textbf{ambiente singolo}
+      \item Un agente che opera con altri agenti in un ambiente definisce un \textbf{ambiente multi-agente}
+    \end{itemize}
+  \item \textbf{Deterministicità}:
+    \begin{itemize}
+      \item Se lo stato successivo dell'ambiente è completamente determinato dallo stato corrente dell´ambiente e dall'azione eseguita dall´agente, si parla di \textbf{ambiente deterministico}
+      \item Se lo stato successivo non dipende unicamente dallo stato corrente dell'ambiente e dall'azione eseguita dall'agente si parla di \textbf{ambiente non deterministico}
+    \end{itemize}
+  \item \textbf{Episodicità/Sequenzialità}:
+    \begin{itemize}
+      \item Un ambiente si definisce \textbf{episodico}, se ogni scelta dell'agente non dipende dalla sequenza di azioni intraprese in precedenza
+      \item Un ambiente si dice \textbf{sequenziale} se ogni scelta dell'agente dipende dalle scelte precedenti
+    \end{itemize}
+  \item \textbf{Staticità/Dinamicità}:
+    \begin{itemize}
+      \item Un ambiente si dice \textbf{statico} se non cambia mentre un agente decide come agire
+      \item Un ambiente si dice \textbf{dinamico} se varia mentre un agente decide come agire
+    \end{itemize}
+  \item \textbf{Continuità/Discretezza}: La distinzione tra discreto e continuo si applica allo stato dell'ambiente, al modo in cui è gestito il tempo, alle percezioni e azioni dell'agente
+  \item \textbf{Noto/Ignoto}: questa distinzione non si riferisce all'ambiente in se, ma allo stato di conoscenza dell'ambiente delle leggi fisiche dell'ambiente stesso. In un ambiente noto, sono conosciuti i risultati per tutte le azioni, in uno ignoto l'agente dovrà apprendere come funziona per poter prendere buone decisioni
+\end{itemize}
+Il compito dell'itelligenza artificiale è progettare il programma agnte che implementa la funzione agente, e dunque fa corrispondere le percezioni alle azioni.
+\subsection{Struttura degli agenti}
+Abbiamo 4 tipi di strutture principali per il programma agente:
+\begin{enumerate}
+  \item \textbf{Agenti reattivi semplici}: Agenti che si occupano di scegliere le azioni sulla base della percezione corrente, ignorando la storia percettiva precedente.
+  \item \textbf{Agenti reattivi basati su modello}: Agenti che mantengono uno stato interno che dipende dalla storia delle percezioni e che quindi riflette almeno una parte degli aspetti non osservabili dello stato corrente. Aggiornare l'informazione dello stato interno al passaggio del tempo richiede a questo tipo di agenti due tipi di conoscenza
+    \begin{itemize}
+      \item Conoscenza sull'evoluzione del mondo nel tempo, suddivisa in effetti delle azioni dell'agente e modalità di evoluzione del mondo indipendente dall'agente (chiamata \textbf{modello di transizione del mondo})
+      \item Conoscenza su come lo stato del mondo si rifletta nelle percezioni dell'agente (chiamata \textbf{conoscenza sensoriale})
+    \end{itemize}
+  Un agente che utilizza tali modelli si definisce agente basato su modello
+  \item \textbf{Agenti basati su obiettivi}: oltre che della descrizione dello stato corrente, l'agente ha bisogno di informazioni riguardanti il suo obiettivo. Il programma agente può unire quest'informazione al modello per scegliere azioni che portino all'obiettivo
+  \item \textbf{Agenti basati su utilità}: nella maggior parte degli ambienti, i soli obiettivi non sono sufficienti a generare un comportamento di alta qualità. Ci serve dunque una misura di prestazione generale per poter confrontare stati del mondo differenti e misurare precisamente l'utilità che porterebbero all'agente. Una funzione di utilità è in sostanza, l'internalizzazione della misura di prestazione da parte dell'agente. Un agente razionale basato sull'utilità, sceglie l'azione che massimizza quest'ultima.
+\end{enumerate}
+\section{Risoluzione dei problemi}
+Quando l'azione giusta non è subito evidente, un agente può avere la necessità di \textit{guardare in avanti}, ossia considerare una sequenza di azioni che formano un cammino che porterà a uno stato obiettivo. Questo tipo di agente è definito \textbf{agente risolutore di problemi}, e il processo computazionale che effettua è la ricerca. Gli agenti risolutori utilizzano rappresentazioni \textbf{atomiche} in cui gli stati del mondo sono considerati come entità prive di una struttura interna visibile agli algoritmi per la risoluzione dei problemi. 
+\subsection{Agenti risolutori di problemi}
+Se l'ambiente è ignoto, l'agente può eseguire esclusivamente azioni scelte a caso. Supponiamo un ambiente in cui l'agente può sempre accedere a informazioni sul mondo. Il processo di risoluzione del problema si compone di 4 fasi.
+\begin{itemize}
+  \item \textbf{Formulazione dell'obiettivo}: l'agente adotta l'obiettivo di raggiungere l'ambiente.
+  \item \textbf{Formulazione del problema}: l'agente elabora una descrizione degli stati e delle lezioni del mondo interessato.
+  \item \textbf{Ricerca}: prima di effettuare qualsiasi azione nel mondo reale, l'agente simula nel suo modello sequenze di azioni, continuando a cercare finchè trova una sequenza che raggiunge l'obiettivo, denominata \textbf{soluzione}, oppure troverà che non è possibile alcuna soluzione.
+  \item \textbf{Esecuzione}: l'agente ora può eseguire le azioni specificate nella soluzione, una per volta
+\end{itemize}
+Si noti che uan volta che l'agente ha trovato una soluzione, può ignorare le proprie percezioni e eseguire semplicemente le azioni. Nella teoria del controllo si parla in questo caso di sistema ad \textbf{anello aperto}, perchè ignorando le percezioni si rompe il ciclo tra agente e ambiente. Nel caso che l'ambiente non sia deterministico, o il modello errato, l'agente sarebbe più sicuro usando un approccio ad \textbf{anello chiuso}, che monitora le percezioni
+\subsection{Problemi di ricerca}
+Definiamo un problema di ricerca come:
+\begin{itemize}
+  \item l'insieme di possibili stati in cui può trovarsi l'ambiente, chiamato \textbf{spazio degli stati}
+  \item lo \textbf{stato iniziale} in cui si trova l'agente inizialmente
+  \item un insieme di uno o più \textbf{stati obiettivo}
+  \item le \textbf{azioni possibili} dell'agente
+  \item un \textbf{modello di transizione}, che descrive ciò che fa ogni azione
+  \item una \textbf{funzione costo dell'azione} che restituisce il costo numerico di applicare l'azione $a$ nello stato $s$ per raggiungere uno stato $s'$
+\end{itemize}
+Una sequenza di azioni si definisce un \textbf{cammino}. Una soluzione è un cammino che porta dallo stato iniziale allo stato obiettivo e può essere:
+\begin{itemize}
+  \item \textbf{Soluzione ottimale}: se tra tutte le possibili soluzioni ha il costo minimo
+  \item \textbf{Soluzione subottimale}: si limita a trovare una soluzione, ma non minimizza il costo
+\end{itemize}
+\section{Algoritmi di ricerca}
+Un algoritmo di ricerca riceve in input un problema di ricerca e resituisce una soluzione o un'indicazione di fallimento. Consideriamo algoritmi che sovrappongono un \textbf{albero di ricerca} al grafo dello spazio degli stati, fornendo vari cammini a partire dallo stato iniziale e cercandone uno che raggiunga uno stato obiettivo. Ciascun \textbf{nodo} nell'albero di ricerca corrisponde ad uno stato nello spazio degli stati e i rami dell'albero corrispondono ad azioni.
+\subsection{Strutture dati per la ricerca}
+Gli algoritmi di ricerca chiedono una struttura dati per tenere traccia dell'albero di ricerca. Un \textbf{nodo} nell'albero è rappresentato da una struttura dati con 4/5 componenti:
+\begin{itemize}
+  \item \textbf{n.STATO}: lo stato in cui corrisponde il nodo
+  \item \textbf{n.PADRE}: il nodo dell'albero di ricerca che ha generato il nodo corrente
+  \item \textbf{n.AZIONE}: l'azione applicata allo stato padre per generare il nodo corrente
+  \item \textbf{n.COSTO\_CAMMINO}: il costo totale per arrivare dallo stato iniziale al nodo corrente
+  \item \textbf{n.EURISTICA}: una funzione euristica $h(n)$ se utilizzata (caso ricerca informata)
+\end{itemize}
+Seguendo i puntatori padre si risale agli stati e alle azioni lungo il cammino fino a tale nodo. Ci serve ora una struttura dati per memorizzare la \textbf{frontiera}. Utilizziamo una \textbf{coda} con le seguenti operazioni
+\begin{itemize}
+  \item \textbf{VUOTA?(frontiera)}: restituisce true se non ci sono più nodi nella frontiera
+  \item \textbf{POP(frontiera)}: rimuove il nodo in cima alla frontiera e lo restituisce
+  \item \textbf{TOP(frontiera)}: restit
+\end{itemize}
+
+
+
+
+
+
+
+
+
+
+
+\end{document}
+

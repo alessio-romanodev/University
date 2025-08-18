@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="fileInputStream"/>
+	<classpathentry kind="src" path="fileReader"/>
+	<classpathentry kind="src" path="FilterInputStream"/>
+	<classpathentry kind="src" path="StandardInOut"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="output" path="output"/>
+</classpath>

@@ -1,0 +1,9 @@
+06-08 12:32:20 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Table "CUSTOMERS" not found; SQL statement:
+DROP TABLE Customers [42102-162]
+06-08 12:32:20 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Table "PARCELS" not found; SQL statement:
+DROP TABLE Parcels [42102-162]
+06-08 12:32:20 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Table "SHIPMENTS" not found; SQL statement:
+DROP TABLE Shipments [42102-162]

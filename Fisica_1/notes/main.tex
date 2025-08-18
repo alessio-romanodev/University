@@ -1,0 +1,142 @@
+\documentclass[12pt, a4paper]{article}
+
+\input{header.tex}
+
+\title{Fisica I\\ \large\textbf{Annalisa Allocca} \\ a.a. 2024-2025}
+
+\author{\textbf{Author}\\ Alessio Romano}
+
+\begin{document}
+\maketitle
+
+\newpage
+\tableofcontents
+\newpage
+
+\section{Moto Rettilineo}
+La meccanica è la parte della fisica che descrive il moto dei corpi, ancor più nello specifico, la branca che si occupa di descrivere il moto senza considerare le cause che lo hanno prodotto viene detta \textbf{cinematica}. Le grandezze cinematiche fondamentali sono
+\begin{multicols}{2}
+  \begin{itemize}
+    \item \textbf{Posizione}
+    \item \textbf{Spostamento}
+    \item \textbf{Velocità}
+    \item \textbf{Accellerazione}
+  \end{itemize}
+\end{multicols}
+Iniziamo introducendo il concetto di \textbf{traiettoria}: per traiettoria si intende il luogo dei punti occupati nel tempo dall'oggetto in movimento
+\begin{center}
+  \includegraphics[scale=0.5]{./public/traiettoria.png}
+\end{center}
+Lo spostamento del punto nell'intervallo di tempo $\Delta t$ ci peremette di introdurre il concetto di \textbf{velocità media}
+\[v_m = \dfrac{\Delta x}{\Delta t} = \dfrac{x_2 - x_1}{t_2 - t_1}\]
+La velocità media esprime la rapidità con cui avviene lo spostamento, ci da un informazione complessiva senza fornire informazioni su come avviene il moto nell'intervallo di tempo considerato. Attraverso il processo di derivata dello spostamento rispetto al tempo, si ottiene la \textbf{velocità istantanea}
+\[v=\dfrac{dx}{dt}\]
+\begin{definition}
+  La velocità istantanea rappresenta rapidità di variazione temporale della posizione nell'istante $t$ considerato
+\end{definition}
+Il processo di integrazione della funzione velocità $v(t)$ nel tempo permette di risalire alla \textbf{legge oraria di un moto}
+\[x(t)=x_0 + \int_{t_0}^{t} v(t)dt\]
+\begin{definition}
+  La legge oraria è l'espressione matematica che descrive come varia la posizione di un oggetto in movimento in funzione del tempo.
+\end{definition}
+\subsection{Moto rettilineo uniforme}
+Consideriamo il moto rettilineo a velocità costante. Essendo $v$ costante, la legge oraria sarà
+\[x(t)= x_0 + v\int_{t_0}^{t} dt = x_0 + v(t - t_0)\]
+La legge appena definita descrive lo spostamento in ogni istante di tempo.
+\subsection{Accellerazione}
+Supponiamo ora di voler studiare un moto a velocità non costante. Abbiamo bisogno di introdurre il concetto di \textbf{accellerazione}.
+\begin{definition}
+  Per accellerazione, si intende la variazione della velocità nel tempo. Distinguiamo due tipi di accellerazione
+  \begin{itemize}
+    \item \textbf{Accellerazione media}: descrive la variazione di velocità nell'intervallo di tempo
+      \[a_{m}=\dfrac{\Delta v}{\Delta t}=\dfrac{v_2 - v_1}{t_2 - t_1}\]
+    \item \textbf{Accellerazione istantanea}: descrive la variazione di velocità nell'istante di tempo $t$
+      \[a=\dfrac{dv}{dt}\]
+  \end{itemize}
+\end{definition}
+In un processo analogo a quello per il calcolo della legge oraria, attraverso integrazione è possibile risalire alla legge della velocità
+\[v(t)=v_0 + \int^{t}_{t_0} a(t)dt\]
+\subsection{Moto Rettilineo Uniformemente accellerato}
+Nel \textbf{Moto rettilineo uniformemente accellerato}, l'accellerazione è costante ed è descritto dalle seguenti leggi
+\[v(t)=v_0 + a(t-t_0)\]
+\[x(t)= x_0 + v_0(t-t_0)+ \dfrac{1}{2}a(t-t_0)^2\]
+\[v(x)=\sqrt{v^2_0+2a(x-x_0)}\]
+\subsection{Moto verticale}
+Nel moto di un grave, l'accellerazione è costante orientata verso il basso e con modulo $9,81 m/s^2$. Si tratta dunque di una variante del moto rettilineo uniformemente accellerato con legge oraria generale
+\[v(t)=v_0 -g(t-t_0)^2\]
+\[x(t)=x_0 + v_0 t - \dfrac{1}{2}g(t -t_0)^2\]
+\subsection{Moto Armonico Semplice}
+Il moto armonico semplice è un tipo di \textbf{moto oscillatorio} (il corpo percorre avanti e indietro lo stesso tragitto). La legge oraria è definita come
+\[x(t)= A\cos(\omega t + \phi)\]
+In cui:
+\begin{itemize}
+  \item A: \textbf{ampiezza del moto}
+  \item $\omega t + \phi$: \textbf{fase del moto}
+    \begin{itemize}
+      \item $\omega$: \textbf{pulsazione}
+      \item $\phi$: \textbf{fase iniziale}
+    \end{itemize}
+\end{itemize}
+Derivando prima la legge oraria e poi la velocità si ricavano le altre due equazioni del moto
+\[v(t)= -A\omega\sin(\omega t + \phi)\]
+\[a(t)= -A\omega^2 \cos(\omega t + \phi) = -\omega^2 x(t)\]
+\[v(x)=\sqrt{\omega^2(A^2-x^2)}\]
+Altre due informazioni utili nello studio di un moto armonico ci vengono fornite da
+\begin{itemize}
+  \item \textbf{Periodo} $T$: il tempo necessario perchè un sistema in moto armonico completi un ciclo completo
+    \[T=\dfrac{2\pi}{\omega} \Longrightarrow \omega = \dfrac{2\pi}{T}\]
+  \item \textbf{Frequenza} $\nu$: il numero di oscillazioni in un secondo
+    \[\nu=\dfrac{1}{T}\]
+\end{itemize}
+\section{Moto nel piano}
+Per moto nel piano si intende un moto la cui traiettoria è generalmente rappresentabile da una linea curva. È necessario dunque studiare tutte le misure come vettori. Ci poniamo il problema di trovare una legge oraria per i moti in un piano, ossia di trovare la relazione tale che
+\[\vec{r}(t)=x(t)\hat{u_x}+y(t)\hat{u_y}\]
+Dove con $r{t}$ si indica il raggio vettore centrato all'origine che individua il punto sulla traiettoria
+\begin{center}
+  \includegraphics[scale=0.5]{./public/raggvec.png}
+\end{center}
+Consideriamo il \textbf{vettore spostamento} $\Delta r$ indicato come
+\[\Delta r = r(t+\Delta t)-r(t)\]
+\begin{center}
+  \includegraphics[scale=0.5]{./public/vecspos.png}
+\end{center}
+Analogamente al medesimo caso in 1 dimensione, è possibile individuare la \textbf{velocità media} come il rapporto tra vettore spostamento ed intervallo di tempo
+\[v_m = \dfrac{\Delta r}{\Delta t}\]
+Da cui si ricava la \textbf{velocità vettoriale} come il limite per $\Delta t \to 0$ della velocità media, in altre parole la derivata prima
+\[v=\dfrac{dr}{dt}\]
+\begin{center}
+  \includegraphics[scale=0.5]{./public/velvec.png}
+\end{center}
+Come per la velocità, anche l'accellerazione sarà un vettore nel moto in due dimensioni. Ci aspettiamo infatti due componenti dell'accellerazione, una che descriva la velocità in modulo e una in direzione. 
+\begin{center}
+  \includegraphics[scale=0.5]{./public/accellvec.png}
+\end{center}
+L'accellerazione si suddivide infatti in due parti, una parallela alla velocità che indica la variazione in modulo della velocità, e una ortogonale alla velocità che indica la variazione in direzione della velocità che prendono rispettivamente il nome di \textbf{accellerazione tangenziale} e \textbf{accellerazione normale}. L'accellerazione si ottiene come
+\[a=\dfrac{dv}{dt}= \dfrac{dv}{dt}\hat{u_t}+ \dfrac{v^2}{R}\hat{u_N} = a_T + a_N\]
+Il modulo del vettore accellerazione risultante è dato da
+\[|a|=\sqrt{a^2_T + a^2_N}\]
+\subsection{Moto Circolare Uniforme}
+Si definisce \textbf{moto circolare uniforme} un moto su traiettoria circolare a \textbf{velocità costante}. È possibile descriverlo in due modi:
+\begin{itemize}
+  \item \textbf{Ascissa curvilinea} $s(t)$: l'arco di circonferenza percorso dal punto
+  \item \textbf{Angolo} $\theta(t)$: 
+\end{itemize}
+
+\section{Dinamica}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}

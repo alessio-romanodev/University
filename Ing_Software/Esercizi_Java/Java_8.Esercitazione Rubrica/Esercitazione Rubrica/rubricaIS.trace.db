@@ -1,0 +1,6 @@
+05-06 21:19:35 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Table "CONTATTI" not found; SQL statement:
+SELECT * FROM CONTATTI [42102-172]
+05-02 18:19:22 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Table "CONTATTI" not found; SQL statement:
+SELECT * FROM CONTATTI [42102-172]

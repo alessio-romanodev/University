@@ -1,0 +1,21 @@
+05-25 00:49:29 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Table "CUSTOMERS" not found; SQL statement:
+INSERT INTO Customers (Name, Email) VALUES (?, ?) [42102-162]
+11-26 18:36:29 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Table "CUSTOMERS" not found; SQL statement:
+INSERT INTO Customers (Name, Email) VALUES (?, ?) [42102-162]
+11-26 18:37:48 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Table "CUSTOMERS" not found; SQL statement:
+DROP TABLE Customers [42102-162]
+11-26 18:37:48 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Table "CUSTOMERS_MAILINGLISTS" not found; SQL statement:
+DROP TABLE Customers_MailingLists [42102-162]
+11-26 18:37:48 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Table "MAILINGLISTS" not found; SQL statement:
+DROP TABLE MailingLists [42102-162]
+11-30 13:49:29 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Table "MAILINGLISTS" already exists; SQL statement:
+CREATE TABLE MailingLists (
+	        Id LONG NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	        Topic VARCHAR(255),
+	        SentMessages LONG NOT NULL DEFAULT 0) [42101-162]

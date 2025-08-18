@@ -1,0 +1,346 @@
+\documentclass[12pt, a4paper]{article}
+
+\input{header.tex}
+
+\title{Reti di Calcolatori\\ \large\textbf{Canonico Roberto} \\ a.a. 2023-2024}
+
+\author{\textbf{Author}\\ Alessio Romano}
+
+\begin{document}
+\maketitle
+
+\newpage
+\tableofcontents
+\newpage
+
+\section{HTTP}
+L'\textbf{hyperText Transfer Protocol (HTTP)} è un protocollo di livello \textit{applicazione}, per la comunicazione tra due entità definite \textbf{client} e \textbf{server}. Si tratta di un protocollo basato su \textbf{TCP} a livello trasporto. 
+\begin{itemize}
+  \item A livello applicativo si genera una richiesta o una risposta HTTP
+  \item A livello di trasporto si instaura una connessione TCP tra \textit{client} e \textit{server}
+  \item Il livello di trasporto si occupa della trasmissione affidabile dei dati
+\end{itemize}
+I tipi di connessione instaurabili sono 3:
+\begin{enumerate}
+  \item \textbf{Non Persistente}: Si apre e si chiude una connessione TCP tra client e server per ogni \textbf{oggetto} richiesto
+  \item \textbf{Persistente}: Si apre una connessione TCP tra client e server, il primo invia varie richieste attendendo la risposta da parte del server tra una richiesta e l'altra, al termine dello scambio si chiude la connessione
+  \item \textbf{Persistente con Pipelining}: Si apre una connessione TCP tra client e server, il client invia più richieste senza attendere le risposte, il server risponde alle richieste, al termine dello scambio si chiude la connessione
+\end{enumerate}
+\newpage
+\subsection{Richieste HTTP}
+Una richiesta HTTP è formata da due sezioni principali:
+\begin{itemize}
+  \item \textbf{Riga di richiesta}: la prima riga, contenente i campi
+    \begin{itemize}
+      \item \textbf{Method}: il metodo della richiesta
+        \begin{itemize}
+          \item HEAD - GET - PUT - POST - DELETE - TRACE - OPTION
+          \item I metodi si classificano come \textbf{sicuri} se non modificano lo stato del server, e \textbf{idempotenti} se l'effetto di un'unica richiesta è identico all'effetto di più richieste
+        \end{itemize}
+      \item \textbf{URL}: l'identificatore della risorsa sul server
+      \item \textbf{Version}: versione del protocollo tra 1.0 e 1.1
+    \end{itemize}
+  \item \textbf{Righe di intestazione}: da 0 ad n righe riservate per informazioni aggiuntive, ne sono esempi
+    \begin{itemize}
+      \item \textbf{Host}: specifica l'host in cui risiede l'oggetto (per la cache del proxy)
+      \item \textbf{Connection}: specifica il tipo di connessione (persistente, non persistente) ecc
+    \end{itemize}
+\end{itemize}
+\begin{center}
+  \includegraphics[scale=0.3]{./public/httpreq.png}
+\end{center}
+\subsection{Risposte HTTP}
+Una risposta HTTP è formata da tre sezioni principali:
+\begin{itemize}
+  \item \textbf{Riga di stato}: la prima riga, contiene i campi
+    \begin{itemize}
+      \item \textbf{Version}: versione del protocollo tra 1.0 e 1.1
+      \item \textbf{Status Code}: codice di stato
+        \begin{itemize}
+          \item 1xx: informational
+          \item 2xx: successful
+          \item 3xx: redirection
+          \item 4xx: client error
+          \item 5xx: server error
+        \end{itemize}
+      \item \textbf{Reason Phrase}: messaggio di stato (OK su 200 successfull)
+    \end{itemize}
+  \item \textbf{Righe di intestazione}: da 0 ad n righe riservate per informazioni aggiuntive, ne sono esempi:
+    \begin{itemize}
+      \item \textbf{Content-Type}: tipo di contenuto nel messaggio
+      \item \textbf{Last Modified}: data di ultima modifica
+    \end{itemize}
+  \item \textbf{Body}: Il dato effettivo da trasportare dal server al client
+\end{itemize}
+\begin{center}
+  \includegraphics[scale=0.3]{./public/httpres.png}
+\end{center}
+
+\subsection{Header}
+Gli header in HTTP si suddividono in 3 tipi:
+\begin{itemize}
+  \item \textbf{Header Generali}: si applicano sia alle richieste che alle risposte e sono ad esempio
+    \begin{itemize}
+      \item \textbf{MIME-Version}: la versione MIME che si sta utilizzando
+      \item \textbf{Transfer-Encoding}: la codifica della trasmissione
+      \item \textbf{Cache-Control}: tipo di meccanismo di caching suggerito o richiesto per la risorsa
+      \item \textbf{Connection}: tipo di connessione da utilizzare
+    \end{itemize}
+  \item \textbf{Header risposta}: header specifici della risposta posti dal server per specificare informazioni sulla risposta e su se stesso al client
+    \begin{itemize}
+      \item \textbf{Server}: una stringa che descrive il server
+      \item \textbf{Accept-Range}: il tipo di range che può accettare
+    \end{itemize}
+  \item \textbf{Header Identità}: specificano informazioni sul contenuto del body o della risorsa inviata
+    \begin{itemize}
+      \item \textbf{Content-Type}: Oggetto/Formato
+      \item \textbf{Content-Length}: lunghezza in byte del body
+      \item ...
+    \end{itemize}
+\end{itemize}
+\subsection{Cookies}
+Il protocollo HTTP non è in grado di mantenere uno stato, dunque per mantenere brevi informazioni scambiate tra server e client, si utilizzano i \textbf{cookie}. Si hanno due nuovi header possibili, uno per la richiesta uno per la risposta
+\begin{itemize}
+  \item \textbf{Set-Cookie (Risposta)}: il server permette al client di memorizzare cookie e rispedirli alla richiesta successiva
+  \item \textbf{Cookie (Richiesta)}: il client decide se spedire i cookie in base al documento, l'età del cookie ecc
+\end{itemize}
+I cookie contengono campi che ne stabiliscono la durata e lo scope, detti \textbf{max-age} e \textbf{expires}
+
+
+\section{FTP}
+Il protocollo FTP (\textbf{file transfer protocol}) permette il trasferimento di uno o più file qualsiasi tra due macchine. Lavora utilizzando due connessioni, una dati e una di controllo (out of band)
+\subsection{Funzionamento}
+FTP si basa sul modello client/server, in cui un client FTP trasferisce file da o verso una macchina remota (server FTP)
+\begin{center}
+  \includegraphics[scale=0.4]{./public/FTPprot.png}
+\end{center}
+Il client FTP contatta il server FTP alla porta 21, e vengono aperte due connessioni parallele
+\begin{itemize}
+  \item \textbf{Dati}: file che fluiscono dal client al server o viceversa
+  \item \textbf{Controllo}: scambio di comandi, messaggi di risposta tra il client e il server
+\end{itemize}
+Il server FTP mantiene uno stato, ad esempio la directory corrente, i dati dell'autenticazione etc.
+\subsubsection{Controllo}
+Nella connessione di controllo, vengono inviati comandi e ricevute risposte come testo ASCII. Esempi di comandi sono:
+\begin{multicols}{2}
+  \begin{itemize}
+    \item \textbf{USER} username
+    \item \textbf{PASS} password
+    \item \textbf{LIST}: restituisce i files presenti nella directory
+    \item \textbf{GET} filename
+  \end{itemize}
+\end{multicols}
+Il tipo di paradigma client/server presuppone che il server venga configurato per accettare connessioni FTP, mentre i client FTP sono invece disponibili pressochè su tutti i sistemi operativi
+\subsection{FTP Attivo/Passivo}
+L'interazione tra client e server FTP può essere di 2 tipi:
+\begin{itemize}
+  \item \textbf{Modalità attiva}: Il client informa il server su quale porta può ricevere i dati, il server su connette al client per trasferire i dati
+  \item \textbf{Modalità passiva}: Il server informa il client su quale porta è in ascolto per il trasferimento dei dati, il client si connette per trasferire i dati
+\end{itemize}
+\begin{center}
+  \includegraphics[scale=0.5]{./public/passact.png}
+\end{center}
+
+\section{SMTP}
+Il \textbf{Simple Mail Transfer Protocol (SMTP)}, è il protocollo utilizzato nella comunicazione tramite mail. La comunicazione tramite mail si basa su 3 attori principali:
+\begin{itemize}
+  \item \textbf{User Agent}: consentono agli utenti di leggere, rispondere, inoltrare, salvare ecc... le mail (Outlook, Gmail, ...)
+  \item \textbf{Mail Server}: ciascun destinatario ha una \textbf{Mail Box} su un mail server, che si occupa di gestire i messaggi a lui inviati e da lui inviati
+  \item \textbf{SMTP}: Il protocollo con cui comunicano i mail server
+\end{itemize}
+Si noti che il processo di invio di una mail, passa attraverso i \textbf{mail server}, lo user agent mittente carica la mail da inviare sul suo mail server, che si occuperà di inoltrarla al mail server destinatario, da cui lo user agent destinatario potrà recuperarla attraverso protocolli quali IMAP e POP3. Questa comunicazione avviene tramite \textbf{SMTP}. SMTP è costituito nel seguente modo
+\begin{itemize}
+  \item \textbf{Header}: linee di intestazione quali: To, From, Subject, Data...
+  \item \textbf{Body}: Dati in caratteri ASCII
+\end{itemize}
+Per ovviare alla limitazione dell'invio di dati in ASCII, è stato creato il MIME che consente di gestire diversi tipi di dati attraverso una codifica di quest'ultimi (\textbf{Content-Transfer-Encoding}) e un header aggiuntivo (\textbf{Content-Type}). Si possono gestire file MP3, HTML, MP4, JPEG, PNG...
+
+\section{IPv4}
+Come accennato in precedenza, il protocollo IPv4 opera sul Layer 3 (rete). Vediamo di cosa si occupa nello specifico.
+\begin{multicols}{2}
+  \begin{itemize}
+    \item IP gestisce indirizzamento, frammentazione, ri-assemblaggio e multiplexing dei datagram
+    \item È implementato negli end terminal e nei router e si occupa dell'instradamento dei pacchetti.
+    \item Un datagram IPv4 può avere una dimensione massima di 65535 byte ($2^16 -1$)
+    \item È composto da un header e un payload, l'header è costituito da una struttura fissa (20 byte) ed una opzionale e il payload è il dato creato dal protocollo di trasporto TCP o UDP
+  \end{itemize}
+  \includegraphics[scale=0.52]{./public/datagramip.png}
+\end{multicols}
+Il protocollo IPv4 è un servizio \textbf{best effort}, il termine indica che la rete non discrimina un pacchetto rispetto ad altri, tuttavia non garantisce di prevenire:
+\begin{multicols}{2}
+  \begin{itemize}
+    \item Pacchetti duplicati
+    \item Consegna ritardata o fuori ordine
+    \item Corruzione di dati
+    \item Perdita di pacchetti
+  \end{itemize}
+\end{multicols}
+Il ruolo di rendere la consegna affidabile, viene spostato sui meccanismi di controllo realizzati nei protocolli di livello superiore.
+\subsection{Header IPv4}
+In IPv4 l'header è costituito da una struttura fissa (20 byte) ed una opzionale di lunghezza multipla di 4 byte. I campi che compongono l'header sono
+\begin{itemize}
+  \item \textbf{IP header length (4 bit)}: lunghezza dell'header in multipli di 32 bit (max 60 byte)
+  \item \textbf{Type-of-service (8 bit)}: specifica il tipo di servizio che si richiede alla rete
+  \item \textbf{Total length (16 bit)}: indica la lunghezza in byte del pacchetto (header + payload)
+  \item \textbf{Protocol (8 bit)}: indica il protocollo di livello superiore associato al payload (6 TCP, 17 UDP)
+  \item \textbf{Header checksum (16 bit)}: serve a verificare l'integrità dell'header IP
+  \item \textbf{Source IP Address (32 bit)}: indirizzo IP del mittente
+  \item \textbf{Destination IP Address (32 bit)}: indirizzo IP del destinatario
+  \item \textbf{Identification (16 bit), Flags (3 bit), Fragment Offset (13 bit)}: sono usati in caso di frammentazione del pacchetto da parte di un router
+\end{itemize}
+\subsubsection{Identification, Flags, Fragment offset}
+Questi campi servono a gestire la frammentazione dei pacchetti IPv4. Un pacchetto IPv4 può essere frammentato da un router in una sequenza di pacchetti che viaggiano singolarmente verso il destinatario, una volta arrivati a destinazione il livello IP del destinatario si occupa di riassemblari prima di di consegnarlo allo strato superiore.
+\begin{itemize}
+  \item Un pacchetto può essere frammentato anche più volte lungo il percorso
+  \item La necessità di frammentare un pacchetto si presenta quando la dimensione del pacchetto supera la \textbf{MTU (Maximum Transmissable Unit)} sul link di uscita
+  \item Il valore della MTU dipende dalla tecnologia usata al livello 2 (es. ethernet 1500 byte)
+\end{itemize}
+Nello specifico, ciascuno di questi campi dell'header si occupano di
+\begin{itemize}
+  \item \textbf{Identification}: è un identificativo del datagram e serve ad associare diversi frammenti ad un unico pacchetto originario
+  \item \textbf{Flags}: Il bit D (don't fragment) indica se il pacchetto può essere frammentato, mentre il bit M (more fragments) indica se il pacchetto è l'ultimo frammento
+  \item \textbf{Fragment Offset}: identifica la posizione del frammento all'interno del pacchetto
+\end{itemize}
+\subsubsection{Frammentazione e riassemblaggio}
+\begin{multicols}{2}
+  \begin{itemize}
+    \item Se un pacchetto di dimenione N arriva ad un router e deve essere trasmesso su un link di uscita con MTU M<N, il pacchetto è frammentato
+    \item Ogni frammento è trasmesso come singolo pacchetto IP
+    \item La dimensione del payload di ogni frammento è un multiplo di 8 byte
+    \item Tutti i frammenti hanno lo stesso ID number
+  \end{itemize}
+  \includegraphics[scale=0.4]{./public/fragment.png}
+\end{multicols}
+Ci sono tuttavia alcuni problemi relativi all'operazione di frammentazione: il compito di riassemblaggio è oneroso, il destinatario deve collezionare tutti i frammenti del parcchetto originario prima di consegnare il payload al livello superiore, se non li riceve entro un determinato tempo, i frammenti arrivati sono scartati. Un metodo per evitare la frammentazione dei pacchetti lungo il percorso, talvolta si effettua un \textbf{Path MTU Discovery}, cioè si determina la più piccola MTU lungo il percorso da un host A ad un host B.
+\subsubsection{Opzioni dell'header IPv4}
+L'header può contenere campi Opzione mediante le quali si richiede una elaborazione "speciale" da parte dei router.
+\begin{multicols}{3}
+  \begin{itemize}
+    \item Security
+    \item Source Routing
+    \item Route Recording
+    \item Stream Identification
+    \item Timestamping
+  \end{itemize}
+\end{multicols}
+Per la presenza delle opzioni, l'header IP può essere di lunghezza variabile, da questo deriva la presenza del campo Header Length. Ci sono due formati per segnalare le opzioni
+\begin{itemize}
+  \item \textbf{Single byte}: Le opzioni di questo formato hanno una lunghezza di n byte definita implicitamente dal valore di Option Type
+    \begin{center}
+      \includegraphics[scale=0.5]{./public/optionsingle.png}
+    \end{center}
+  \item \textbf{Multiple bytes}: le opzioni di questo formato hanno una lunghezza multipla di 4 byte, esplicitamente indicata nel campo Option Length
+    \begin{center}
+      \includegraphics[scale=0.45]{./public/optionsmulti.png}
+    \end{center}
+\end{itemize}
+\newpage
+
+\section{ARP}
+L'\textbf{address resolution protocol (ARP)}, si occupa della mappatura tra indirizzi IP e indirizzi MAC delle interfacce di rete.Specificamente ARP associa ad un indirizzo IP il corrispondente indirizzo MAC e RARP associa ad un indirizzo MAC il corrispondente indirizzo IP. Ci sono due scenari di utilizzo per il protocollo ARP
+\begin{itemize}
+  \item A vuole trasmettere un datagram IP a B, nella stessa LAN
+    \begin{enumerate}
+      \item A invia una richiesta ARP in broadcast in una \textit{frame ethernet}
+      \item B riceve la richiesta ed invia una risposta ARP direttamente ad A
+    \end{enumerate}
+  \item A vuole trasmettere un datagram IP a B, al di fuori della LAN
+    \begin{enumerate}
+      \item A determina l'indirizzo IP del gateway R1 dalla sua tabella di routing
+      \item A invia una richiesta ARP in broadcast in una \textit{frame ethernet}
+      \item R1 risponde inviando il suo MAC address ad A
+    \end{enumerate}
+\end{itemize}
+Il formato di una richiesta ARP è il seguente
+\begin{center}
+  \includegraphics[scale=0.5]{./public/arpformat.png}
+\end{center}
+dove i campi sono rispettivamente
+\begin{itemize}
+  \item \textbf{Protocol Type (16 bit)}: Specifica il protocollo di rete utilizzato (0x0800 per IPv4)
+  \item \textbf{Hardware Type (16 bit)}: Specifica il tipo di hardware utilizzato (1 per MAC)
+  \item \textbf{Hardware address length (8 bit)}: Lunghezza dell'indirizzo MAC
+  \item \textbf{Protocol address length (8 bit)}: Lunghezza indirizzo IP
+  \item \textbf{Op Code (16 bit)}: se OpCode = 0x0001 ARP request, se OpCode = 0x0002 ARP reply
+  \item \textbf{Source/Target hardware address (48 bit)}: Indirizzo MAC mittente e destinatario
+  \item \textbf{Source/Target protocol address (32 bit)}: Indirizzo IP mittente e destinatario
+\end{itemize}
+Gli host sulla rete, mantengono una tabella con indirizzi MAC e rispettivi indirizzi IP, chiamata \textbf{ARP table}. I messaggi ARP possono essere anche \textit{unsolicited}, e inviati da un host per richiedere agli altri host sulla rete di modificare la propria ARP table, ne sono esempi i \textbf{Gratuitos ARP (GARP)}, e l'\textbf{ARP announcement}
+
+\section{Ethernet}
+Il protocollo \textbf{Ethernet} a livello data-link, si occupa di incapsulare datagrammi IP in \textit{frame} ethernet. Una frame è costituita nel seguente modo
+\begin{center}
+  \includegraphics[scale=0.5]{./public/frameth.png}
+\end{center}
+È composta dai seguenti campi:
+\begin{itemize}
+  \item \textbf{Preambolo (8 byte)}: è composto da 7 byte 10101010 e l'ultimo byte 10101011, serve a sincronizzare le schede di rete e notificare che è in arrivo la "parte importante" della frame
+  \item \textbf{Source Address (6 byte)}: indirizzo MAC del mittente
+  \item \textbf{Destination Address (6 byte)}: indirizzo MAC del destinatario
+  \item \textbf{Type (2 byte)}: indica il protocollo di rete sovrastante (solitamente IP)
+  \item \textbf{CRC (4 byte)}: consente alla scheda di rete di rilevare errori nella frame
+\end{itemize}
+
+\section{IPv6}
+L'\textbf{Internet Protocol v6 (IPv6)} è stata progettata per risolvere problemi di IPv4 quali lo spazio di indirizzamento in esaurimento, la sicurezza ecc... Un datagram IPv6 segue la seguente struttura
+\begin{center}
+  \includegraphics[scale=1]{./public/ipv6.png}
+\end{center}
+L'header IPv4 è a lunghezza fissa di 40 byte, e formato dai seguenti campi
+\begin{itemize}
+  \item \textbf{Version (4 bit)}: campo che identifica il numero di versione IP
+  \item \textbf{Traffic Class (8 bit)}: permette di attribuire priorità a determinati datagrammi di un flusso o proveninenti da specifiche applicazioni
+  \item \textbf{Flow Label (20 bit)}: permette di identificare un flusso di datagrammi
+  \item \textbf{Payload length (16 bit)}: è trattato come un intero senza segno e indica il numero di byte nel datagramma IPv6 che seguono l'intestazione
+  \item \textbf{Hop Limit (8 bit)}: è decrementato di 1 ogni volta che il datagramma viene inoltrato da un router, quando il valore raggiunge 0 viene eliminato
+  \item \textbf{Indirizzi sorgente e destinazione}: Indirizzi IPv6 del mittente e del destinatario
+  \item \textbf{Next Header (8 bit)}: campo che identifica il protocollo a cui verranno consegnati i contenuti del datagramma, per esempio TCP o UDP
+  \item \textbf{Dati}: Il payload associato al datagramma
+\end{itemize}
+Si noti che IPv6 non supporta \textbf{frammentazione/riassemblaggio} nei sistemi intermedi, ma solo negli end system in quanto ritenuta una pratica troppo onerosa. In caso di un pacchetto troppo grande, un router IPv6 invia un messaggio ICMP "Packet too big", sarà compito dell'end system mittente ristrutturare il datagramma in base all'MTU minima dei router sul suo percorso
+\subsection{Options}
+Il campo options non è completamente scomparso, infatti uno dei possibili valori di \textbf{next header} permette di puntare ad un header aggiuntivo contenente le opzioni. Ciò permette di avere un header principale sempre a lunghezza fissa di 40 byte. 
+
+\section{UDP}
+Il protocollo \textbf{UDP} fornisce un servizio best effort, rapido ma non sicuro quanto TCP. Infatti UDP implementa il minimo richiesto da un protocollo di trasporto, si occupa di aggiungere i campi port al segmento ed effettuare operazioni di multiplexing, demultiplexing. La struttura di un segmento UDP è la seguente
+\begin{center}
+  \includegraphics[scale=1]{./public/UDP Datagram Picture.JPG}
+\end{center}
+È composto da i campi
+\begin{itemize}
+  \item \textbf{Source Port (16 bit)}: Numero porta di origine
+  \item \textbf{Dest Port (16 bit)}: Numero porta destinatario
+  \item \textbf{Length (16 bit)}: Lunghezza dell'header + data
+  \item \textbf{Checksum (16 bit)}: Campo per il rilevamento degli errori
+\end{itemize}
+Il campo checksum in UDP, si basa sulla somma in complemento ad 1 di tutte le parole da 16 bit nel segmento, e l'eventuale riporto finale viene sommato al primo bit. Il valore risultante viene inserito nel campo checksum e in ricezione si sommano di nuovo tutte le parole da 16 bit nel segmento e successivamente si somma il valore del campo checksum, se tutti e 16 bit risultanti sono ad 1non ci sono errori, altrimenti ne è stato introdotto almeno 1
+
+\section{TCP}
+Il protocollo TCP è un ulteriore protocollo di livello trasporto \textit{connection oriented}, la struttura di un segmento TCP è la seguente
+\begin{center}
+  \includegraphics[scale=0.5]{./public/tcpstruct.png}
+\end{center}
+\begin{itemize}
+  \item \textbf{Numero di sequenza (32 bit)}: è il numero di byte dopo lo 0 a cui fa riferimento il segmento. Se supponiamo di voler trasferire 100.000 byte con MSS 1000, i segmenti saranno 100 con il primo segmento avente sequence number 0, il secondo 1000, il terzo 2000...
+  \item \textbf{Numero di riscontro (32 bit)}: è il numero di byte relativi al segmento che il ricevente si aspetta di ricevere. Supponiamo di trasferire 100.000 byte con MSS 1000, il ricevente in seguito alla ricezione del segmento con sequenza 1000, scriverà nel Ack Number 1001, in quanto è da dove si aspetta di ricevere i dati nel prossimo segmento
+  \item \textbf{Rcv Window (16 bit)}: viene utilizzato per il controllo del flusso, e fornisce lo spazio libero nel buffer del destinatario
+  \item \textbf{Lunghezza dell'intestazione (4 bit)}: specifica la lunghezza dell'intestazione TCP in multipli di 32 bit.
+  \item \textbf{Opzioni (lunghezza variabile)}: Permette di concordare la dimensione massima del segmento ed altri valori
+  \item \textbf{Flag (6 bit)}: Contiene alcune flag attivabili quali il bit URG per i dati urgenti ACK per indicare che l'ACK number è valido, RST, SYN, FIN per stabilire e chiudere la connesione
+\end{itemize}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}

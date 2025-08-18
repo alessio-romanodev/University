@@ -1,0 +1,349 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TestSessionContainer xmlns="http://www.codecover.org/xml/testsession-container" Date="1369390348542" TestSessionContainerId="9f4c2fed-8108-44e2-9a2c-50f144235dfb" version="1.0">
+<SrcFileList>
+<SrcFile Content="package is.calculator;&#10;&#10;public class Calculator {&#10;&#10;&#9;public int dividi(int x, int y) {&#10;&#9;&#9;if (y == 0) &#10;&#9;&#9;&#9;return Integer.MAX_VALUE;&#10;&#9;&#9;return x/y;&#10;&#9;}&#10;&#9;&#10;&#9;public int moltiplica(int x, int y) {&#10;&#9;&#9;return x*y;&#10;&#9;}&#10;&#9;&#10;&#9;public int MCD(int x, int y) {&#10;&#9;&#9;if (y &gt; x) &#10;&#9;&#9;&#9;return MCD(y, x);&#10;&#9;&#9;if (y == 0)&#10;&#9;&#9;&#9;return x;&#10;&#9;&#9;return MCD(y, x%y);&#10;&#9;}&#10;&#9;&#10;&#9;public int mcm(int x, int y) {&#10;&#9;&#9;return (x*y)/MCD(x, y);&#10;&#9;}&#10;&#9;&#10;}&#10;" Filename="Calculator.java" Intrnl_Id="1"/>
+</SrcFileList>
+<CritList>
+<CritListEntry Name="org.codecover.model.utils.criteria.LoopCoverage" PluginName="org.codecover"/>
+<CritListEntry Name="org.codecover.model.utils.criteria.BranchCoverage" PluginName="org.codecover"/>
+<CritListEntry Name="org.codecover.model.utils.criteria.ConditionCoverage" PluginName="org.codecover"/>
+<CritListEntry Name="org.codecover.model.utils.criteria.SynchronizedStatementCoverage" PluginName="org.codecover"/>
+<CritListEntry Name="org.codecover.model.utils.criteria.QMOCoverage" PluginName="org.codecover"/>
+<CritListEntry Name="org.codecover.model.utils.criteria.StatementCoverage" PluginName="org.codecover"/>
+</CritList>
+<BoolOpList/>
+<HierarchyLvlTypeList>
+<HierarchyLvlType EnglishName="package" IntrnlName="package" Intrnl_Id="2"/>
+<HierarchyLvlType EnglishName="class" IntrnlName="class" Intrnl_Id="3"/>
+<HierarchyLvlType EnglishName="method" IntrnlName="method" Intrnl_Id="4"/>
+<HierarchyLvlType EnglishName="default package" IntrnlName="default package" Intrnl_Id="5"/>
+</HierarchyLvlTypeList>
+<MASTRoot>
+<HierarchyLvl HierarchyLvlId="25" HierarchyLvlTypeId="5" Intrnl_Id="6" Name="default package">
+<Header/>
+<LocList/>
+<HierarchyLvl HierarchyLvlId="24" HierarchyLvlTypeId="2" Intrnl_Id="7" Name="is">
+<Header/>
+<LocList/>
+<HierarchyLvl HierarchyLvlId="23" HierarchyLvlTypeId="2" Intrnl_Id="8" Name="calculator">
+<Header/>
+<LocList/>
+<HierarchyLvl HierarchyLvlId="22" HierarchyLvlTypeId="3" Intrnl_Id="9" Name="Calculator">
+<Header>
+<Loc EndOffset="47" SrcFileId="1" StartOffset="24"/>
+</Header>
+<LocList>
+<Loc EndOffset="392" SrcFileId="1" StartOffset="24"/>
+</LocList>
+<HierarchyLvl HierarchyLvlId="18" HierarchyLvlTypeId="4" Intrnl_Id="10" Name="dividi">
+<Header>
+<Loc EndOffset="83" SrcFileId="1" StartOffset="52"/>
+</Header>
+<LocList>
+<Loc EndOffset="146" SrcFileId="1" StartOffset="52"/>
+</LocList>
+<StmntSeq Intrnl_Id="11">
+<LocList>
+<Loc EndOffset="129" SrcFileId="1" StartOffset="88"/>
+<Loc EndOffset="143" SrcFileId="1" StartOffset="132"/>
+</LocList>
+<CondStmnt CovItemId="S1" CovItemPrefix="is.calculator.Calculator.java" Intrnl_Id="12">
+<Branch CovItemId="B1" CovItemPrefix="is.calculator.Calculator.java" Implct="false" Intrnl_Id="13">
+<Cond/>
+<LocList>
+<Loc EndOffset="129" SrcFileId="1" StartOffset="104"/>
+</LocList>
+<StmntSeq Intrnl_Id="14">
+<LocList>
+<Loc EndOffset="129" SrcFileId="1" StartOffset="104"/>
+</LocList>
+<BasicStmnt CovItemId="S2" CovItemPrefix="is.calculator.Calculator.java" Intrnl_Id="15">
+<LocList>
+<Loc EndOffset="129" SrcFileId="1" StartOffset="104"/>
+</LocList>
+</BasicStmnt>
+</StmntSeq>
+</Branch>
+<Branch CovItemId="B2" CovItemPrefix="is.calculator.Calculator.java" Implct="true" Intrnl_Id="16">
+<Cond/>
+<LocList/>
+<StmntSeq Intrnl_Id="17">
+<LocList/>
+</StmntSeq>
+</Branch>
+<Keyword EndOffset="90" SrcFileId="1" StartOffset="88"/>
+<LocList>
+<Loc EndOffset="129" SrcFileId="1" StartOffset="88"/>
+</LocList>
+<RootTerm CovItemId="C1" CovItemPrefix="is.calculator.Calculator.java" Intrnl_Id="18">
+<BasicBoolTerm Intrnl_Id="19">
+<LocList>
+<Loc EndOffset="98" SrcFileId="1" StartOffset="92"/>
+</LocList>
+</BasicBoolTerm>
+</RootTerm>
+</CondStmnt>
+<BasicStmnt CovItemId="S3" CovItemPrefix="is.calculator.Calculator.java" Intrnl_Id="20">
+<LocList>
+<Loc EndOffset="143" SrcFileId="1" StartOffset="132"/>
+</LocList>
+</BasicStmnt>
+</StmntSeq>
+</HierarchyLvl>
+<HierarchyLvl HierarchyLvlId="19" HierarchyLvlTypeId="4" Intrnl_Id="21" Name="moltiplica">
+<Header>
+<Loc EndOffset="185" SrcFileId="1" StartOffset="150"/>
+</Header>
+<LocList>
+<Loc EndOffset="204" SrcFileId="1" StartOffset="150"/>
+</LocList>
+<StmntSeq Intrnl_Id="22">
+<LocList>
+<Loc EndOffset="201" SrcFileId="1" StartOffset="190"/>
+</LocList>
+<BasicStmnt CovItemId="S4" CovItemPrefix="is.calculator.Calculator.java" Intrnl_Id="23">
+<LocList>
+<Loc EndOffset="201" SrcFileId="1" StartOffset="190"/>
+</LocList>
+</BasicStmnt>
+</StmntSeq>
+</HierarchyLvl>
+<HierarchyLvl HierarchyLvlId="20" HierarchyLvlTypeId="4" Intrnl_Id="24" Name="MCD">
+<Header>
+<Loc EndOffset="236" SrcFileId="1" StartOffset="208"/>
+</Header>
+<LocList>
+<Loc EndOffset="325" SrcFileId="1" StartOffset="208"/>
+</LocList>
+<StmntSeq Intrnl_Id="25">
+<LocList>
+<Loc EndOffset="273" SrcFileId="1" StartOffset="241"/>
+<Loc EndOffset="300" SrcFileId="1" StartOffset="276"/>
+<Loc EndOffset="322" SrcFileId="1" StartOffset="303"/>
+</LocList>
+<CondStmnt CovItemId="S5" CovItemPrefix="is.calculator.Calculator.java" Intrnl_Id="26">
+<Branch CovItemId="B3" CovItemPrefix="is.calculator.Calculator.java" Implct="false" Intrnl_Id="27">
+<Cond/>
+<LocList>
+<Loc EndOffset="273" SrcFileId="1" StartOffset="256"/>
+</LocList>
+<StmntSeq Intrnl_Id="28">
+<LocList>
+<Loc EndOffset="273" SrcFileId="1" StartOffset="256"/>
+</LocList>
+<BasicStmnt CovItemId="S6" CovItemPrefix="is.calculator.Calculator.java" Intrnl_Id="29">
+<LocList>
+<Loc EndOffset="273" SrcFileId="1" StartOffset="256"/>
+</LocList>
+</BasicStmnt>
+</StmntSeq>
+</Branch>
+<Branch CovItemId="B4" CovItemPrefix="is.calculator.Calculator.java" Implct="true" Intrnl_Id="30">
+<Cond/>
+<LocList/>
+<StmntSeq Intrnl_Id="31">
+<LocList/>
+</StmntSeq>
+</Branch>
+<Keyword EndOffset="243" SrcFileId="1" StartOffset="241"/>
+<LocList>
+<Loc EndOffset="273" SrcFileId="1" StartOffset="241"/>
+</LocList>
+<RootTerm CovItemId="C2" CovItemPrefix="is.calculator.Calculator.java" Intrnl_Id="32">
+<BasicBoolTerm Intrnl_Id="33">
+<LocList>
+<Loc EndOffset="250" SrcFileId="1" StartOffset="245"/>
+</LocList>
+</BasicBoolTerm>
+</RootTerm>
+</CondStmnt>
+<CondStmnt CovItemId="S7" CovItemPrefix="is.calculator.Calculator.java" Intrnl_Id="34">
+<Branch CovItemId="B5" CovItemPrefix="is.calculator.Calculator.java" Implct="false" Intrnl_Id="35">
+<Cond/>
+<LocList>
+<Loc EndOffset="300" SrcFileId="1" StartOffset="291"/>
+</LocList>
+<StmntSeq Intrnl_Id="36">
+<LocList>
+<Loc EndOffset="300" SrcFileId="1" StartOffset="291"/>
+</LocList>
+<BasicStmnt CovItemId="S8" CovItemPrefix="is.calculator.Calculator.java" Intrnl_Id="37">
+<LocList>
+<Loc EndOffset="300" SrcFileId="1" StartOffset="291"/>
+</LocList>
+</BasicStmnt>
+</StmntSeq>
+</Branch>
+<Branch CovItemId="B6" CovItemPrefix="is.calculator.Calculator.java" Implct="true" Intrnl_Id="38">
+<Cond/>
+<LocList/>
+<StmntSeq Intrnl_Id="39">
+<LocList/>
+</StmntSeq>
+</Branch>
+<Keyword EndOffset="278" SrcFileId="1" StartOffset="276"/>
+<LocList>
+<Loc EndOffset="300" SrcFileId="1" StartOffset="276"/>
+</LocList>
+<RootTerm CovItemId="C3" CovItemPrefix="is.calculator.Calculator.java" Intrnl_Id="40">
+<BasicBoolTerm Intrnl_Id="41">
+<LocList>
+<Loc EndOffset="286" SrcFileId="1" StartOffset="280"/>
+</LocList>
+</BasicBoolTerm>
+</RootTerm>
+</CondStmnt>
+<BasicStmnt CovItemId="S9" CovItemPrefix="is.calculator.Calculator.java" Intrnl_Id="42">
+<LocList>
+<Loc EndOffset="322" SrcFileId="1" StartOffset="303"/>
+</LocList>
+</BasicStmnt>
+</StmntSeq>
+</HierarchyLvl>
+<HierarchyLvl HierarchyLvlId="21" HierarchyLvlTypeId="4" Intrnl_Id="43" Name="mcm">
+<Header>
+<Loc EndOffset="357" SrcFileId="1" StartOffset="329"/>
+</Header>
+<LocList>
+<Loc EndOffset="388" SrcFileId="1" StartOffset="329"/>
+</LocList>
+<StmntSeq Intrnl_Id="44">
+<LocList>
+<Loc EndOffset="385" SrcFileId="1" StartOffset="362"/>
+</LocList>
+<BasicStmnt CovItemId="S10" CovItemPrefix="is.calculator.Calculator.java" Intrnl_Id="45">
+<LocList>
+<Loc EndOffset="385" SrcFileId="1" StartOffset="362"/>
+</LocList>
+</BasicStmnt>
+</StmntSeq>
+</HierarchyLvl>
+</HierarchyLvl>
+</HierarchyLvl>
+</HierarchyLvl>
+</HierarchyLvl>
+</MASTRoot>
+<TestSession Comment="" Date="1369390353215" Name="24-mag-2013 12.12.33">
+<TestCase Comment="" Date="1369390353113" Name="is.calculator.testCalculator:test">
+<CovList>
+<CovPrefix CovItemPrefix="is.calculator.Calculator.java">
+<Cov CovItemId="S4" Value="1"/>
+</CovPrefix>
+</CovList>
+<AssgnmntList/>
+<ObjMetaDataList/>
+<MetaDataList/>
+</TestCase>
+<TestCase Comment="" Date="1369390353118" Name="is.calculator.testCalculator:testDivisione">
+<CovList>
+<CovPrefix CovItemPrefix="is.calculator.Calculator.java">
+<Cov CovItemId="B1" Value="1"/>
+<Cov CovItemId="S1" Value="1"/>
+<Cov CovItemId="S2" Value="1"/>
+</CovPrefix>
+</CovList>
+<AssgnmntList>
+<AssgnmntPrefix RootTermCovItemPrefix="is.calculator.Calculator.java">
+<AssgnmntListEntry Length="1" RootTermCovItemId="C1">
+<MapEntry BoolAssgnmnt="1" Value="1"/>
+</AssgnmntListEntry>
+</AssgnmntPrefix>
+</AssgnmntList>
+<ObjMetaDataList/>
+<MetaDataList/>
+</TestCase>
+<TestCase Comment="" Date="1369390353120" Name="is.calculator.testCalculator:testMCD">
+<CovList>
+<CovPrefix CovItemPrefix="is.calculator.Calculator.java">
+<Cov CovItemId="B4" Value="4"/>
+<Cov CovItemId="B5" Value="1"/>
+<Cov CovItemId="B6" Value="3"/>
+<Cov CovItemId="S5" Value="4"/>
+<Cov CovItemId="S7" Value="4"/>
+<Cov CovItemId="S8" Value="1"/>
+<Cov CovItemId="S9" Value="3"/>
+</CovPrefix>
+</CovList>
+<AssgnmntList>
+<AssgnmntPrefix RootTermCovItemPrefix="is.calculator.Calculator.java">
+<AssgnmntListEntry Length="1" RootTermCovItemId="C2">
+<MapEntry BoolAssgnmnt="0" Value="4"/>
+</AssgnmntListEntry>
+<AssgnmntListEntry Length="1" RootTermCovItemId="C3">
+<MapEntry BoolAssgnmnt="0" Value="3"/>
+<MapEntry BoolAssgnmnt="1" Value="1"/>
+</AssgnmntListEntry>
+</AssgnmntPrefix>
+</AssgnmntList>
+<ObjMetaDataList/>
+<MetaDataList/>
+</TestCase>
+<TestCase Comment="" Date="1369390353121" Name="is.calculator.testCalculator:testmcm">
+<CovList>
+<CovPrefix CovItemPrefix="is.calculator.Calculator.java">
+<Cov CovItemId="B4" Value="4"/>
+<Cov CovItemId="B5" Value="1"/>
+<Cov CovItemId="B6" Value="3"/>
+<Cov CovItemId="S10" Value="1"/>
+<Cov CovItemId="S5" Value="4"/>
+<Cov CovItemId="S7" Value="4"/>
+<Cov CovItemId="S8" Value="1"/>
+<Cov CovItemId="S9" Value="3"/>
+</CovPrefix>
+</CovList>
+<AssgnmntList>
+<AssgnmntPrefix RootTermCovItemPrefix="is.calculator.Calculator.java">
+<AssgnmntListEntry Length="1" RootTermCovItemId="C2">
+<MapEntry BoolAssgnmnt="0" Value="4"/>
+</AssgnmntListEntry>
+<AssgnmntListEntry Length="1" RootTermCovItemId="C3">
+<MapEntry BoolAssgnmnt="0" Value="3"/>
+<MapEntry BoolAssgnmnt="1" Value="1"/>
+</AssgnmntListEntry>
+</AssgnmntPrefix>
+</AssgnmntList>
+<ObjMetaDataList/>
+<MetaDataList/>
+</TestCase>
+<TestCase Comment="" Date="1369390353122" Name="is.calculator.testCalculator:testmoltiplicazione">
+<CovList>
+<CovPrefix CovItemPrefix="is.calculator.Calculator.java">
+<Cov CovItemId="S4" Value="1"/>
+</CovPrefix>
+</CovList>
+<AssgnmntList/>
+<ObjMetaDataList/>
+<MetaDataList/>
+</TestCase>
+<TestCase Comment="" Date="1369390353124" Name="is.calculator.testCalculator:testMCD2">
+<CovList>
+<CovPrefix CovItemPrefix="is.calculator.Calculator.java">
+<Cov CovItemId="B3" Value="1"/>
+<Cov CovItemId="B4" Value="4"/>
+<Cov CovItemId="B5" Value="1"/>
+<Cov CovItemId="B6" Value="3"/>
+<Cov CovItemId="S5" Value="5"/>
+<Cov CovItemId="S6" Value="1"/>
+<Cov CovItemId="S7" Value="4"/>
+<Cov CovItemId="S8" Value="1"/>
+<Cov CovItemId="S9" Value="3"/>
+</CovPrefix>
+</CovList>
+<AssgnmntList>
+<AssgnmntPrefix RootTermCovItemPrefix="is.calculator.Calculator.java">
+<AssgnmntListEntry Length="1" RootTermCovItemId="C2">
+<MapEntry BoolAssgnmnt="0" Value="4"/>
+<MapEntry BoolAssgnmnt="1" Value="1"/>
+</AssgnmntListEntry>
+<AssgnmntListEntry Length="1" RootTermCovItemId="C3">
+<MapEntry BoolAssgnmnt="0" Value="3"/>
+<MapEntry BoolAssgnmnt="1" Value="1"/>
+</AssgnmntListEntry>
+</AssgnmntPrefix>
+</AssgnmntList>
+<ObjMetaDataList/>
+<MetaDataList/>
+</TestCase>
+<MetaDataList/>
+</TestSession>
+</TestSessionContainer>

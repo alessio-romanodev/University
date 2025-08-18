@@ -1,0 +1,273 @@
+\documentclass[12pt, a4paper]{article}
+
+\input{header.tex}
+
+\title{Basi Dati\\ \large\textbf{Masciari Elio} \\ a.a. 2023-2024}
+
+\author{\textbf{Author}\\ Alessio Romano}
+
+\begin{document}
+\maketitle
+
+\newpage
+\tableofcontents
+\newpage
+
+\section{Sistemi Informatici}
+
+\subsection{Processo Aziendale}
+Un processo aziendale è una sequenza di attività aziendali volte alla realizzazione di un servizio o prodotto.
+
+\subsection{Sistema Informativo}
+Un sistema informativo è un insieme di informazioni gestite dai processi aziendali.
+
+\subsubsection{Componenti del Sistema Informativo}
+\begin{itemize}
+    \item Patrimonio di dati (database)
+    \item Insieme di procedure (funzioni nel codice)
+    \item Insieme di risorse umane (ruoli nel dominio)
+    \item Insieme di mezzi e strumenti (tool del database)
+\end{itemize}
+
+\subsection{Produzione dell'Informazione}
+La produzione dell'informazione si basa sui seguenti step:
+\begin{enumerate}
+    \item Acquisizione del dato
+    \item Immagazzinamento del dato
+    \item Elaborazione del dato
+    \item Immagazzinamento del dato elaborato
+    \item Trasmissione verso l'utente finale
+\end{enumerate}
+
+\subsubsection{Tipi di Informazioni}
+\begin{itemize}
+    \item \textbf{Informazioni Elementari}: si ricavano interpretando i dati di un'organizzazione (senza relazioni con altre informazioni).
+    \item \textbf{Informazioni Complesse}: insieme di informazioni correlate logicamente associando un'opportuna semantica ai legami.
+\end{itemize}
+
+\section{Base di Dati}
+
+Una base di dati è l'insieme di informazioni associate a collezioni di dati:
+\begin{itemize}
+    \item Dati correlati tra loro
+    \item Dotati di un'opportuna descrizione
+\end{itemize}
+
+Una base di dati contiene un insieme di dati detti \textbf{metadati}, ovvero informazioni riguardanti la base di dati stessa, ad esempio il modo in cui vengono immagazzinati i dati.
+
+\subsection{Architettura ANSI-SPARC}
+L'architettura ANSI-SPARC è un'architettura a tre livelli:
+\begin{itemize}
+    \item \textbf{Livello esterno (vista logica)}: interazione con le applicazioni, personalizzando l'accesso alle informazioni per singoli utenti o classi di utenti.
+    \item \textbf{Livello concettuale (logico)}: organizzazione e collegamento logico dei dati.
+    \item \textbf{Livello interno (fisico)}: gestione della memorizzazione su disco fisico.
+\end{itemize}
+L'architettura garantisce \textbf{indipendenza logica} (mediante viste) e \textbf{indipendenza fisica}.
+
+\subsection{Database Management System (DBMS)}
+Un \textbf{DBMS} è un insieme di programmi che permette di:
+\begin{itemize}
+    \item Definire (tipi, strutture, vincoli sui dati)
+    \item Manipolare (inserire, cancellare, aggiornare, recuperare dati)
+    \item Controllare (accesso ai dati, protezione da guasti e accessi indesiderati)
+\end{itemize}
+
+Le transazioni in un DBMS eseguono operazioni come:
+\begin{itemize}
+    \item \textbf{SELECT}: interrogazione del database.
+    \item \textbf{INSERT}: inserimento di dati nel database.
+    \item \textbf{UPDATE}: modifica di dati esistenti.
+    \item \textbf{DELETE}: rimozione di dati.
+\end{itemize}
+
+\section{Modello Relazionale}
+
+Una relazione \textit{r} sui domini \textit{D\_i} è un sottoinsieme del prodotto cartesiano:
+\begin{equation}
+    r \subseteq D_1 \times D_2 \times ... \times D_n
+\end{equation}
+
+Le relazioni vengono rappresentate tramite tabelle, con righe che rappresentano tuple e colonne che rappresentano attributi.
+
+\subsection{Vincoli di Integrità}
+Un vincolo di integrità è una regola che ogni istanza di uno schema di relazione deve rispettare.
+\begin{itemize}
+    \item \textbf{Vincoli Intrarelazionali}:
+    \begin{itemize}
+        \item Vincoli di dominio (valori di un attributo)
+        \item Vincoli di tupla (su più attributi della tupla)
+        \item Vincoli di chiave (identificazione univoca di una tupla)
+    \end{itemize}
+    \item \textbf{Vincoli Inter-relazionali}:
+    \begin{itemize}
+        \item Associano dati tra diverse relazioni
+    \end{itemize}
+\end{itemize}
+
+\section{SQL (Structured Query Language)}
+SQL comprende istruzioni per la definizione e manipolazione dei dati.
+
+\subsection{Creazione di Tabelle}
+\begin{verbatim}
+CREATE TABLE nomeTabella (
+    nomeAttributo Dominio [Default][Vincoli],
+    {,nomeAttributo Dominio [Default][Vincoli]},
+    [,altriVincoli]
+);
+\end{verbatim}
+è possibile applicare controlli sui singoli attributi attraverso la direttiva di controllo CHECK()
+\begin{verbatim}
+  CREATE TABLE squadre 
+  (
+    NOME varchar(50)
+    CHECK(NOME = "ASCOLI" OR ... OR NOME = "UDINESE"),
+    ANNODIFONDAZIONE integer
+    CHECK(ANNODIFONDAZIONE > 1900 AND ANNODIFONDAZIONE < 2025),
+    STADIO varchar(100)
+    primarykey NOME
+  )
+\end{verbatim}
+
+\subsection{Gestione Utenti e Privilegi}
+\begin{verbatim}
+CREATE USER username IDENTIFIED BY password;
+GRANT privilegio1, ..., privilegioN ON NomeRisorsa TO username;
+\end{verbatim}
+
+\section{Modello ER}
+La progettazione di una Base di Dati si divide in tre parti
+\begin{itemize}
+  \item \textbf{Analisi} delle specifiche
+  \item \textbf{Progettazione statica}: 
+    \begin{itemize}
+      \item Progettazione concettuale
+      \item Progettazione logica
+      \item Progettazione fisica
+    \end{itemize}
+  \item \textbf{Progettazione dinamica}:
+    \begin{itemize}
+      \item Realizzazione delle procedure per l'effettuazione di transazioni sulla base di dati
+    \end{itemize}
+\end{itemize}
+La progettazione statica, passa nel pratico attraverso 2 schemi principali
+\begin{itemize}
+  \item \textbf{Schema Entità-Relazione}
+  \item \textbf{Schema Logico}
+\end{itemize}
+\subsection{Progettazione concettuale}
+Il \textbf{Modello ER} è il principale metodo di progettazione concettuale, esso fornisce una serie di \textit{costrutti} che descrivono la realtà attraverso strutture. Tali strutture consentono di definire gli schemi che descrivono l'organizzazione e la struttura delle istanze di dati. Ci sono 5 costrutti principali
+\subsubsection{Entità}
+ Un'entità è una classe di oggetti (fatti, persone, cose) dell'applicazione di interesse con proprietà comuni e con esistenza autonoma
+\begin{itemize}
+  \item Ne sono esempi impiegato, città, dipendente...
+  \item Ogni entità ha un nome, di solito singolare che la identifica univocamente nello schema
+\end{itemize}
+Nello schema concettuale, si rappresentano le entità, non le singole occorrenze, graficamente si rappresenta nel seguente modo
+\begin{center}
+  \includegraphics[scale=0.25]{./public/ent.png}
+\end{center}
+\subsubsection{Attributi}
+Si intende per attributo di un’entità una sua proprietà descrittiva relativamente al dominio di interesse. Gli attributi sono denotati da una cardinalità che ne definisce il numero (min,max) di occorrenze. Sono rappresentati nel seguente modo
+\begin{center}
+  \includegraphics[scale=0.45]{./public/entattr.png}
+\end{center}
+Gli attributi possono essere di diversi tipi
+\begin{itemize}
+    \item \textbf{Attributi semplici}: sono descritti per mezzo di linee terminate da cerchi e nomi, e sono le proprietà semplici di un'entità o una relazione (es. nome)
+    \item \textbf{Identificatori delle entità}: sono usati come strumento per l'identificazione univoca delle occorrenze dell'entità, vengono indicati con cerchietto pieno;
+    \item \textbf{Attributi composti}: sono identificati tramite i loro attributi componenti e si rappresentano come un ellisse avente il nome dell'attributo composto, e come attributi i suoi componenti
+    \item \textbf{Attributo multivalore}: sono costituiti da un insieme di valori ed indicati tramite due numeri che esprimono la cardinalità dell'attributo
+    \item \textbf{Attributi opzionali}: attributi con cardinalità (0,1) e sono usati quando non è necessario specificare un valore dell'attributo in quanto la sua assenza non compromette la significatività del concetto
+  \end{itemize}
+\subsubsection{Associazione}
+un'associazione è un legame concettuale tra due o più rilevante ai fini dell'applicazione. Ne sono esempi:
+\begin{itemize}
+  \item Afferenza(fra impiegato e dipartimento)
+  \item Fornitura(fra fornitore, prodotto e dipartimento)
+\end{itemize}
+Ogni associazione ha un nome, che la identifica univocamente nello schema. Viene rappresentata come
+\begin{center}
+  \includegraphics[scale=0.3]{./public/ass}
+\end{center}
+Una associazione a sua volta può avere degli attributi, ad esempio studente - esame - corso, l'associazione può prevedere attributi quali DataEsame, Voto ecc 
+\subsubsection{Cardinalità di un'associazione}
+Si tratta di una coppia di valori relativa a ciascun entità legata ad un'associazione che sintetizza la partecipazione di ciascun'entità alla relazione stessa.
+\begin{center}
+  \includegraphics[scale=0.3]{./public/asscard.png}
+\end{center}
+Tali coppie specificano il massimo e il minimo di occorrenze dell'associazione cui ciascun occorrenza di un'entità può partecipare. Le associazioni si distinguono in 
+\begin{itemize}
+  \item \textbf{Associazione Binaria}: Se si tratta di un'associazione che coinvolge esattamente due entità
+  \item \textbf{Associazione N-Aria}: coinvolge più di due entità
+  \item \textbf{Associazione Ricorsiva}: coinvolge un'unica entità, se stessa (es: collega - collabora - collega)
+\end{itemize}
+\subsubsection{Identificatore di un'entità}
+L'identificatore di un'identità è lo strumento che permette di identificare univocamente le occorrenze di un'entità. Ogni entità ne deve possedere almeno un identificatore. è costituito da
+\begin{itemize}
+  \item \textbf{attributi dell'entità}: ossia l'identificatore interno (primary key)
+  \item \textbf{attributi esterni}: entità esterne collegate mediante relazioni (foreign key)
+\end{itemize}
+Se per identificare un’entità si deve far ricorso ad attributi di una (o più) entità ad essa riferite attraverso un’associazione si
+parla di identificatore esterno. 
+Un identificatore esterno di un’Entità E può esistere solo se la cardinalità della associazione tra E e le altre Entità coinvolte
+è (1,1).
+\subsection{Progettazione Logica}
+La progettazione logica, che segue lo sviluppo del diagramma ER, consiste nel tradurre il modello concettuale in uno schema logico, tipicamente basato sul modello relazionale. Questa fase è fondamentale per definire la struttura dati e le regole di integrità che il DBMS dovrà rispettare. In particolare, si prevede quanto segue:
+\begin{itemize}
+    \item \textbf{Mappatura del modello ER:}
+    \begin{itemize}
+        \item \textbf{Entità:} ogni entità viene trasformata in una tabella. Gli attributi diventano le colonne e viene individuata la chiave primaria.
+        \item \textbf{Relazioni:}
+        \begin{itemize}
+            \item \textbf{Relazioni uno a uno e uno a molti:} implementate tramite l'inserimento di chiavi esterne nelle tabelle appropriate.
+            \item \textbf{Relazioni molti a molti:} gestite mediante la creazione di tabelle intermedie (o di giunzione) che contengono le chiavi primarie delle tabelle correlate.
+        \end{itemize}
+    \end{itemize}
+    \item \textbf{Gestione degli attributi particolari:}
+    \begin{itemize}
+        \item \textbf{Attributi multivalore:} solitamente vengono modellati con tabelle separate per mantenere la relazione con l'entità principale tramite chiavi esterne.
+        \item \textbf{Attributi derivati:} si decide se memorizzarlioppure calcolarli in maniera dinamica.
+        \item \textbf{Entità deboli:} vengono rappresentate con tabelle che, oltre alla chiave parziale, includono la chiave primaria dell'entità “padre” per garantire l'unicità.
+    \end{itemize}
+    \item \textbf{Definizione dei vincoli di integrità:}
+    \begin{itemize}
+        \item Stabilire le chiavi primarie ed esterne per garantire le relazioni tra le tabelle.
+        \item Definire vincoli di dominio e regole di integrità referenziale per assicurare la coerenza dei dati.
+    \end{itemize}
+    \item \textbf{Normalizzazione:}
+    \begin{itemize}
+        \item Eliminare ridondanze e anomalie (inserimento, aggiornamento e cancellazione) attraverso il rispetto delle forme normali (prima, seconda, terza e, se necessario, forme superiori).
+    \end{itemize}
+    \item \textbf{Documentazione e validazione:}
+    \begin{itemize}
+        \item Redigere una documentazione dettagliata dello schema logico, descrivendo tabelle, attributi, chiavi e vincoli.
+        \item Validare lo schema per verificare che risponda correttamente alle esigenze del dominio applicativo.
+    \end{itemize}
+    \item \textbf{Iterazione e ottimizzazione:}
+    \begin{itemize}
+        \item Revisionare e perfezionare lo schema logico in base ai feedback degli stakeholder e alle nuove esigenze, anche considerando possibili denormalizzazioni controllate per migliorare le prestazioni.
+    \end{itemize}
+\end{itemize}
+
+Questo processo garantisce che lo schema logico sia solido, coerente e pronto per essere implementato nel DBMS, assicurando al contempo l'integrità e l'efficienza nella gestione dei dati.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}
+

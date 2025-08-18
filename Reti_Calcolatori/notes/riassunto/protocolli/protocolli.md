@@ -1,0 +1,12 @@
+### Protocolli
+[x] HTTP
+[x] FTP
+[x] SMTP
+[x] IPv4
+[] ARP
+[] ICMP
+[] DHCP
+[] IPv6
+[] RTP/RTCP
+[] UDP
+[] TCP

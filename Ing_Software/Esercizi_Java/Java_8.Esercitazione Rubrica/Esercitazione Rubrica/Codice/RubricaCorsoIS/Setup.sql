@@ -1,0 +1,19 @@
+
+CREATE TABLE GRUPPI(ID int NOT NULL AUTO_INCREMENT PRIMARY KEY, Label VARCHAR(255) NOT NULL);
+
+CREATE TABLE CONTATTI(ID int NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    Telefono VARCHAR(20), 
+    Email VARCHAR(50),
+    Kind VARCHAR(15),
+    Nome VARCHAR(25), 
+    Cognome VARCHAR(25), 
+    Ddn VARCHAR(25), 
+    RagioneSociale VARCHAR(125)
+);
+
+CREATE TABLE ContattiGruppiCross(
+	GruppoID INT,
+	ContattoID INT,
+	PRIMARY KEY (GruppoID, ContattoID)
+);
+

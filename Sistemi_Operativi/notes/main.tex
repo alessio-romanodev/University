@@ -1,0 +1,1423 @@
+\documentclass{article}
+\input{header.tex}
+\title{Sistemi operativi\\ \large\textbf{Natella Roberto} \\ a.a. 2023-2024}
+
+\author{\textbf{Author}\\ Alessio Romano}
+
+\begin{document}
+\maketitle
+
+\newpage
+\tableofcontents
+\newpage
+
+\section{Sistemi Operativi}
+Per \textbf{sistema operativo}, si intendono software che operano sull'hardware di un calcolatore
+\begin{itemize}
+  \item \textbf{Semplificare} lo sviluppo
+  \item \textbf{Gestire} efficacemente le risorse hardware
+  \item \textbf{Proteggere} le informazioni e prevenire accessi senza autorizzazione
+\end{itemize}
+Vediamo i diversi tipi di sistemi operativi, e come si distinguono tra di essi. 
+\subsection{Sistemi single-user}
+I sistemi single user, non sono propriamente definibili come sistemi operativi, in qunato caratterizzati da un'unico programma, con cui l'utente non è in grado di interagire durante l'esecuzione. 
+ Il problema principale di questo tipo di sistemi è l'effettivo utilizzo di risorse hardware
+ \[\%\text{ Utilizzo}= \dfrac{\text{Tempo di utilizzo dell'hardware}}{\text{Tempo totale}}\]
+\subsection{Batch Systems}
+I batch sistems, o sistemi a lotti sono sistemi che si basano sulla compilazione di schede perforate che vengono successivamente lette dal calcolatore:
+\begin{itemize}
+  \item L'utente scrive il suo \textbf{job} (programma) su delle schede perforate
+  \item Più job sono raggruppati in pacchetti detti \textbf{batch}
+  \item I job vengono caricati ed eseguiti in seguenza dal calcolatore 
+  \item L'utente attende spesso ore e giorni per avere i risultati (sistema non interattivo)
+  Una variante dei classici Batch Systems sono i sistemi Batch monoprogrammati. In cui il sistema operativo si occupa attraverso un programma caricato in memoria di schedulare l'esecuzione dei programmi in sequenza. 
+  Si tratta a tutti gli effetti di una miglioria rispetto ai sistemi single-user in quanto la macchina è meglio utilizzata grazie all'assenza dell'interazione con  l'utente, tuttavia i programmi sono eseguiti sequenzialmente, il che implica che l'utente spesso si trova ad attendere ore o giorni per ricevere i risultati e soprattutto il processore rimane inattivo durante le procedure di I/O.
+\end{itemize}
+\begin{center}
+\includegraphics[scale=0.2]{./public/batchmono.png}
+\end{center}
+Inoltre, un job alla volta veniva caricato in memoria, risultando in memoria non utilizzata
+\subsection{Sistemi multiprogrammati}
+Nei sistemi multiprogrammati, più job vengono caricati in memoria contemporaneamente, tuttavia la cpu esegue un job alla volta, e in caso un job sia interrotto da operazioni di I/O, la cpu viene riassegnata ad un altro job
+\subsection{Sistemi time-sharing}
+Il sistema time-sharing, estende l'idea di multiprogrammazione, ma gli utenti non aspettano più il termine dell'esecuzione per avere risultati, ma interagiscono in tempo reale con i programmi. il sistema operativo \textbf{unix}, rappresenta un esempio di sistema time-sharing. Nei sistemi time-sharing
+\begin{itemize}
+  \item i job vengono interrotti dal sistema operativo (\textbf{preemption}) anche se non fanno I/O 
+  \item la cpu alterna frequentemente i processi (+100 v/s)
+\end{itemize}
+I job anche se condividono le stesse risorse hardware, "appaiono" agli utenti come se eseguissero in contemporanea su due processori diversi. Il metodo di realizzazione è il seguente:
+\begin{itemize}
+  \item Un timer innesca periodicamente gli \textbf{interrupt}
+  \item Allo scadere il sistema operativo, rimuove dalla cpu il programma corrente e ne pone un altro in esecuzione (\textbf{context switch})
+\end{itemize}
+\begin{center}
+  \includegraphics[scale=0.25]{./public/contextswitch.png}
+\end{center}
+L'introduzione del timer di interrupt, introduce un ritardo di esecuzione definito come \textbf{overhead} di sistema. Il vantaggio di questo tipo di sistemi è che l'utente opera in maniera interattiva e su più programmi contemporaneamente, lo svantaggio è l'introduzione dell'overhead di sistema
+\begin{center}
+    \includegraphics[scale=0.20]{./public/batch-time.png}
+\end{center}
+\subsection{Personal Computing}
+Negli anni 80' nascono i primi personal computer, con sistemi operativi solitamente single-user e con un focus sull'interfacce sia grafiche che testuali come MS-DOS. Nel tempo questi si evolvono fino a diventare sistemi multiutente time-sharing come MacOS, Windows...
+\subsection{Embedded Computing}
+I sistemi embedded sono i sistemi integrati all'interno di oggetti o sistemi informatici che si occupano di svolgere lavori fisici, e sono estremamente legati al tempismo, ad esempio le macchine di una fabrica ecc...
+\subsection{Mobile Computing}
+Sistemi operativi quali android, ios... progettati per funzionare su telefoni mobili, e con una forte enfasi sulla sicurezza, efficienza energetica e multimedia
+\subsection{Distributed, Cloud, Edge Computing}
+Il \textbf{Distributed computing}, è un ulteriore evoluzione nella virtualizzazione delle risorse, il sistema è formato da gruppi di macchine detti \textbf{cluster}, e un  textbf{orchestratore} ha il compito di distribuire automaticamente nel cluster le applicazioni degli utenti. L'\textbf{edge computing}, è una variante del cloud computing, in cui il calcolo avviene su nodi diversi contemporaneamente
+\begin{center}
+  \includegraphics[scale=0.30]{./public/distributed.png}
+\end{center}
+Il \textbf{Cloud computing} si basa su dei provider che mettono a disposizione i loro data center su domanda. L'utente paga la potenza di calcolo necessaria (pay per use)
+\section{Cenni calcolatori}
+Il seguente schema riassuntivo, rappresenta l'architettura tipo di un calcolatore 
+\begin{center}
+  \includegraphics[scale=0.4]{./public/architettura.png}
+\end{center}
+Durante il processo di esecuzione di un programma, la cpu accede ai propri registri interni, alla memoria e alle periferiche di I/O. Lo scambio di dati e indirizzi avviene tramite textbf{bus di sistema} solitamente a 8,16,32 o 64 bit. La comunicazione tra i dispositivi di I/O e la cpu avviene attraverso un \textbf{controller}
+\subsection{Interfacciamento tra CPU e I/O}
+Come accennato in precedenza, la comunicazione tra CPU e I/O passa attraverso due mezzi principali
+\begin{itemize}
+  \item \textbf{Controller}: un sistema elettronico che gestisce il dialogo tra dispositivo e cpu tramite bus di sistema, e comunica con il dispositivo tramite collegamento fisico es: USB 
+  \item \textbf{Driver}: software di controllo del dispositivo, in esecuzione sulla CPU e parte integrante del sistema operativo
+\end{itemize}
+Approfondiamo il ruolo e il metodo operativo dei Controller. Questi ultimi hanno 3 tipi di registro
+\begin{itemize}
+  \item \textbf{Stato}: il driver del dispositivo legge il registro di stato per determinare lo stato della periferica (es: Trasferimento in corso, Trasferimento completato)
+  \item \textbf{Controllo}: il driver del dispositvo scrive sul registro di controllo per impartire comandi alla periferica (es: Inizia trasferimento ecc.)
+  \item \textbf{Dato}: il driver del dispositivo scrive sul registro dato, per prelevare/inviare dati alla periferica
+\end{itemize}
+Ora vediamo in che modo il driver riconosce i cambiamenti di stato di un device di I/O. Ci sono due metodi principali 
+\begin{itemize}
+  \item \textbf{Polling}: Il driver accede ripetutamente in loop al registro di stato, fin quando non ci sono variazioni che indichino la disponibilità del dispositivo. Questa tecnica richiede di "bloccare" la cpu sull'attività di polling, impedendo di utilizzare la cpu per altre attività (\textbf{busy waiting}).
+  \item \textbf{Interrupt-based}: Quando il dispositivo non è disponibile, la cpu viene utilizzata per altre attività, quando il dispositivo diventa disponibile, solleva un \textbf{interrupt}, passando il controllo dalla cpu alla ISR (\textbf{interrupt service routine}), una funzione all'interno del driver che si occupa di gestire l'interrupt 
+\end{itemize}
+L'accesso ai registri del controller avviene in due possibili modi:
+\begin{itemize}
+  \item \textbf{Port-mapped I/O}: il driver legge/scrive sui registri con istruzioni speciali della cpu (approccio dei sistemi più vecchi)
+    \begin{center}
+      \includegraphics[scale=0.4]{./public/portmapped.png}
+    \end{center}
+  \item \textbf{Memory-mapped I/O}: il driver legge/scrive sui registri utilizzando le stesse istruzioni e lo stesso spazio di indirizzamento per l'accesso in memoria (es. MOV), ogni device ha un suo intervallo di indirizzi
+    \begin{center}
+      \includegraphics[scale=0.4]{./public/memorymapped.png}
+    \end{center}
+\end{itemize}
+Una variante del memory-mapped I/O è il \textbf{DMA} (Direct Memory Access). Il DMA è un dispositivo che opera trasferimenti dati da e verso la memoria per conto della cpu, è vantaggioso per i trasferimenti di grossi blocchi di dati e per il minor numero di interrupt che la cpu deve gestire
+\subsection{Interrupt}
+Le interrupt permettono di alternare la cpu tra l'esecuzione dei programmi dell'utente e la gestione dell'I/O. Quando i dispositivi di I/O sollevano interrupt, la cpu si dedica (temporaneamente) alla loro gestione, ciò è alla base della multiprogrammazione e del time-sharing, in quanto aumentano l'utilizzo delle risorse e dunque l'efficienza. Il ciclo della cpu con gestione delle interrupt, differisce in uno step dal classico ciclo di fetch, decode, execute
+\begin{center}
+  \includegraphics[scale=0.4]{./public/fdei.png}
+\end{center}
+Le interrupt possono essere sia \textbf{sincrone/asincrone} con il programma che \textbf{richieste/subite} dal programma
+\begin{itemize}
+  \item \textbf{Interrupt asincrone}: sono semplici richieste di attenzione da parte dei dispositivi di I/O. Si possono verificare in qualsiasi momento durante l'esecuzione di un programma, e vengono gestite da una \textbf{interrupt service routine} fornita dal driver della periferica
+  \item \textbf{Interrupt sincrone}:  dette anche \textbf{traps/exceptions}, si verificano con specifici eventi del programma in esecuzione, sono sincrone rispetto a ciò che avviene nel programma (es: NULL pointer reference, divisione per zero, ecc). Spesso il sistema operativo risponde "uccidendo il programma"
+\end{itemize}
+Un caso particolare, sono le interrupt sincrone richieste da un programma. Queste interrompono volutamente l'esecuzione e vengono usate ad esempio nei tool di debug per impostare i breakpoint ecc...
+Di seguito una tabella riassuntiva dei tipi di interrupt. 
+\begin{center}
+  \includegraphics[scale=0.4]{./public/interrupt.png}
+\end{center}
+Inoltre le interrupt possono essere abilitate e disabilitate attraverso istruzioni macchina di STI/CLI, \textbf{set interrupt} o \textbf{clear interrupt}. 
+\begin{flushleft}
+  Più periferiche possono essere collegate alla stessa linea, \textbf{interrupt vector}, nel momento in cui viene lanciato un interrupt, la cpu identifica il dispositivo tramite un identificativo (\textbf{vector number}) fornito dal dispositivo, e successivamente ricerca nella \textbf{interrupt vector table} la routine di gestione dell'interrupt necessaria
+\end{flushleft}
+\begin{center}
+  \includegraphics[scale=0.7]{./public/vecint.png}
+\end{center}
+Ricapitolando, nel dettaglio ciò che avviene per la gestione di un interrupt è il seguente 
+\begin{enumerate}
+  \item Un segnale di \textbf{interrupt request} (INT) viene inviato alla cpu 
+  \item La cpu termina l'esecuzione dell'istruzione corrente 
+  \item La cpu verifica la presenza del segnale INT ed invia un segnale di conferma (\textbf{ACK}) al dispositivo 
+  \item La cpu salva sullo \textbf{stack di sistema} le informazioni necessarie a riprendere il programma interrotto (Program counterm, Stack pointer, Program status)
+  \item La cpu seleziona la \textbf{ISR} corrispondente tramite il vettore di interrupt, e carica dal vettore il registro PC con l'indirzzo iniziale della ISR, e il registro PS 
+  \item La ISR salva lo stato del processore su uno stack 
+  \item La isr gestisce l'interrupt 
+  \item la ISR ripristina lo stato del processore 
+  \item La cpu ritorna al controllo del processo interrotto
+\end{enumerate}
+\subsection{Protezione delle risorse hardware}
+I processi moderni presentano almeno due \textbf{stati di funzionamento}
+\begin{itemize}
+  \item User mode (non privilegiato)
+  \item Kernel mode (supervisore/privilegiato)
+\end{itemize}
+  Lo stato di funzionamento della cpu è tipicamente indicato nel Program Status (PS) da un bit S=1 (stato supervisore) o S=0 (stato utente). La cpu pone automaticamente S=1 all'avvio della ISR e il PS è ripristinato a 0 al termine della ISR (istruzione iret). Esempi di istruzioni privilegiate sono le istruzioni di STI e CLI, la modifica dei registri per la gestione delle interrupt, le istruzioni per gestione della memoria... 
+\subsection{Protezione di memoria e delle memorie}
+Nei sistemi multiprogrammati e multiutente, più applicazioni condividono la memoria contemporaneamente. La coordinazione della memoria, viene gestita dalla cpu, e precisamente dalla \textbf{Memory Management Unit} (MMU), che protegge:
+\begin{itemize}
+  \item Codice e dati del sistema operativo dalle applicazioni
+  \item Codice e dati di una applicazione da altre applicazioni 
+\end{itemize}
+\begin{center}
+  \includegraphics[scale=0.4]{./public/mmu.png}
+\end{center}
+Vediamo ora le tipologie di memoria esistenti:
+\begin{itemize}
+\item \textbf{Memoria Centrale}: spazio di memorizzazione volatile che può essere acceduto direttamente dalla CPU 
+\item \textbf{Memoria Secondaria}: memoria non volatile con alta capacità di memorizzazione
+\end{itemize}
+Le memorie si organizzano in una gerarchia secondo 3 caratteristiche: velocità, costo, dimensione
+\begin{center}
+  \includegraphics[scale=0.6]{./public/memorie.png}
+\end{center}
+\section{Architettura SO}
+Abbiamo già accennato alle funzionalità di un sistema operativo 
+\begin{itemize}
+  \item \textbf{Virtualizzazione delle risorse hardware}
+  \item \textbf{Gestione e coordinamento}
+\end{itemize}
+I sistemi operativi sono costruiti in layer, ognuno con un preciso compito, di seguito una schematizzazione dei layer di un sistema operativo
+\begin{center}
+  \includegraphics[scale=0.6]{./public/oslayer.png}
+\end{center}
+\subsection{Kernel}
+Il \textbf{kernel} è la parte del sistema operativo che risiede nella memoria principale, contenente le istruzioni fondamentali del SO. A livello kernel il sistema operativo si occupa di virtualizzare ed astrarre le risorse hardware: 
+\begin{itemize}
+  \item Possiede tante cpu quanti sono i processi (istanzia i processori virtuali)
+  \item Non possiede meccanismi di interrupt 
+  \item Possiede istruzioni di sincronizzazione e scambio di messaggi tra processi che operano sui processori virtuali
+\end{itemize}
+\subsection{Gestione della memoria}
+Il sistema operativo virtualizza anche la memoria nel layer di gestione della memoria. questo ha diversi benefit, quali 
+\begin{itemize}
+  \item garantisce la \textbf{protezione}
+  \item consente di far riferimento a spazi di \textbf{indirizzi virtuali}
+  \item consente in alcuni casi di ignorare se il programma e/o i dati siano fisicamente residenti in memoria centrale o su memoria di massa
+\end{itemize}
+\subsection{Gestione periferiche}
+Al livello gestione periferiche, la virtualizzazione operata dal SO 
+\begin{itemize}
+  \item dispone di \textbf{periferiche dedicate} ai singoli processi 
+  \item maschera le caratteristiche fisiche delle periferiche
+  \item gestisce parzialmente i malfunzionamenti delle periferiche 
+\end{itemize}
+\subsection{File system}
+Al livello del file system, la virtualizzazione operata dall'SO 
+\begin{itemize}
+  \item offre \textbf{strutture logiche} (es. file e directory) per memorizzare blocchi di dati 
+  \item controlla e gestisce gli accessi 
+  \item gestisce l'organizzazione fisica su memoria di massa
+\end{itemize}
+\section{Invocazione sistema operativo}
+I sistemi operativi sono guidati dalle interruzioni (sincrone ed asincrone), gran parte del kernel viene esugito come interrupt handler (ISR). Gli interrupt guidano l'avvicendamento dei processi. Ripercorrendo il processo di esecuzione del SO, si ha: caricamento in memoria centrale del kernel $\rightarrow$ Kernel (supervisor) $\rightarrow$ interrupt asincroni da parte dell'hardware $\rightarrow$ Interrupt sincroni e eccezioni da parte delle applicazioni. 
+\begin{center}
+  \includegraphics[scale=0.5]{./public/osexecute.png}
+\end{center}
+\subsection{System call}
+Per poter operare su una risorsa, i programmi devono fare una richiesta di servizio (\textbf{system call}) al sistema operativo (es: apertura di un file, comunicazione con un altro processo...). Una system call è una richiesta al SO di eseguire operazioni privilegiate per conto del programmo chiamante
+\begin{center}
+  \includegraphics[scale=0.5]{./public/syscall.png}
+\end{center}
+Una syscall corrisponde alla attivazione di una parte del kernel a favore del processo chiamante, e si dividono in diverse categorie:
+\begin{itemize}
+  \item \textbf{Controllo dei processi}: Es. load, execute, allocate, mem, free mem 
+  \item \textbf{Manipolazione dei file}: Es. create, delete, open, close, read
+  \item \textbf{Gestione dei dispositivi}: Es. request device, read, write
+  \item \textbf{Informazioni di sistema}: Es. get time, set time 
+  \item \textbf{Comunicazione}: es. create connection, send, receive
+\end{itemize}
+Strutturare l'accesso alle risorse tramite syscall, ha come vantaggio che l'unico processo in esecuzione in modalità supervisore è il kernel. Ciò implica che le applicazioni potenzialmente contenenti bug o malevole, eseguono in modalità utente, ed è il kernel ad effettuare i controlli di sicurezza prima di concedere l'accesso alle risorse. 
+\begin{flushleft}
+  Il programma che invoca la syscall, non è autorizzato ad invocare istruzioni di salto (JSR), ma esegue la syscall tramite un'istruzione speciale della cpu spesso chiamata \textbf{supervisor call} SVC. Quest'ultima innesca una interrupt sincrona e l'esecuzione di una ISR che esegue le operazioni privilegiate
+\end{flushleft}
+\begin{center}
+  \includegraphics[scale=0.5]{./public/svc.png}
+\end{center}
+Il passaggio di parametri di una syscall avviene spesso tramtite registri della cpu. In linux x86 si usa il registro \textbf{EAX}, in cui il programma ritorna il valore al termine della esecuzione. 
+\begin{flushleft}
+  Tipicamente, i linguaggi di programmazione forniscono \textbf{routine di interfaccia} che trasformano una tradizionale chiamata di procedura in una SVC. Questo facilita la chiamata e lo scambio dei parametri 
+\end{flushleft}
+\begin{itemize}
+  \item \textbf{libc} in c, \textbf{namespace std} e la libreria \textbf{Boost} in c++...
+\end{itemize}
+\begin{center}
+  \includegraphics[scale=0.5]{./public/librarysyscall.png}
+\end{center}
+nel layer \textbf{libreria standard} risiedono le funzioni di libreria quali printf per stampare messaggi, e le funzioni di libreria interagiscono con il layer \textbf{sistema operativo} traducendo le funzioni in syscall. Ad esempio la funzione printf esegue una syscall di tipo write()
+\subsection{Tipi di architetture SO}
+\subsubsection{Monolitiche e modulari}
+I primi sistemi operativi erano costituiti da un unico programma, senza particolari suddivisioni, che raccoglieva funzioni scritte in linguaggio macchina corrispondenti alle syscal. Qui nasce la distinzione tra due tipi di architetture del SO 
+\begin{itemize}
+  \item \textbf{Architetture monolitiche}: architettura del sistema operativo in cui l'intero sistema operativo funziona nello spazio del kernel
+  \item \textbf{Architetture modulari}: architettura che divide il codice del SO in più moduli (Interfaccia e corpo)
+\end{itemize}
+I vantaggi di un'archittettura modulare su una monolitica sono principalmente 2: 
+\begin{itemize}
+  \item La modifica di un modulo ha un impatto ridotto sul resto del SO 
+  \item Si possono caricare in memoria solo i driver necessari 
+\end{itemize}
+Linux è un esempio di architettura modulare. 
+\begin{center}
+  \includegraphics[scale=0.65]{./public/linuxker.png}
+\end{center}
+Un importante distinzione tra mmoduli dell'SO riguarda i moduli \textbf{user-space} e i moduli \textbf{kernel-space}. I moduli user-space eseguono come fossero applicazioni (modo non-privilegiato), mentre i moduli kernel-space eseguono in maniera privilegiata (supervisor mode), e le chiamate da moduli user-space sono molto più veloci delle chiamate a sistema
+\begin{flushleft}
+  \textbf{N.B.} Un bug o una vulnerabilità nei moduli kernel può danneggiare l'intero sistema
+\end{flushleft}
+La maggior parte del SO, è costituito da \textbf{device drivers} che sono tipicamente moduli kernel caricati in memoria su domanda e si occupano della gestione dei singoli dispositivi (ISR)
+\subsubsection{Microkernel}
+Un ulteriore variante sull'architettura modulare, è l'architettura a microkernel. In quest'ultima si implementano solo i meccanismi essenziali nel kernel, e le politiche di gestione sono implementate all'esterno del kernel in processi di sistema
+\begin{center}
+  \includegraphics[scale=0.5]{./public/microkernel.png}
+\end{center}
+Un esempio di architettura a microkernel è MINIX 3 (risorse gestite da processi sistema detti server, il processo utente detto client inviad un server una richiesta)
+\section{Processi}
+Iniziamo definendo cos'è un processo e cos'è un programma:
+\begin{itemize}
+  \item \textbf{Programma}: è la codifica di un algoritmo in un linguaggio di programmazione, che ne rende possibile l'esecuzione da parte di un elaboratore
+  \item \textbf{Processo}: è l'unità base di esecuzione del SO, identifica le attività dell'elaboratore relative ad una specifica esecuzione di un programma. Si tratta di un entità dinamica costituita da programma e constesto di esecuzione 
+\end{itemize}
+\subsection{Stato di un processo}
+Lo \textbf{stato} di un processo rappresenta un'astrazion e del suo contesto di esecuzione. I processi sono soggetti a transizioni di stato dovute a: 
+\begin{itemize}
+  \item l'attività corrente del processo 
+  \item eventi esterni asincroni con la sua esecuzione 
+\end{itemize}
+\subsubsection{Modello a 2/3 stati}
+In prima approssimazione, un processo può essere caratterizzato da due stadi: 
+\begin{itemize}
+  \item \textbf{Attivo}: il processo è in esecuzione sulla cpu 
+  \item \textbf{Bloccato}: il processo è in attesa di un evento (I/0, sincronizzazione...)
+\end{itemize}
+\begin{center}
+  \includegraphics[scale=0.5]{./public/2stati.png}
+\end{center}
+Il problema sorge nl caso in cui si ha 1 cpu e molti processi attivi, infatti si presuppone che vi siano tante cpu fisiche quanti processi. Per questo nasce il modello a 3 stati, in cui si ha una distinzione tra processo pronto ad eseguire, e processo in esecuzione
+\begin{center}
+  \includegraphics[scale=0.5]{./public/3stati.png}
+\end{center}
+\subsubsection{Context switch}
+Si definisce \textbf{context switch} l'insieme di operazioni eseguite dal SO per il prerilascio di un processo. Il contesto di un processo include le informazioni contenute nei registri del processore 
+\begin{itemize}
+  \item Program counter, Stack counter, Registri general-purpose, Registri di gestione della memoria...
+\end{itemize}
+I dati contenuti in questi registri, vengono salvati in una struttura dati del SO, definita \textbf{process control block} (PCB) che risiede nella memoria ram. Nel context switch, la cpu salva dunque in memoria il contesto di un processo, e preleva dalla memoria il contesto di un secondo processo pronto all'esecuzione
+\begin{center}
+  \includegraphics[scale=0.5]{./public/cntxswitch.png}
+\end{center}
+Il cambio di contesto avviene a seguito di diverse operazioni 
+\begin{itemize}
+  \item \textbf{Timeout}: termina il tempo assegnato al processo
+  \item \textbf{Syscal}: il processo richiede un servizio al SO 
+  \item \textbf{Memory fault}: il processo accede ad un indirizzo di memoria non valido 
+  \item \textbf{Trap}: cpu exeption (può causare la terminazione del processo)
+  \item \textbf{I/O}
+\end{itemize}
+Ricapitolando ciò che avviene all'interno della cpu in un context switch:
+\begin{itemize}
+  \item \textbf{Salvataggio stato}: la cpu salva una copia del contesto del processo nel PCB 
+  \item \textbf{Scheduling cpu}: la cpu scegli il prossimo processo tra quelli pronti per l'esecuzione 
+  \item \textbf{Ripristino stato}: la cpu copia il contesto del processo scelto dal suo PCB ai registri della CPU
+\end{itemize}
+Ma come avviene la scelta del processo da eseguire in caso di più processi nello stato "pronto"? La scelta viene eseguita dallo \textbf{scheduler}, che fa generalmente parte del kernel del SO
+\begin{center}
+  \includegraphics[scale=0.5]{./public/schedule.png}
+\end{center}
+\subsubsection{Modello a 5/6 stati}
+Vediamo ora una versione ancora più complessa della gestione dei processi, il modello a 5 stati. Questo modello introduce lo stato "nuovo"che corrisponde alla creazione di un nuovo processo, e lo stato "terminato" che corrisponde alla terminazione di un processo. 
+\begin{center}
+  \includegraphics[scale=0.5]{./public/5stati.png}
+\end{center}
+Un ulteriore versione per i SO che prevedono la possibilità di spostare temporaneamente un processo dalla RAM alla memoria secondaria (\textbf{swapping}) prevede un ulteriore stato: "sospeso"
+\begin{center}
+  \includegraphics[scale=0.5]{./public/sospeso.png}
+\end{center}
+\newpage
+\subsubsection{Processi in Unix}
+Il sistema operativo Unix implementa lo stato dei processi come riassunto nello schema sottostante: 
+\begin{center}
+  \includegraphics[scale=0.6]{./public/processiunix.png}
+\end{center}
+Si aggiunge un nuovo stato, lo stato "Zombie", in cui un processo ha terminato ma non può ancora essere terminato perchè la sua immagine di memoria è ancora necessaria. Ex. (un processo (padre) avvia un altro processo (figlio), il figlio termina prima del padre e diventa "zombie" finche il padre non ne raccoglie lo stato di terminazione)
+\begin{flushleft}
+  Le informazioni sui processi in linux, sono ottenibili da shell tramite due comandi principali:
+\end{flushleft}
+\begin{itemize}
+  \item \textbf{top}: Una lista di tutti i processi in esecuzione sul calcolatore 
+  \item \textbf{ps aux}: stampa un'istantanea dei processi con l'identificatore (PID: process id), lo stato del processo, il terminale assegnato, il tempo di cpu usato, il nome del processo
+\end{itemize}
+Ad ogni processo come detto in precedenza viene assegnata una struttura dati PCB, tuttti i PCB sono raggruppati nella \textbf{process table}. In unix il pcb è implementato nel seguente modo 
+\begin{center}
+  \includegraphics[scale=0.5]{./public/pcb.png}
+\end{center}
+La process structure contiene informazioni che dovrebbero essere accessibili al kernel, la u-area contiene le informazioni che dovrebbero essere accessibili al processo solo quando in stato di esecuzione
+\begin{center}
+  \includegraphics[scale=0.5]{./public/proimg.png}
+\end{center}
+\subsubsection{Code dei processi}
+Il sistema operativo, tien traccia dei processi utilizzando delle code: 
+\begin{itemize}
+  \item Una o più code per i \textbf{processi pronti}
+  \item Uno o più cide dei processi bloccati
+\end{itemize}
+\begin{center}
+  \includegraphics[scale=0.5]{./public/codaprocessi.png}
+\end{center}
+\section{Scheduling}
+Lo \textbf{scheduler} è la parte del SO preposta all'assegnazione delle risorse a favore dei processi. Un algoritmo di scheduling seleziona il processo assegnatario da una coda in base a vari criteri. Esistono diverse tipologie di scheduler: 
+\begin{itemize}
+  \item Scheduler a \textbf{breve termine} o scheduler della cpu 
+  \item Scheduler a \textbf{medio termine} o scheduler di swap (swapper)
+  \item Scheduler a \textbf{lungo termine} o scheduler di job
+\end{itemize}
+\begin{center}
+  \includegraphics[scale=0.32]{./public/scheduler.png}
+\end{center}
+\subsection{Scheduler a lungo termine}
+lo scheduler a lungo termine determina quali processi caricare nella coda dei processi pronti del sistema (nuovo $\rightarrow$ pronto). I possibili criteri di scelta per la posizione nella coda dei processi sono 
+\begin{itemize}
+  \item FIFO: first in first out 
+  \item Priorità: processi con alta priorità
+  \item Tempo di esecuzione presunto
+  \item Requisisti di I/O 
+  \item Tempo presunto di CPU
+\end{itemize}
+Per aumentare l'efficienza di utilizzo delle risorse, lo scheduler ammette nel sistema un numero comparabile di processi CPU-bound e I/O-bound. Per processi \textbf{CPU-bound} si intendono processi con poche chiamate a sistema, che tendono ad occupare la CPU per lunghi periodi se il SO non li interrompe e sono tipicamente applicazioni batch, calcolo numerico... I processi \textbf{I/O bound} sono quei processi che fanno frequenti chiamate di sistema, usano brevemente la CPU per poi rimettersi in attesa di I/O, tipicamente sono i programmi interattivi quali browser, editor di testo ecc  
+\subsection{Scheduler a medio termine}
+Ha il compito di trasferire temporaneamente processi (o parte di essi) dalla memoria centrale alla memoria di massa (Bloccato $\rightarrow$ sospeso) per liberare spazio nella memoria centrale e rendere possibile il caricamento di altri processi. Ha come obiettivo quello di gestire efficientemente la memoria. 
+\subsection{Scheduler di breve termine}
+Ha il compito di scegliere un processo pronto a cui assegnare la cpu (pronto $\rightarrow$ esecuzione). È lo scheduler attivato più frequentemente, quando il processo in esecuzione si interrompe
+\subsection{Criteri, Starvation, Preemption}
+\subsubsection{Criteri di prestazione}
+Iniziamo distinguendo i parametri con cui si valuta la prestazione di un algoritmo di scheduling: 
+\begin{itemize}
+  \item \textbf{Criteri user-oriented}: la percezione dell'utente e dei singoli processi 
+  \begin{itemize}
+    \item \textbf{Tempo di risposta}: Il tempo tra l'invio di una richiesta dell'utente fino all'inizio della sua elaborazione
+    \item \textbf{Tempo di turnaround}: Il tempo tra l'invio di un processo al sistema e la sua teminazione 
+    \item \textbf{Deadlines}: Se l'utente indica una scadenza di completamento, si deve massimizzare la percentuale di scadenze rispettate
+  \end{itemize}
+  \item \textbf{Criteri system-oriented}: Il punto di vista delle risorse e dell'amministratore di sistema 
+  \begin{itemize}
+    \item \textbf{Throughput}: produttività in termini di numero di processi completati per unità di tempo (es, 10 esecuzioni/ora)
+    \item \textbf{Utilizzo della cpu}: percentuale di tempo in cui la cpu risulta occupata
+    \item \textbf{Fairness}: a meno di indicazioni da parte dell'utente, tutti i processi dovrebbero essere trattati nello stesso modo e nessuno deve subire una attesa indefinita (\textbf{starvation})
+  \end{itemize}
+\end{itemize}
+\subsubsection{Starvation}
+Un processo si definisce in \textbf{starvation} se può attendere per un tempo arbitrariamente lungo "attesa indefinita". Questo non è da confondere con attesa "infinita", in quanto il processo ha la garanzia di essere eseguito, ma non nel prossimo futuro. 
+\begin{center}
+  \includegraphics[scale=0.6]{./public/starvation.png}
+\end{center}
+La starvation si verifica negli algoritmi che danno maggiore priorità a specifici processi, e lo scheduler tende a scegliere sempre i processi a priorità alta, lasciando gli altri in attesa. 
+\subsubsection{Preemption}
+Come accennato in precedenza, la cpu ha un metodo per sospendere l'esecuzione di un processo, questo metodo si chiama preemption. Anche gli algoritmi di scheduling si suddividono in algoritmi preemptive e non preemptive 
+\begin{itemize}
+  \item \textbf{Algoritmi non-preemptive}: un processo in esecuzione rimane in tale stato finchè non si sospenderà volontariamente. 
+    \begin{center}
+      \includegraphics[scale=0.5]{./public/nonpreemptive.png}
+    \end{center}
+  \item \textbf{Algoritmi preemptive}: un processo in esecuzione può essere interrotto anche se non effettua syscall (viene forzato nello stato pronto)
+    \begin{center}
+      \includegraphics[scale=0.35]{./public/contextswitch.png}
+    \end{center}
+\end{itemize}
+\subsection{Algoritmi}
+Prima di vedere i principali algoritmi, ricapitoliamo due parametri importanti nell'analisi di questi ultimi 
+\begin{itemize}
+  \item \textbf{Ts}: tempo di servizio, ossia l'effettivo tempo di esecuzione sulla cpu 
+  \item \textbf{Tr}: tempo di turnaround, ossia il tempo trascorso dall'inserimento in coda alla fine dell'esecuzione
+  \item \textbf{Ts/Tr}: indicatore di ritardo "relativo"
+\end{itemize}
+\subsubsection{First-Come-First-Served FCFS}
+Quando un processo termina viene eseguito il primo processo in ordine di arrivo (\textbf{non-preemptive})
+\begin{center}
+  \includegraphics[scale=0.6]{./public/FCFS.png}
+\end{center}
+Si nota come il processo E, spende nel sistema 6 volte il tempo di esecuzione, questo è dovuto ad un tempo di turnaround molto elevato, che si traduce in un ritardo di esecuzione percepibile dall'utente. 
+\begin{flushleft}
+  Questo tipo di algoritmo non risente di problemi di \textbf{starvation}, ma può risentire dell'\textbf{effetto convoglio}
+\end{flushleft}
+Per effetto convoglio si intende quell'effetto per cui un processo CPU-bound, occupa la CPU per un tempo eccessivo, a scapito dei processi I/O-bound
+\begin{center}
+  \includegraphics[scale=0.5]{./public/convoglio.png}
+\end{center}
+Questo genere di effetto causa una riduzione dell'utilizzo delle risorse (sia CPU che I/O), in quanto i processi I/O-bound rimangono fermi a lungo, lasciando i dispositivi inutilizzati e quando eseguono, la CPU è sotto utilizzata. Inoltre come già detto, l'utente percepisce latenza tra il comando di esecuzione e l'esecuzione effettiva in quanto il tempo di risposta è elevato 
+\begin{center}
+  \includegraphics[scale=0.7]{./public/latenza.png}
+\end{center}
+\subsubsection{Round-Robin}
+Si tratta della versione \textbf{preemptive} del FCFS, mediante l'impiego di un timer. Viene assegnato un tempo massimo di esecuzione detto \textbf{time slice}, o \textbf{quanto di tempo} ad ogni processo
+\begin{center}
+ \includegraphics[scale=0.5]{./public/roundrobin.png}
+\end{center}
+Nel caso del processo E, l'algoritmo round-robin, dimezza il ritardo effettivo. 
+\begin{flushleft}
+  Le prestazioni del sistema dipendono dalla scelta della durata del time slice, aumentando il time slice tende a trasformarsi in FCFS, ma diminuendo il time slice, aumenta la frequenza dei cambi di contesto fra processi, e dunque l'overhead dell'SO
+\end{flushleft}
+Idealmente il time slice, dovrebbe essere appena superiore alla durata dei processi I/O-bound, i valori tipici sono da 10 a 100ms.\subsubsection{Shortest Process Next}
+L'algoritmo shortest process, esegue prima il processo con il minor tempo di esecuzione stimato, riduce dunque i tempi di risposta per i processi brevi, ma aumenta i tempi di risposta per i processi lunghi aggiungendo la possibilità di starvation. Ne esiste sia una versione non-preemptive \textbf{Shortest Process Next} che una versione preemptive \textbf{Shortest Remaining Time}
+\begin{center}
+  \includegraphics[scale=0.6]{./public/spn.png}
+\end{center}
+Coome si nota dal processo D, c'è possibilità di starvation 
+\begin{flushleft}
+  SPN, richiede di conoscere o almeno stimare il tempo di servizio di ciascun processo su indicazione del programmatore. La stima si basa sulla media dei periodi di esecuzione passati. 
+\end{flushleft}
+La media solitamente è aritmetica, ma nei sistemi più recenti si opta per una media esponenziale pesata, in modo da dare più peso ai tempi di esecuzione recenti in quanto più rappresentativi del comportamento futuro del processo. Di seguito una rappresentazione della stima del tempo di esecuzione e l'effettivo tempo utilizzando entrambe le medie
+\begin{center}
+\includegraphics[scale=0.5]{./public/spnaverage.png}
+\end{center}
+\subsubsection{Shortest Remaining Time}
+Si tratta della versione preemptive dello SPN. La prelazione può avvenire subito quando entra un nuovo processo, implicando che i processi brevi non aspettano mai 
+\begin{center}
+  \includegraphics[scale=0.6]{./public/srt.png}
+\end{center}
+Rispetto al SPN, il processo C prelaziona il processo B. Gli algoritmi SPN e SRT sono di difficile utilizzo perchè è difficile fare stime precise 
+\subsubsection{Scheduler a Priorità}
+Lo scheduler a priorità (multilevel) semplifica, raggruppando i processi in livelli di priorità. I processi a stesso livello di priorità vengono gestiti dal round-robin.
+\begin{center}
+  \includegraphics[scale=0.5]{./public/multilevel.png}
+\end{center}
+I processi a bassa priorità eseguono quando si esauriscono quelli ad alta priorità, e la coda di esecuzione è gestita in round-robin. 
+\subsubsection{Multilevel Feedback}
+Si tratta di una variante dello scheduler a priorità in cui per non penalizzare i processi a bassa priorità, si stabilisce un sistema di feedback. Si assegna ai processi una priorità dinamica penalizzando i processi CPU-bound a favore di quelli I/O-bound\dots\begin{center}
+  \includegraphics[scale=0.45]{./public/multilevelfeed.png}
+\end{center}
+Tipicamente ogni coda è gestita da round-robin, eccetto l'ultima che è caratterizzata da FCFS (es. i processi in background). Favorisce i processi piú corti, e i processi a minor priorità sono compensati con un time slice più lungo 
+\[\text{Coda }i\text{-esima}=2^i \text{unità di tempo}\]
+Dopo un tempo massimo, si fa ritornare un processo dalla coda inferiore alla coda ad alta priorità. Si noti che può causare starvation.
+\section{SMP e Scheduling multiprocessore}
+Iniziamo introducendo la definizione di alcuni concetti chiave 
+\begin{itemize}
+  \item \textbf{Symmetric Multi-Processing (SMP)}: più CPU identice sono collegate alla stessa memoria condivisa, e hanno pieno accesso ai dispositivi di I/O 
+  \item \textbf{Multi-Core CPU}: più cpu (\textbf{core}) sono sullo stesso chip
+  \item \textbf{Hyperthreading}: uno stesso core ha risorse multiple (ALU, registri, etc) e può eseguire più programmi contemporaneamente 
+\end{itemize}
+\begin{center}
+  \includegraphics[scale=0.5]{./public/architetturasmp.png}
+\end{center}
+Un esempio di cpu multicore è l'Intel Core i7-5960x. Con la seguente architettura e layout su chip 
+\begin{center}
+  \includegraphics[scale=0.5]{./public/intel.png}
+\end{center}
+Oltre i core fisici implementati sul chip, il sistema operativo "vede" diversi \textbf{core virtuali}. Ognuno di questi esegue un programma come se fosse una cpu fisica, ma in realtà i core virtuali eseguono su suno stesso core fisico che ne fornisce le risorse (es: ALU)
+\subsection{SO per SMP}
+Ci sono alcune scelete di design legate ai sistemi SMP, quali la scelta di dove eseguire l'algoritmo di assegnazione, e l'implementazione dell'assegnazione dei processi ai processori 
+\subsubsection{MASTER/SLAVE}
+Nell'approccio \textbf{master/slave}, il kernel esegue su un unico processore detto \textbf{master}, responsabile dello scheduling, tutti gli altri processori \textbf{slave} possono eseguire solo processi utente e inoltrano le syscall fatte dai processi al master.
+\begin{center}
+  \includegraphics[scale=0.5]{./public/masterslave.png}
+\end{center}
+Quali sono i vantaggi e dove risiedono le problematiche di questo tipo di approccio? Se pur facilmente implementabile, questo approccio centralizza troppo il master che costituisce un single point of failure ed un bottleneck per le prestazioni
+\subsubsection{PEER}
+Nell'\textbf{approccio PEER}, il kernel può eseguire su tutti i processori, anche contemporaneamente, ed ogni processore gestisce autonomamente lo scheduler. 
+\begin{center}
+  \includegraphics[scale=0.5]{./public/PEER.png}
+\end{center}
+Si tratta di un approccio di più complessa implementazione, ma che tuttavia rimuove le negatività dell'approccio MASTER/SLAVE 
+\subsubsection{Assegnazione dei processi}
+L'assegnazione dei processi può seguire due diverse dinamiche:
+\begin{itemize}
+  \item \textbf{Assegnazione statica}: ogni processo o thread viene assegnato permanentemente ad uno dei processori 
+    \begin{itemize}
+      \item Ogni processore ha una propria coda di processi 
+      \item L'assegnazione viene fatta una volta e non può mutare
+    \end{itemize}
+  \item \textbf{Assegnazione dinamica}: durante la sua vita un processo può eseguire su processori differenti
+\end{itemize}
+È chiaro come uno di questi sia nettamente l'approccio superiore in termini di prestazioni, infatti l'assegnazione statica, risente di forti problemi di underusage, basti pensare a un core sovraccaricato di lavoro e un core che ha terminato la propria coda. Passando all'assegnazione dinamica, ne esistono due versioni. 
+\begin{itemize}
+  \item \textbf{Load sharing}: Una sola coda dei processi pronti condivisa 
+  \item \textbf{Dynamic load balancing}: Più code di processi pronti, una per processore, in cui i processi possono essere spostati da una coda all'altra
+\end{itemize}
+\begin{center}
+  \includegraphics[scale=0.5]{./public/assdinamica.png}
+\end{center}
+Idealmente, avere una coda unica garantisce il maggior utilizzo possibile della CPU, dato che in code separate c'è ancora un rischio minimo che una coda diventi vuota. Tuttavia avere una sola coda crea due problemi. 
+\begin{itemize}
+  \item La coda occupa una regione di memoria condivisa che deve essere protetta da accessi concorrenti (\textbf{mutua esclusione})
+  \item Non grantisce che un processo riprenda l'esecuzione sullo stesso processore (uso poco efficiente della cache dei processori)
+\end{itemize}
+Con code multiple, ogni CPU accede a una coda separata, evitando bottleneck, e i processi riutilizzano la stessa CPU a meno di load balancing. Abbiamo introdotto intuitivamente il concetto di \textbf{CPU affinity}, secondo il quale un processo tende ad eseguire più rapidamente se si riutilizza sempre lo stesso core. 
+\begin{center}
+  \includegraphics[scale=0.5]{./public/cpuaff.png}
+\end{center}
+Spostare un processo da un processore all'altro danneggia il principio di località, e inoltre il load balancing ha un impatto negativo sui processi migrati. Risulta necessario dunque migrare i processi con minore affinità. Vediamo l'approccio al load balancing in Linux. 
+\begin{center}
+  \includegraphics[scale=0.4]{./public/loadbal.png}
+\end{center}
+Linux adatta il dynamic load balancing: 
+\begin{itemize}
+  \item Il load balancing viene attivato periodicamente, o quando una coda è vuota 
+  \item Vengono estratti dalla lista i task che non stanno eseguendo e non sono cache-hot
+  \item L'algoritmo termina quando la runqueue con il maggior numero di task non eccede del 25\% le altre
+\end{itemize}
+\section{Scheduling in Linux}
+Analizziamo il processo di scheduling in Linux. Uno dei punti centrali è il concetto di \textbf{task} (flusso di esecuzione), si tratta dell'unità fondamentale dello scheduler in Linux. Viene utilizzato per rappresentare sia processi che threads e ciascun task è identificato da un \textbf{process id} (PID). Ad ogni task viene attribuita una priorità che ne determina sia l'ordine di scheduling, che il quanto di tempo assegnato. Esistono due categorie di Task 
+\begin{itemize}
+  \item \textbf{Real time tasks}: richiedono una risposta garantita entro un dato intervallo di tempo 
+  \item \textbf{Task convenzionali}: la maggior parte dei programmi utente
+\end{itemize}
+\begin{center}
+  \includegraphics[scale=0.5]{./public/tasks.png}
+\end{center}
+La priorità in linux è rappresentata da un intero tra 0 e 39, e l'utente può sommare un valore di correzione tra (-20) e (+19)
+\subsection{Algoritmi di scheduling}
+\subsubsection{Scheduler O(1)}
+Si tratta di un algoritmo basato sul modello classico del multilevel feedback, e ha come obiettivi quello di ottenere un overhead di sistema \textbf{costante}, un buon compromesso tra fairness e responsiveness e l'utilizzo efficace con le architetture SMP. 
+\begin{flushleft}
+  \textbf{N.B.} Il tempo impiegato per la scelta di un processo da eseguire è costante, fare una scelta tra 10 o 1000 task impiega sempre lo stesso tempo
+\end{flushleft}
+In questa tipologia di algoritmo, viene assegnata una runqueue (struttura dati contenente le code di processi in attesa) a ciascun processore
+\begin{center}
+  \includegraphics[scale=0.5]{./public/o(1).png}
+\end{center}
+Per ridurre il fenomeno della starvation, all'interno della runqueue, sono introdotti 2 array di code: 
+\begin{itemize}
+  \item \textbf{Active}: contiene i task che non hanno ancora consumato il quanto di tempo a loro assegnato 
+  \item \textbf{Expired}: contiene i task che hanno eseguito per un intero quanto di tempo 
+\end{itemize}
+Quando tutti i task hanno esaurito il proprio time slice, si invertono i due array e si inizia un nuovo round. 
+\begin{flushleft}
+  Una parentesi importante va aperta in merito all'assegnazione delle priorità in linux. Lo scheduler fa una distinzione tra due tipi di priorità
+\end{flushleft}
+\begin{itemize}
+  \item \textbf{Priorità statica}: coincide con il nice value e determina la durata del time slice assegnato. 
+  \item \textbf{Priorità dinamica}: inizialmente pari al nice value, varia durante l'esecuzione e determina la coda in cui è inserito
+\end{itemize}
+La priorità dinamica varia di un bonus di $\pm$5 dalla priorità statica. Se un task passa da blocked a running, il suo tempo di attesa viene aggiunto ad un contatore detto \textbf{tempo di sleep}, se passa da running a blocked il suo tempo di esecuzione viene sottratto al tempo di sleep. Un maggior tempo di sleep implica un maggior bonus e le task I/O bound sono identificate e premiate. 
+\subsubsection{CFS scheduler}
+Il completely fair scheduler (CFS), rispetto all'O(1), grantisce la fairness, rende lo scheduling più controllabile, supporta il group scheduling ma ha maggiore onere computazionale O(n log n). Nel fair scheduling viene concesso a ciascun processo un time slice proporzionale alla sua priorità. 
+\begin{center}
+  \includegraphics[scale=0.5]{./public/fairscheduler.png}
+\end{center}
+A ciascuna task viene assegnato un \textbf{vruntime}, pari al minimo dei vruntime degli altri processi in esecuzione al momento della creazione del nuovo processo. Durante l'esecuzione di un task, il suo vruntime è incrementato peridicamente. La selezione dei task avviene da una struttura dati chiamata \textbf{red-black-tree}. 
+\begin{center}
+  \includegraphics[scale=0.5]{./public/redtree.png}
+\end{center}
+Il cfs sceglie sempre il task con vruntime più basso, e l'algoritmo di ricerca del valore più piccolo è O(log n). Dopo l'esecuzione e l'obbligatorio incremento del vruntime, viene reinserito nell'albero con vruntime maggiorato e l'algoritmo si ripete. 
+\begin{center}
+  \includegraphics[scale=0.5]{./public/blacktree.png}
+\end{center}
+Il time slice non è un valore fissato a priori ma viene determinato di volta in volta. 
+\[\text{timeslice}=\dfrac{\text{targeted latency}}{\text{numero di task}}\]
+Dove la \textbf{targeted latency} è il tempo massimo entro il quale tutti i processi pronti devono avere l'opportunità di essere eseguiti almeno una volta. Nel caso in cui la task abbia priorità diversa, il time slice è calcolato moltiplicando la target latency per priorità task/totale priorità e dividendo tutto per il numero di task. Abbiamo dunque inserito un upper bound al time slice, il lower bound è invece dato dal parametro \textbf{minimum granularity}. 
+\subsection{Cgroups}
+Il kernel Linux permette di raggruppare processi in un \textbf{control group} (cgroup), per diversi scopi 
+\begin{itemize}
+  \item Limitare l'uso delle risorse di un gruppo 
+  \item Priorizzare l'accesso di un gruppo alle risorse 
+  \item Tracciare l'uso delle risorse 
+  \item Controllare lo stato delle task con un solo comando 
+\end{itemize}
+\begin{center}
+  \includegraphics[scale=0.5]{./public/cgroups.png}
+\end{center}
+Il CFS può gestire i task in gruppi come un'unica entità schedulabile in maniera fair
+\section{Threads}
+Iniziamo definendo un thread e come si distingue da un processo 
+\begin{itemize}
+  \item \textbf{Thread}: anche detto processo leggero, è un flusso di controllo sequenziale in un processo 
+  \item \textbf{Processo}: anche detto processo pesante, è l'insieme di spazio di indirizzamento e risorse che possono essere condivise da più threads
+\end{itemize}
+I thread dunque condividono le risorse del processo, e tutti i thread hanno visibilità di queste ultime (es. modifiche alla memoria etc.), ciò implica che è richiesta una sincronizzazione esplicita tra i thread (semafori, monitor)
+\begin{center}
+  \includegraphics[scale=0.38]{./public/threads.png}
+\end{center}
+I processi si distinguono in processi multi-thread e processi single-thread
+\begin{center}
+  \includegraphics[scale=0.5]{./public/multithread.png}
+\end{center}
+I thread possono aumentare la velocità di esecuzione suddividendo il lavoro in più parti, ed ogni thread può eseguire su cpu distinte. I thread inoltre conferiscono maggiore modularità ai programmi, ad esempio permettono di implementare funzioni asincrone al normale flusso di esecuzione, o separare le attività di background e foreground
+\begin{flushleft}
+  I programmi multi-thread migliorano rispetto ai programmi multiprocesso in quanto terminare o creare un thread è più rapido di terminare o creare un processo, la comunicazione tra thread è più rapida e il context switch ha un minor overhead rispetto a quello tra processi.
+\end{flushleft}
+Esistono diversi modelli di programmazione multithread: 
+\begin{itemize}
+  \item \textbf{Manager/Workers}: un thread, il manager, riceve in input comandi e assegna i lavori ad altri thread, i workers. 
+  \item \textbf{Pipeline}: un task è suddiviso in una serie di operazioni più semplici che possono essere eseguite in serie e concorrentemente da altri thread
+  \item \textbf{Peer}: simile al manager/workers ma una volta che il thread principale assegna il lavoro agli altri thread, partecipa attivamente al lavoro
+\end{itemize}
+La capacità di un SO di consentire l'esecuzione di più thread all'interno di un singolo processo è definita \textbf{multithreading}
+\begin{center}
+  \includegraphics[scale=0.5]{./public/multithreading.png}
+\end{center}
+I thread come i processi, possiedono anch'essi stati 
+\begin{center}
+  \includegraphics[scale=0.5]{./public/statithread.png}
+\end{center}
+\subsection{Tipologie di Thread}
+I thread si dividono in due tipologie principali:
+\begin{itemize}
+  \item \textbf{User-Level Thread}: anche detti green threads e co-routines
+  \item \textbf{Kernel-Level Thread}: anche detti  kernel-supported threads e lightweight processes
+\end{itemize}
+\subsubsection{User-Level Thread}
+La gestione dei thread è eseguita a livello applicativo (il programmatore deve programmarli nel suo software), e il kernel non ha visibilità dell'esistenza di questi thread. Il programma si avvale di una thread library per gestire il suo contesto di esecuzione, e simula il context switch del SO. Quest'approccio prende il nome di scheduling coperativo.
+\begin{center}
+  \includegraphics[scale=0.5]{./public/userthread.png}
+\end{center}
+Agli occhi del sistema operativo, il processo esegue comunque su un unico thread, in quanto il multithreading avviene in User space. I vantaggi e gli svantaggi sono 
+\begin{itemize}
+ \item \textbf{Minor overhead} per il context switch in quanto non è richiesto il passaggio in kernel mode 
+ \item \textbf{Scheduler dei thread indipendente} dallo scheduler dei processi 
+ \item \textbf{Portabilità} delle applicazioni
+\end{itemize}
+\subsubsection{Kernel-Level-Thread}
+Nel caso dei Kernel level thread, il kernel gestisce le informazioni di contesto sia per il processo che per i thread. Lo scheduling non viene effettuato sui processi ma sui thread. Questo tipo di approccio è quello adottato dai moderni SO 
+\begin{center}
+  \includegraphics[scale=0.5]{./public/kernelevelthread.png}
+\end{center}
+I vantaggi sono che il kernel è in grado di schedulare più thread dello stesso processo su più processori, e se un thread è "blocked", il kernel può schedulare un altro thread dello stesso processo. Tuttavia il trasferimento del controllo da u thread ad un altro, se pur nello stesso processo richiede un kernel switch a livello kernel. 
+\begin{flushleft}
+  C'è la possibilità di eseguire approcci combinati, avendo il multithreading implementato sia a livello utente che kernel 
+\end{flushleft}
+\subsection{Implementazioni dei thread}
+\subsubsection{Thread in Go}
+Nel linguaggio go, si ha un approccio misto 
+\begin{itemize}
+  \item user level thread gestiti dalla libreria del linguaggio 
+  \item kernel level thread forniti dall'SO 
+\end{itemize}
+\subsubsection{Thread in Linux}
+In linux, il thread è un task che condivide delle strutture con altri task (codice, heap, etc.). Ogni task ha il suo PID e un processo multithreaded è un gruppo di task identificato da un Thread Group ID (TGID). 
+\begin{itemize}
+  \item La creazione di un task avviene attraverso la syscall \textbf{clone()}, che crea un nuovo task che condivide lo stesso spazio d'indirizzamento del task chiamante
+\end{itemize}
+\begin{center}
+  \includegraphics[scale=0.5]{./public/threadlin.png}
+\end{center}
+\subsubsection{Thread in Win2000}
+In windows 2000, i thread vengono mappati uno ad uno da ULT a KLT e ciascun thread contiene ID, Registri, User stack, Kernel Stack, e un area di memoria privata 
+\section{Programmazione concorrente}
+Per programmazione concorrente, si intende l'insieme di tecniche, delle metodologie e degli strumenti per lo sviluppo di software come un insieme di attività svolte simultaneamente. 
+\subsection{Multiprogrammazione}
+La \textbf{multiprogrammazione} è la forma più elementare di programmazione concorrente, e si basa sulla esecuzione intercalata di più processi o threads sulla stessa cpu. Il sistema diventa una macchina astratta che possiede più processori virtuali, uno per ogni processo 
+\begin{center}
+  \includegraphics[scale=0.5]{./public/multiprog.png}
+\end{center}
+I pro sono i miglioramenti all'efficienza complessiva del sistema, ma non migliora la velocità di esecuzione del singolo programma. 
+\subsection{Parallelismo}
+Il \textbf{parallelismo} utilizza più cpu fisiche su cui eseguire più processi contemporaneamente. 
+\begin{center}
+  \includegraphics[scale=0.5]{./public/parallel.png}
+\end{center}
+Anche il parallelismo, se usato da solo non migliora la velocità di esecuzione del singolo programma, ma del sistema. 
+\subsubsection{Concorrenza-Parallelismo}
+L'unico modo per ottenere una velocizzazione di un dato programma, è attraverso l'utilizzo congiunto di parallelismo e multiprogrammazione. 
+\begin{center}
+  \includegraphics[scale=0.5]{./public/concpar.png}
+\end{center}
+\section{Sincronizzazione Globale}
+Nella programmazione concorrente, esistono problemi derivati dall'accesso alle risorse. Senza alcun tipo di sincronizzazione tra processi o thread si arriva ad una condizione definita come \textbf{race condition}, dove il processo che accede più velocemente ha il controllo della risorsa. Per garantire l'uso corretto della risorsa essa deve essere acceduta al più da un processo alla volta.
+\subsection{Sezione Critica}
+Ipotizziamo due o più processi che vogliono utilizzare una risorsa ad uso esclusivo, definita come \textbf{risorsa critica}. La sezione di codice che utilizza la risorsa è detta \textbf{sezione critica}, e l'obbiettivo è di garantirne l'accesso ad un unico processo alla volta. Ciò può avvenire tramite
+\begin{itemize}
+  \item \textbf{Mutua Esclusione}: l'ordine con cui devono avvenire due eventi non è fissato, è sufficiente che i processi non utilizzano in contemporanea la risorsa
+  \item \textbf{Comunicazione}: si pone un ordinamento tra gli eventi
+\end{itemize}
+Il SO fornisce ai programmi meccanismi per richiedere accesso in mutua esclusione alle risorse
+\subsection{Mutua Esclusione}
+Supponiamo due processi P1 e P2 e una risorsa critica O1. Nel caso di mutua esclusione si ha
+\begin{multicols}{2}
+  \begin{itemize}
+    \item Quando P1 entra nella sezione critica, acquisisce il possesso della risorsa
+    \item Se P2 tenta di entrare prima che P1 sia uscito, P2 viene posto in attesa dal SO
+    \item Quando P1 ha terminato la sua sezione critica, libera la risorsa e P2 potrà accederci
+  \end{itemize}
+  \includegraphics[scale=0.5]{./public/mutualexcl.png}
+\end{multicols}
+Il corretto funzionamento non dipende dal numero o dalla velocità di esecuzione dei processi (si evita la Race Condition), e bisogna evitare \textbf{deadlock} e \textbf{starvation} dei processi:
+\begin{itemize}
+  \item \textbf{Deadlock}: indica la presenza di una condizione di \textbf{blocco permanente} di un gruppo di processi in competizione
+  \item \textbf{Starvation}: attesa indefinita da parte di un processo a bassa priorità.
+\end{itemize}
+Per realizzare la mutua esclusione, ci sono due tipi di soluzioni, soluzioni \textbf{hardware} e \textbf{software}:
+\begin{itemize}
+  \item \textbf{Hardware (Disabilitazione degli interrupt)}: In un sistema \textbf{monoprocessore}, per garantire la mutua esclusione è sufficiente disabilitare le interruzioni. Questo permette di evitare che un processo in una sezione cirtica venga prelazionato
+    \begin{itemize}
+      \item \textbf{Vantaggi}: È conveniente per uso interno nel kernel quando è necessario aggiornare delle variabile condivise
+      \item \textbf{Svantaggi}: In un sistema multiprocessore non garantisce la mutua esclusione, e l'approccio viola i principi di protezione
+    \end{itemize}
+  \item \textbf{Software}: esistono diversi metodi, quali variabili Lock, Mutex, Semafori, Monitor...
+\end{itemize}
+\subsubsection{Lock}
+Si potrebbe pensare di introdurre una variabile \textbf{lock} con valore iniziale 0
+\begin{itemize}
+  \item Se un processo accede alla risorsa critica, allora pone lock = 1, e gli altri processi non potranno accedere alla risorsa critica
+  \item Se lock = 0 allora altri processi possono accedere e la porranno = 1
+\end{itemize}
+Il problema è che le operazioni di lettura e scrittura, del lock sono eseguite in momenti diversi, dunque se avviene un \textbf{context switch} prima di porre "lock=1", un altro processo può entrare nel frattempo nella sezione critica. Per risolvere questo problema molti processori forniscono l'istruzione macchina
+\begin{lstlisting}
+  TSL RX, LOCK
+\end{lstlisting}
+equivalente a 
+\begin{lstlisting}
+  MOV RX, LOCK    // Lettura Lock 
+  MOV LOCK, 1     // Scrittura Lock
+\end{lstlisting}
+Le operazioni di lettura e scrittura Lock sono indivisibili ed eseguono in un solo ciclo di CPU, ovviando al problema descritto in precedenza e permettendone l'utilizzo anche nei sistemi multiprocessore. Ci sono due problemi principali in questo approccio
+\begin{itemize}
+  \item \textbf{Busy Wait}: la soluzione è caratterizzata da attesa attiva da parte del processo che vorrebbe eseguire ma trova la lock ad 1
+  \item \textbf{Priority Inversion}: supponiamo di avere due processi che accedono alla stessa sezione critica H e L, con H ad alta priorità ed L a bassa priorità.
+    \begin{itemize}
+      \item Si supponga inizialmente solo L in esecuzione, che entra nella sezione critica e imposta LOCK = 1
+      \item Il processo H diviene pronto e in quanto ha priorità maggiore, L viene prelazionato e la CPU assegnata ad H
+      \item H inizia il busy wait tramite TSL in quanto LOCK è stata lasciata ad 100    
+      \item H rimane bloccato in attesa attiva per sempre in quanto L non avrà mai possibilità di eseguire con H in eseuzione
+    \end{itemize}
+\end{itemize}
+I problemi di attesa attiva e di priority inversion vengono risolti forzando il processo che trova la LOCK ad 1 a \textbf{sospendersi}, transita nello stato bloccato in attesa che la risorsa diventi disponibile. Ciò avviene tramite 2 syscall
+\begin{itemize}
+  \item \textbf{suspend(P)}: Il processo P che la chiama si auto-sospende in attesa di un segnale di risveglio
+  \item \textbf{wake-up(P)}: Un processo invia un segnale di risveglio al processo P sospeso
+\end{itemize}
+\subsubsection{Semafori e Mutex}
+%TO-DO AGGIUNGERE SEMAFORI
+
+
+
+
+\section{Cooperazione}
+Come accennato in precedenza, in alcuni casi non è sufficiente gestire casualmente l'ordine di accesso alla risorsa, ma possono esistere problematiche di \textbf{coordinazione} in cui si vuole gestire l'ordine di accesso.
+\subsection{Prod-Cons}
+Il problema del \textbf{Produttore-Consumatore} è strutturato nel seguente modo. Esistono due categorie di processi
+\begin{itemize}
+  \item \textbf{Produttori}: depositano un messaggio su di una risorsa condivisa 
+  \item \textbf{Consumatori}: prelevano il messaggio dalla risorsa condivisa
+\end{itemize}
+\subsubsection{Prod-Cons single buffer}
+Supponiamo di voler realizzare un problema di tipo Produttore-Consumatore con \textbf{buffer unico}, i vincoli sono i seguenti:
+\begin{itemize}
+  \item Il produttore non può produrre un messaggio se il consumatore non ha consumato il messaggio precedente
+  \item Il consumatore non può prelevare un messaggio se il produttore non l'ha prima depositato 
+\end{itemize}
+\begin{center}
+  \includegraphics[scale=0.5]{./public/prodconssingle.png}
+\end{center}
+La realizzazione richiede l'utilizzo di 2 \textbf{semafori}:
+\begin{itemize}
+  \item \textbf{AVAILABLE\_SPACE}: semaforo bloccato da un produttore prima di una produzione e sbloccato da un consumatore in seguito ad un consumo (valore iniziale 1)
+  \item \textbf{AVAILABLE\_MSG}: semaforo sbloccato da un produttore in seguito ad una produzione e bloccato da un consumatore prima del consumo (valore iniziale 0)
+\end{itemize}
+\subsubsection{Prod-Cons con coda}
+Si tratta di una variante del problema produttore consumatore gestita attraverso un \textbf{vettore di buffer}
+\begin{center}
+  \includegraphics[scale=0.5]{./public/prodconsque.png}
+\end{center}
+\begin{itemize}
+  \item Il produttore si sospende se i buffer sono tutti pieni
+  \item Il consumatore si sospende se i buffer sono tutti vuoti
+\end{itemize}
+Le operazioni sono svolte in ordine circolare. La coda è implementata mediante i seguenti campi
+\begin{itemize}
+  \item \textbf{buffer[DIM]}: un array di elementi di tipo msg (tipo del messaggio depositato dai produttori) contenente i valori prodotti
+  \item \textbf{testa}: un intero che indica la posizione del primo buffer libero in testa (buffer[testa]), ossia il primo buffer disponibile per la memorizzazione di un messaggio. L'accesso al msg prodotto più recentemente avviene tramite buffer[testa - 1]
+  \item \textbf{coda}: indica la posizione dell'elemento prodotto meno recentemente, buffer[coda] permette di accedere alla prossima consumazione
+\end{itemize}
+Per la sincronizzazione si utilizzano due semafori
+\begin{itemize}
+  \item \textbf{AVAILABLE\_SPACE}: indica la presenza di spazio disponibile in coda per la produzione di un messaggio ed ha come valore iniziale la dimensione della coda
+  \item \textbf{NUM\_MSG}: indica il numero di messaggi presenti in coda, ha valore iniziale 0
+\end{itemize}
+Questo metodo garantisce che non vi siano accessi contemporanei alla stessa posizione della coda da parte di produttori e consumatori, tuttavia, va bene solo nel caso in cui si ha 1 produttore e 1 consumatore. Se vi sono due buffer liberi e due produttori iniziano contemporaneamente a produrre si verifica una \textbf{race condition}.
+\subsubsection{Prod-Cons multipli con coda}
+Nell'ipotesi in cui vi siano più produttori e più consumatori che accedono allo stesso buffer, le operazioni di deposito e prelievo devono essere eseguite rispettivamente in mutua esclusione, ed essere dunque gestite come \textbf{sezioni critiche}. A tal fine si utilizzano due nuovi semafori:
+\begin{itemize}
+  \item \textbf{MUTEX\_C}: per le operazioni di consumo (valore iniziale 1)
+  \item \textbf{MUTEX\_P}: per le operazioni di produzione (valore iniziale 1)
+\end{itemize}
+Per una corretta sincronizzazione è necessario che gli indici testa e coda siano condivisi tra processi. Ciò avviene collocando sia il vettore buffer che gli indici coda/testa nella stesa memoria condivisa
+\begin{lstlisting}[language=c]
+  typedef struct {
+    int testa;
+    int coda;
+    int buffer[DIM];
+  } prod_cons;
+\end{lstlisting}
+\subsection{Lettori/Scrittori}
+Un altro problema di coordinazione è il problema dei Lettori/Scrittori. Esistono due attori principali
+\begin{itemize}
+  \item \textbf{Lettori}: leggono un messaggio su di una risorsa condivisa
+  \item \textbf{Scrittori}: scrivono il messaggio sulla risorsa condivisa
+\end{itemize}
+I processi lettori possono accedere contemporaneamente alla risorsa, mentre i processi scrittori hanno accesso esclusivo alla risorsa. I lettori e scrittori si escludono mutuamente dall'uso della risorsa. Questo problema può portare ad una condizione di \textbf{starvation}:
+\begin{itemize}
+  \item Un processo lettore attende solo se la risorsa è occupata da un processo scrittore, e un processo scrittore può accedere alla risorsa solo se questa è libera
+  \item I processi scrittori sono dunque soggetti a possibile attesa indefinita (starvation)
+\end{itemize}
+\begin{center}
+  \includegraphics[scale=0.5]{./public/lett-scritt.png}
+\end{center}
+La presenza di un lettore permette solo ad altri lettori di entrare, ma non permette l'ingresso agli scrittori, funque se vi è almeno un lettore attivo, lo scrittore subisce starvation
+\section{Gestione memoria}
+La \textbf{memoria principale} costituisce, insieme alla CPU, una delle risorse per realizzare la astrazione di processo.
+\begin{itemize}
+  \item Il processo dispone di una area di memoria ad esso riservata
+\end{itemize}
+\begin{center}
+  \includegraphics[scale=0.5]{./public/mem.png}
+\end{center}
+La posizione (indirizzi) di codice e dati nella memoria del processo è un'astrazione. Il sistema operativo gestisce la \textbf{memoria fisica} e mette a disposizione dei processi \textbf{indirizzi virtuali} in un'operazione definita \textbf{virtualizzazione della memoria}. Gli indirizzi virtuali possono essere assegnati in 2 modi:
+\begin{itemize}
+  \item \textbf{Rilocazione statica}: stabilisce gli indirizzi di codice e dati al momento della \textbf{compilazione}. Quest'ultima non può essere modificata e l'indirizzo di memoria virtuale corrisponde con quello di memorai fisica
+    \begin{center}
+      \includegraphics[scale=0.5]{./public/rilstat.png}
+    \end{center}
+  \item \textbf{Rilocazione dinamica}: la traduzione tra indirizzi virtuali e fisici avviene durante l'esecuzione da parte della \textbf{MMU}
+\end{itemize}
+\subsection{Rilocazione Dinamica}
+Per comprendere il processo di rilocazione dinamica, è necessario introdurre una distinzione tra tipi di indirizzi
+\begin{itemize}
+  \item \textbf{Indirizzo Fisico}: indirizzo visto dall'unità di memoria, \textbf{posizione effettiva} del dato/istruzione in memoria fisica
+  \item \textbf{Indirizzo Virtuale}: indirizzo acceduto dal programma durante l'esecuzione, un astrazione dell'indirizzo fisico
+\end{itemize}
+\begin{center}
+  \includegraphics[scale=0.40]{./public/rildin.png}
+\end{center}
+La rilocazione dinamica, oltre a fornire una preziosa astrazione per la gestione della memoria di ogni singolo processo, consente di effettuare lo \textbf{swapping}, ossia un'operazione che permette di sospendere e trasferire dalla memoria centrale alla memoria secondaria un processo per liberare la memoria centrale.
+\begin{center}
+  \includegraphics[scale=0.5]{./public/memswap.png}
+\end{center}
+\subsection{MMU}
+Come detto in precedenza, la gestione degli indirizzi fisici e virtuali, è affidata alla \textbf{Memory Management Unit (MMU)}. Quest'ultima è un componente hardware della CPU che può funzionare in diversi modi
+\begin{itemize}
+  \item \textbf{Caso Basilare}: approccio primordiale con falle di sicurezza
+  \item \textbf{Base - Bound}: approccio moderno
+\end{itemize}
+l'approccio Base-Bound si basa su due registri, rispettivamente:
+\begin{itemize}
+  \item \textbf{Base}: contiene l'indirizzo di memoria fisico da cui parte l'immagine di memoria del processo o il segmento
+  \item \textbf{Bound}: contiene l'indirizzo di memoria fisico in cui termina l'immagine di memoria del processo o il segmento
+\end{itemize}
+L'indirizzo fisico, è dato da
+\[\text{indirizzo fisco } = \text{indirizzo virtuale }+\text{ registro base}\]
+Il registro bound, permette di controllare che il processo non stia accedendo a zone di memoria non riservate a quest'ultimo
+\begin{center}
+  \includegraphics[scale=0.5]{./public/basebound.png}
+\end{center}
+\subsection{Gestione dello spazio virtuale}
+Un indirizzo virtuale è una coppia composta da \textbf{identificativo} del segmento e \textbf{scostamento} all'intero del segmento
+\begin{lstlisting}
+  push $0x1234
+  pop %es
+  mov %es: 0x5678, %eax
+\end{lstlisting}
+l'indirizzo 0x1234 è l'identificativo, e 0x5678 è l'offset. Vi sono due possibili approcci per gestire lo spazio virtuale degli indirizzi:
+\begin{itemize}
+  \item \textbf{Spazio unico}: si alloca uno spazio corrispondente all'intero processo in un unico "blocco" di memoria
+  \item \textbf{Segmenti}: si suddivide il processo in diverse "porzioni" e si gestiscono separatamente (segmento codice, segmento heap, segmento stack)
+\end{itemize}
+\begin{center}
+  \includegraphics[scale=0.5]{./public/seg.png}
+\end{center}
+Possono esistere problemi di frammentazione (spazio non utilizzato) in entrambi i casi. Nel caso in cui sia interna all'intero processo di definisce \textbf{frammentazione interna}, altrimenti \textbf{frammentazione esterna}
+\subsubsection{Segmentazione}
+A tempo di compilazione si configura lo spazio virtuale segmentato, e viene creato un segmento diverso per ciascun modulo del programma. 
+\begin{center}
+  \includegraphics[scale=0.5]{./public/segmenti.png}
+\end{center}
+Quest'approccio comporta alcuni vantaggi
+\begin{itemize}
+  \item \textbf{Protezione} dei segmenti
+  \item \textbf{Condivisione} dei segmenti
+  \item \textbf{Allocazione indipendente} dei segmenti in memoria fisica
+\end{itemize}
+Anche la segmentazione si basa su MMU, tuttavia il numero di registri base/bound sono limitati, dunque in caso di pochi segmenti, è possibile avere nella MMU più coppie di registri base/bound
+\begin{center}
+  \includegraphics[scale=0.5]{./public/segmentation.png}
+\end{center}
+ma in caso si voglia ottenere un numero arbitrario di segmenti è necessaria una struttura dati in memoria RAM per contenere le coppie base-bound detta \textbf{segment table}. La MMU gestice la segment table con due appositi registri
+\begin{itemize}
+  \item \textbf{STBR} (segment table base register): indirizzo in memoria in cui si trova la tabella dei segmenti
+  \item \textbf{STLR} (segment table limit register): dimensione della tabella dei segmenti
+\end{itemize}
+La traduzione degli indirizzi segmentati diventa dunque
+\begin{center}
+  \includegraphics[scale=0.5]{./public/sg.png}
+\end{center}
+Ogni processo ha una segment table differente, e i registri STBR/STLR sono configurati ad ogni \textbf{context switch} dei processi. Il sistema operativo carica i valori di STBR/STLR dal PCB. La segment table permette anche di specificare diversi permessi di accesso al segmento, attraverso dei bit di controllo
+\begin{center}
+  \includegraphics[scale=0.5]{./public/segtable.png}
+\end{center}
+È possibile \textbf{condividere} segmenti tra più processi, allocando in memoria fisica solo una copia del segmento e facendo riferimento a quest'ultima nella segment table di due procesis distinti
+\subsection{Allocazione}
+Uno spazio/segmento di memoria virtuale può essere allocato in memoria fisica in due possibili modi
+\begin{itemize}
+  \item \textbf{Allocazione contigua}: lo spazio/segmento è copiato per intero in un intervallo di memoria fisica agli indirizzi [I, I+D]
+  \item \textbf{Allocazione non contigua}: tramite paginazione
+\end{itemize}
+Nel caso di allocazione contigua, il SO colloca il blocco di memoria virtuale, in intervalli non sovrapposti della memoria fisica, quando un processo termina la memoria fisica occupata si libera creando un buco (\textbf{hole}). Quando si carica un processo, occorre cercare un hole sufficientemente grande da contenerlo
+\begin{center}
+  \includegraphics[scale=0.5]{./public/hole.png}
+\end{center}
+Se ci sono più buchi liberi, ci sono vari criteri per scegliere dove collocare il segmento
+\begin{itemize}
+  \item \textbf{First-fit}: si assegna il primo hole sufficientemente grande
+  \item \textbf{Best-fit}: si assegna il più piccolo hole tra i sufficientemente grandi
+  \item \textbf{Worst-fit}: si assegna l'hole più grande
+\end{itemize}
+In genere l'allocazione contigua soffre di problemi di frammentazione esterna
+\subsection{Paginazione}
+La \textbf{paginazione} è una tecnica di allocazione non contigua, in cui gli spazi/segmenti sono divisi in \textbf{blocchi di dimensione fissa}. Ciò permette di evitare la frammentazione esterna ma introduce la frammentazione interna
+\begin{center}
+  \includegraphics[scale=0.5]{./public/paginazione.jpg}
+\end{center}
+\begin{itemize}
+  \item La memoria virtuale è divisa in blocchi di dimensione fissa detti pagine virtuali
+  \item La memoria fisica è divisa in blocchi di dimensione fissa detti pagine fisiche o \textbf{frame}
+  \item Ogni pagina virtuale è abbinata ad una pagina fisica tramite \textbf{tabella delle pagine}
+\end{itemize}
+Si ha un problema di \textbf{frammentazione interna} quando il processo non utilizza a pieno le pagine assegnate, tuttavia si tratta di un fenomeno trascurabile per pagine piccole. Tipicamente la dimensione di pagina è una potenza di 2 compresa tra (512byte e 16MB). Nella paginazione un indirizzo contiene la coppia
+\begin{itemize}
+  \item \textbf{numero di pagina (p)}: indice della pagina nella memoria fisica
+  \item \textbf{scostamento di pagina (d)}: indica la posizione dell'indirizzo all'interno della pagina
+\end{itemize}
+\begin{center}
+  \includegraphics[scale=0.5]{./public/pagind.png}
+\end{center}
+A differenza della segmentazione, non sono due valori separati, ma sono contenuti entrambi in un unico valore. L'architettura di paginazione è la seguente
+\begin{center}
+  \includegraphics[scale=0.5]{./public/pagarch.png}
+\end{center}
+La tabella delle pagine ha una riga per ogni \textbf{pagina virtuale} del processo contenente
+\begin{itemize}
+  \item l'indice della \textbf{pagina fisica}
+  \item \textbf{bit di gestione} (permessi di accesso ecc...)
+\end{itemize}
+\begin{center}
+  \includegraphics[scale=0.5]{./public/tabpag.png}
+\end{center}
+La tabella delle pagine è in \textbf{memoria principale} e la MMU usa 2 registri per riconoscerla
+\begin{itemize}
+  \item \textbf{PTBR (page-table base register)}: indirizzo base della tabella delle pagine
+  \item \textbf{PTLR (page-table length register)}: dimensione della tabella delle pagine
+\end{itemize}
+Per accedere alla memoria occorrono dunque due accessi, uno per \textbf{leggere la tabella delle pagine}, e uno per \textbf{accedere al dato/istruzione} vero e proprio. Per migliorare l'efficienza si usa una cache associativa detta \textbf{TLB (Translation Look-Aside Buffer)}
+\begin{center}
+  \includegraphics[scale=0.5]{./public/tlb.png}
+\end{center}
+Il TLB esegue una \textbf{selezione associativa} basata sul contenuto, mentre la selezione della riga dalla tabella delle pagine in memoria è sempre \textbf{lineare} (basata sulla posizione). Inoltre, il sistema operativo può marcare le \textbf{pagine virtuali in uso}, usando un \textbf{bit di validità} nella page table. Il bit viene attivato nel momento in cui la pagina è allocata dal processo (es. tramite malloc())
+\begin{center}
+  \includegraphics[scale=0.5]{./public/valbit.png}
+\end{center}
+Ci sono diversi problemi da risolvere riguardanti la tabella delle pagine:
+\begin{itemize}
+  \item pagine con dimensioni troppo grosse
+  \item pagine troppo numerose
+  \item pagine "sparse" (poche pagine valide)
+\end{itemize}
+Questi problemi vengono risolti tramite \textbf{paginazione gerarchica}, \textbf{tabella delle pagine basata su hash}, \textbf{tabella delle pagine invertita}
+\subsubsection{Paginazione gerarchica}
+È una tecnica che permette di suddividere la tabella delle pagine in parti più piccole, secondo una \textbf{organizzazione gerarchica}.
+\begin{itemize}
+  \item La MMU divide l'indirizzo di pagina in più parti (p1, p2)
+  \item Nella tabella di primo livello, trova l'indirizzo della tabella di secondo livello ecc...
+\end{itemize}
+\begin{center}
+  \includegraphics[scale=0.5]{./public/gerimp.png}
+\end{center}
+\subsubsection{Tabella delle pagine su Hash}
+Le righe della tabella delle pagine sono organizzate utilizzando una \textbf{linked list}
+\begin{itemize}
+  \item Si memorizzano esclusivamente le righe per le pagine valide
+  \item Ulteriore risparmio di memoria ma rallenta la ricerca
+\end{itemize}
+Per ottimizzare i tempi di ricerca si dividono le righe su tante liste concatenate di piccole dimensioni
+\begin{itemize}
+  \item Una funzione di \textbf{Hash} è applicata al numero della pagina virtuale
+  \item Elementi dcon lo stesso valore della funzione di hash sono collocati nella stessa lista concatenata
+\end{itemize}
+\subsubsection{Tabella delle pagine invertita}
+Negli schemi precedenti, si ha una tabella distinta per ogni processo, nella tabella delle pagine invertita invece
+\begin{itemize}
+  \item Si ha una sola tabella comune a tutti i processi
+  \item La tabella ha un elemento per ogni pagina fisica
+  \item Ogni elemento contiene l'indirizzo virtuale della pagina memorizzata in quella locazione fisica
+\end{itemize}
+\begin{center}
+  \includegraphics[scale=0.5]{./public/tabinv.png}
+\end{center}
+\section{Memoria Virtuale}
+La \textbf{memoria virtuale} separa la memoria fisica dalla memoria vista da un processo.
+\begin{itemize}
+  \item Può essere più grande della memoria fisica a disposizione attraverso swapping
+  \item Si realizza con la paginazione o segmentazione "su richiesta"
+\end{itemize}
+\begin{center}
+  \includegraphics[scale=0.5]{./public/virtmem.png}
+\end{center}
+La \textbf{paginazione su richiesta} implica che solo le pagine effettivamente utilizzate sono caricate in memoria principale (pagine "residenti"). Ciò permette un minore consumo di memoria fisica e un generale risparmio di risorse del calcolatore, si realizza attraverso il \textbf{bit di validità}:
+\begin{itemize}
+  \item \textbf{Bit di validità ad 1}: se la pagina virtuale è stata allocata al processo (es. malloc) e la pagina fisica corrispondente è risedente in memoria
+  \item \textbf{Bit di validità a 0}: se anche una sola condizione è falsa
+\end{itemize}
+\begin{center}
+  \includegraphics[scale=0.5]{./public/validit.png}
+\end{center}
+Nel caso in cui un indirizzo virtuale fa riferimento ad una pagina non ancora caricata in memoria
+\begin{itemize}
+  \item La MMU nota che il bit di validità non è attivo
+  \item La MMU genera un eccezione di pagina mancante \textbf{page fault}
+\end{itemize}
+\subsection{Page Fault}
+In seguito ad un interrupt di tipo \textbf{page fault}, una ISR del SO gestisce l'eccezione nel seguente modo
+\begin{enumerate}
+  \item Individua una pagina fisica di memoria libera
+  \item Trasferisce la pagina desiderata nella memoria libera
+  \item Aggiorna le tabelle, bit di validità = 1
+  \item All'uscita dalla ISR, la CPU riavvia l'istruzione che ha causato l'eccezione
+\end{enumerate}
+La ISR verifica anche che l'indirizzo virtuale sia stato allocato dal processo, in caso negativo il processo viene terminato con \textbf{segmentation fault}.
+\subsubsection{Page fault con sostituzione}
+Una variante della page fault classica, è la \textbf{page fault con sostituzione}, in cui la ISR
+\begin{enumerate}
+  \item Il SO individua la posizione sul disco della pagina richiesta
+  \item il SO cerca una pagina fisica di memoria libera:
+    \begin{itemize}
+      \item Se esiste, la si usa
+      \item Altrimenti occorre togliere dalla memoria principale un'altra paginda detta "\textbf{vittima}" (scelta con un algoritmo di sostituzione)
+      \item La pagina vittima viene scritta sul disco (swap-out)
+    \end{itemize}
+  \item Il SO scrive la pagina richiesta sulla pagina libera
+  \item Il SO modifica le tabelle delle pagine (sia richiedente che processo vittima)
+  \item Si riprende l'esecuzione del processo richiedente
+\end{enumerate}
+La scelta della pagina vittima è fatta da un \textbf{algoritmo di sostituzione delle pagine}, il cui obiettivo è minimizzare la frequenza dei page fault. I quattro principali sono
+\begin{itemize}
+  \item Algoritmo "ottimo" (puramente teorico)
+  \item FIFO
+  \item LRU
+  \item Second-Chance
+\end{itemize}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\newpage
+% PARTE ESERCIZI
+\section{IPC-Shmem-Semafori}
+\subsection{IPC}
+Linux/Unix permette la comunicazione tra processi mediante primitive e strutture dati fornite dal kernel, dette \textbf{IPC} (interprocess communication).
+\begin{itemize}
+  \item \textbf{Memoria condivisa}: SHM - shared memory segments 
+  \item \textbf{Semafori}: SEM - semaphore arrays
+  \item \textbf{Code di messaggi}: MSG - queues
+\end{itemize}
+Ogni risorsa IPC è gestita da due primitive: get/ctl 
+\begin{itemize}
+  \item \textbf{get}: utilizza una "chiave" (IPC key), ed opportuni parametri per restituire al processo un descrittore della risorsa. 
+  \item \textbf{ctl}: permette dato un descrittore, di verificare lo stato di una risorsa, cambiare lo stato di una risorsa, rimuovere una risorsa
+\end{itemize}
+\begin{center}
+  \includegraphics[scale=0.4]{./public/getctl.png}
+\end{center}
+Le risorse IPC non sono volatili, se un processo esce, non vengono eliminate automaticamente ma è necessaria una chiamata alla primitiva ctl. 
+\subsubsection{Primitiva get}
+\begin{lstlisting}[language=c]
+int ...get(key\_t key, ..., int flag);
+\end{lstlisting}
+per \textbf{key} si intende la chiave dell'oggetto, questa può essere un valore intero arbitrario, un valore generato dalla funzione ftok(), o la costante IPC\_PRIVATE. Flag indica la modalità di acquisizione della risorsa, si possono passare una o più costanti tra cui 
+\begin{itemize}
+  \item \textbf{IPC\_CREAT}: crea una nuova risorsa se non ne esiste già una con la chiave indicata. Se già esistem viene riusata 
+  \item \textbf{IPC\_EXCL}: si usa in combinazione con IPC\_CREAT, e permette di gestire i due casi di risorsa già esistente e risorsa appena creata (utile per gestire il valore iniziale della risorsa)
+  \item \textbf{Permessi di accesso}: ad esempio 0644
+\end{itemize}
+\subsubsection{Primitiva ctl}
+\begin{lstlisting}[language=c]
+int ...ctl(int desc, ..., int cmd, ...);
+\end{lstlisting}
+\begin{itemize}
+  \item \textbf{desc}: indica il descrittore della risorsa
+  \item \textbf{cmd}: indica il comando da eseguire tra 
+    \begin{itemize}
+      \item \textbf{IPC\_RMID}: rimozione della risorsa 
+      \item \textbf{IPC\_STAT}: richiede informazioni sulla risorsa 
+      \item \textbf{IPC\_SET}: richiede la modifica di attributi della risorsa (es. parametri di accesso)
+    \end{itemize}
+\end{itemize}
+\subsubsection{IPC Keys}
+Ogni risorsa IPC è identificata da una IPC key univoca. Ci sono diversi modi per scegliere una chiave, volendo può essere anche hardcoded con un avlore a scelta del programmatore, ma il metodo più pulito è l'ftok(). 
+\begin{lstlisting}[language=c]
+  key_t ftok(char * path, char id)
+\end{lstlisting}
+Genera una chiave automaticamente e prende in ingresso il percorso di un file/cartella appartenente al programma, e carattere scelto a piacere dal programmatore. Un altro m
+\begin{lstlisting}[language=c]
+  key_t mykey = ftok("tmp", "a")
+\end{lstlisting}
+Un altro metodo per generare una chiave corrisponde al IPC\_PRIVATE. Questo equivale a 0 ed è un valore costante per creare una risorsa senza chiave, semplificando la gestione ma impedendo l'accesso ad altri processi. L'unico modo per condividere questo tipo di risorsa è tramite fork()
+\begin{lstlisting}[language=c]
+  key_t mykey = IPC_PRIVATE
+\end{lstlisting}
+I comandi ipcs e ipcrm in shell sono utili per visualizzare le risorse IPC allocate nel sistema o rimuovere risorse non rimosse dai processi (es. terminazione anomala). 
+\subsection{Memoria condivisa}
+Una memoria condivisa (\textbf{SHM}) è una porzione di memoria accessibile da più processi
+\begin{center}
+  \includegraphics[scale=0.4]{./public/shm.png}
+\end{center}
+Due comandi utili da shell sono 
+\begin{itemize}
+  \item \textbf{ipcs}: visualizza le risorse IPC allocate nel sistema 
+  \item \textbf{ipcrm}: rimuove una risorsa IPC 
+\end{itemize}
+\subsubsection{Creazione SHM}
+\begin{lstlisting}[language=c]
+  int shmget(key_t key, int size, int flag)
+\end{lstlisting}
+L'unico parametro differente da una get è il parametro size, che stabilisce la dimensione in byte della memoria condivisa. la funzione shmget restituisce un identificatore numerico (descrittore) in caso di successo, o -1 in caso di fallimento
+\begin{lstlisting}[language=c]
+  key_t chiave = 40;
+  int ds_shm;
+
+  ds_shm = shmget(chiave, 1024, 0);
+  if(ds_shm < 0) {
+    // la risorsa non esiste! esci dal programma
+    perror("errore shmget!");
+    exit(1);
+  }
+\end{lstlisting}
+Se la shm non è stata già creata da un altro processo, la shmget() produce un errore. Successivamente alla creazione o all'accesso ad una shm, bisogna effettuare un'operazione di \textbf{attach} che collega il segmento di memoria condivisa allo spazio di indirizzamento del chiamante attraverso la syscall \textbf{shmat()}. 
+\begin{lstlisting}[language=c]
+  void* shmat(int shmid, const void *shmaddr, int flag);
+\end{lstlisting}
+dove shmid, rappresenta l'id della shm, e la funzione restituisce un puntatore all'area di memoria collegata o -1 in caso di fallimento. I parametri opzionali possono essere 
+\begin{itemize}
+  \item \textbf{shmaddr}: indirizzo a quale collegare il segmento di memoria condivisa, se NULL viene scelto in automatico dall'SO 
+  \item \textbf{flag}: 0 per lettura/scrittura, IPC\_RDONLY per sola lettura
+\end{itemize}
+Le operazioni di controllo shmctl(), seguono lo stesso metodo delle ctl, quindi 
+\begin{lstlisting}[language=c]
+  int shmctl(int ds_shm, int cmdm struct shmid_ds * buff)
+\end{lstlisting}
+Dove ds\_shm è il descrittore della shm, cmd permette di specificare uno dei comandi (IPC\_STAT, IPC\_SET, IPC\_RMID, SHM\_LOCK), buff è un puntatore alla struttura di tipo shmid\_ds. La funzione restituisce -1 in caso di errore 
+\subsection{Semafori}
+L'idea dietro un semaforo è quella di gestire l'accesso a risorse condivise in zone critiche di un programma 
+\begin{center}
+  \includegraphics[scale=0.5]{./public/sem.png}
+\end{center}
+Le syscall per operare sui semafori sono 
+\begin{lstlisting}[language=c]
+  int semget(key_t key, int nsems, int semflg);
+\end{lstlisting}
+la semget definisce un array di più semafori (nsems è il numero di semafori), e ogni semaforo dall'array è rappresentato internamente nel kernel da una struttura dati. L'altra syscall rilevante è
+\begin{lstlisting}[language=c]
+  int semctl(int semid, int semnum, int cmd, ...);
+\end{lstlisting}
+Dove semid è l'id dell'array di semafori, semnum il numero di semafori su cui operare, cmd il tipo di operazione. Vediamo come avviene l'inizializzazione di un semaforo 
+\begin{lstlisting}[language=c]
+    key_t = IPC_PRIVATE;
+
+    // richiedo array di due semafori
+    int sem = semget(key, 2, IPC_CREAT | 0664);
+
+    // inizializzo i semafori 
+    semctl(sem, 0, SETVAL, 1) // mutex o semaforo binario 
+    semctl(sem, 1, SETVAL, 5) // semaforo n-ario
+\end{lstlisting}
+Un ulteriore syscall per quanto riguarda i semafori, è la \textbf{semop()}. 
+\begin{lstlisting}[language=c]
+  int semop(int semid,struct sembuf *sops,unsigned nsops)
+\end{lstlisting}
+Ci permette di effettuare un operazione o un gruppo di operazioni su un vettore di semafori. Prende in ingresso un semid, un vettore di operazioni *sops di dimensioni nsops, e restituisce un intero. Le implementazioni che ci interessano principalmente sono 2, la wait e la signal 
+\begin{lstlisting}[language=c]
+  void Wait_Sem(int id_sem, int numsem){
+    struct sembuf sem_buf;
+  
+    sembuf.sem_num = numsem;
+    sembuf.sem_op = -1;
+    sembuf.sem_flg = 0; 
+
+    semop(id_sem, &sem_buf, 1);
+  }
+\end{lstlisting}
+La wait decrementa il semaforo di 1 per indicare che un processo sta già operando sulla risorsa condivisa 
+\begin{lstlisting}[language=c]
+  void Signal_Sem (int id_sem,int numsem){
+       struct sembuf sem_buf;
+
+       sem_buf.sem_num=numsem;
+       sem_buf.sem_flg=0;
+       sem_buf.sem_op=1;
+
+       semop(id_sem,&sem_buf,1);
+  }
+\end{lstlisting}
+La signal incrementa il semaforo di 1 per indicare che un processo ha finito di operare sulla risorsa condivisa. \\ 
+Possiamo dunque definire 3 operazioni principali su un semaforo in base al valore di sem\_op.
+\begin{itemize}
+  \item sem\_op $<$ 0 $\rightarrow$ wait \\
+    Se sem\_op ha valore negativo, l'operazione si articola in 2 modi. 
+    \begin{itemize}
+      \item semval $\geq$ |sem\_op|, l'operazione procede senza sospendere il processo e il valore del semaforo sarà semval $-=$ |sem\_op| 
+      \item semval $\leq$ |sem\_op|, il processo si sospende finchè semval $\geq$ |sem\_op| e poi si procede come nel caso precedente
+    \end{itemize}
+  \item sem\_op $>$ 0 $\rightarrow$ signal \\ 
+    Aumenta sempre il semaforo di semval += |sem\_op|, dunque non causa blocco del processo
+  \item sem\_op $<$ 0 $\rightarrow$ wait for zero 
+    Se sem\_op ha valore nullo, si ha l'operazione di wait for zero 
+    \begin{itemize}
+      \item se il valore semval = 0, l'operazione procede immediatamente e il processo non viene bloccato 
+      \item se il valore semval è diverso da zero, il processo si sospende finchè semval = 0
+    \end{itemize}
+\end{itemize}
+\section{PThreads}
+La libreria PThreads ci permette di operare con i thread in c. Vediamo come è strutturata:
+\begin{itemize}
+  \item \textbf{Gestione dei thread}: creazione, distruzione e join di thread 
+  \item \textbf{Gestione dei mutex}: creazione, distruzione, lock e unlock dei mutex per sezioni critiche 
+  \item \textbf{Condition variables}: creazione, distruzione, wait e signal su variabili condition 
+\end{itemize}
+\subsection{Gestione dei thread}
+\subsubsection{Create/Exit}
+La funzione che ci permette di creare thread è la pthread\_create(). 
+\begin{lstlisting}[language=c]
+  pthread_create(id, attr, start_routine, arg);
+\end{lstlisting}
+dove 
+\begin{itemize}
+  \item id: di tipo pthread\_t è un identificatore del thread creato
+  \item attr: imposta gli attributi del thread 
+  \item start\_routine: è un puntatore alla funzione che verrà eseguita dal thread 
+  \item arg: è un puntatore passato come parametro di ingresso alla startign routine 
+\end{itemize}
+Per terminare un thread si utilizza la funzione pthread\_exit()
+\begin{lstlisting}[language=c]
+  pthread_exit(status);
+\end{lstlisting}
+Si utilizza per terminare esplicitamente un thread, e status rappresenta lo stato di uscita del thread. 
+\subsubsection{Passaggio di parametri}
+La pthread\_create() può passare un singolo argomento di tipo void *, per passare più di un argomento al thread occorre definire una struct. 
+\begin{lstlisting}[language=c]
+  struct dati {
+    int dato1;
+    char dato;
+  }
+\end{lstlisting}
+Nel thread padre, si alloca sull'heap (malloc) una istanza della struct e si passa il puntatore al thread figlio. 
+\begin{lstlisting}[language=c]
+  struct dati *d=
+      (struct dati *)malloc(sizeof(struct dati));
+  d -> dato1 = 10
+  d -> dato2 = 'x';
+
+  pthread_create(&id, NULL, start_func,(void *) d)
+\end{lstlisting}
+Per usare correttamente la struttura dati nel thread figlio, occorre fare il casting inverso del puntatore void * 
+\begin{lstlisting}[language=c]
+  void * start_func(void * arg){
+    struct dati *dati = (struct dati *) arg; 
+    printf("Dato 1: %d\n", dati->dato1)
+  }
+\end{lstlisting}
+\subsubsection{Join}
+L'operazione join permette di sincronizzare un thread padre con uno o più thread figli.
+\begin{flushleft} 
+  La chiamata pthred\_join(threadId, status), blocca il chiamante (padre) finchè il threadId specificato non termina.  
+\end{flushleft}
+\begin{lstlisting}[language=c]
+  pthread_join(id, NULL)
+\end{lstlisting}
+Con il parametro null, il padre rinuncia a ricevere lo stato di uscita dal figlio, mentre per riceverlo si utilizza
+\begin{lstlisting}[language=c]
+  pthread_join(id, (void **) &status)
+\end{lstlisting}
+\subsubsection{Restituzione dei dati}
+Il thread figlio può passare dei dati in uscita al thread padre tramite una struct sull'area heap
+\begin{lstlisting}[language=c]
+  struct exit_data{
+    int res
+  };
+
+  void * figlio(void *){
+    struct exit_data *status=
+      malloc(sizeof(struct exit_data))
+    status->res = 10 
+
+    pthread_exit(status);
+  }
+
+  int main(){
+    // thread padre 
+    struct dati_uscita *status;
+    pthread_join(..., &status);
+
+    int result = status->res
+  }
+\end{lstlisting}
+\subsection{Mutex}
+\subsubsection{Creazione e distruzione}
+Per mutex si intendono semafori binari che possono assumere lo stato di Lock o Unlock. 
+\begin{itemize}
+  \item \textbf{pthread\_mutex\_t}: rappresenta il tipo mutex 
+  \item \textbf{pthread\_mutex\_init(mutex, attr)}: inizializza un nuovo mutex come sbloccato 
+  \item \textbf{pthread\_mutex\_destroy(mutex)}: disattiva un mutex
+\end{itemize}
+I mutex vengono gestiti atttraverso delle operazioni di base 
+\begin{itemize}
+  \item \textbf{pthread\_mutex\_lock(mutex)}: Un thread invoca la lock su un mutex per acquisire l'accesso in mutua esclusione alla sezione critica relativa al mutex. Se già un altro thread ha acquisito il mutex, il chiamante si blocca in attesa di un unlock. 
+  \item \textbf{pthread\_mutex\_unlock(mutex)}: Un thread invoca la unlock su un mutex per rilascaire la sezione critica, e consentire l'accesso ad un altro thread 
+  \item \textbf{pthread\_mutex\_trylock(mutex)}: Come la lock, ma se il mutex è già aquisito ritorna immediatamente con codice di errore EBUSY
+\end{itemize}
+
+
+
+
+\end{document}
+
