@@ -1,0 +1,44 @@
+\documentclass{article}
+\input{header.tex}
+\title{Analisi II\\ \large\textbf{Barbato Rosa} \\ a.a. 2024-2025}
+
+\author{\textbf{Author}\\ Alessio Romano}
+
+\begin{document}
+\maketitle
+
+\newpage
+\tableofcontents
+\newpage
+
+\section{Successioni di Funzioni}
+\begin{definition}[Successione di funzioni]
+  Sia $X \subseteq \mathbb{R}$ un sottoinsieme di $\mathbb{R}$. Una \textit{successione di funzioni} è un'applicazione matematica tale che:
+  \[\{f_n\}_{n\in \NaturalNumbers}:n \in \mathbb{N} \to F_n(x)\]
+  Dove $f_n(x): X \to \mathbb{R}$
+\end{definition}
+Prendiamo per esempio la successione di funzioni $f_n(x) = x^n$, potremmo chiederci intuitivamente che cosa succede alla successione di funzioni quando $n \to +\infty$. Per farlo fissiamo $x$, Si ottiene che
+\[\lim_{n\to\infty} x^n = \begin{cases}
+    0 \text{ se } -1<x<1\\
+    1 \text{ se } x=1\\
+    +\infty \text{ se } x>1\\
+    \nexists \text{ se } x \leq -1
+\end{cases}\]
+Abbiamo introdotto intuitivamente il concetto di \textbf{convergenza puntuale}. Definiamo ora la convergenza puntuale rigorosamente
+\begin{definition}[Convergenza puntuale]
+  Data una successione di funzioni $f_n(x)$ tale che $X \to \Real$, tale successione \textit{converge puntualmente} ad $f(x)$, in $X$ se e solo se
+  \[
+    \lim_{n\to\infty} f_n(x) = f(x), \;\;\; \forall x \in X
+  \] 
+  Ossia
+  \[
+    \forall x \in X, \forall \epsilon >0, \exists \nu = \nu_{\epsilon, x}: \forall n>\nu, |f_n(x)-f(x)|<\epsilon 
+  \]
+\end{definition}
+Insomma, stiamo dicendo che data una successione di funzioni, se per ogni $x \in X,  \epsilon > 0$ esiste un certo indice della successione $\nu$ dipendente dal punto $x$ e il valore $\epsilon$, tale che preso un valore $n$ della successione più grande dell'indice $nu$, la distanza tra la funzione limite $f(x)$ e la successione di  funzioni è sempre minore di $\epsilon$\dots
+\begin{definition}[Convergenza Uniforme]
+  $f_n$ \textit{converge uniformemente} a $f(x)$ in $x$ se e solo se 
+  \[\forall \epsilon>0, \exists \nu = \nu_\epsilon: \forall n> \nu, |f_n(x)-f(x)|<\epsilon, \;\;\; \forall x \in X\]
+\end{definition}
+Dunque per convergenza uniforme si intende che dopo un certo indice $\nu$, dipendente unicamente da $\epsilon$, la distanza tra la successione di funzioni e la funzione limite è minore di $\epsilon$, non più in un unico punto $x_0$, ma su tutto l'intervallo
+\end{document}
