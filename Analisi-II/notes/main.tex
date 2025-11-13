@@ -11,7 +11,8 @@
 \tableofcontents
 \newpage
 
-\section{Successioni di Funzioni}
+\section{Successioni  e Serie di Funzioni}
+\subsection{Successioni di funzioni}
 \begin{definition}[Successione di funzioni]
   Sia $X \subseteq \mathbb{R}$ un sottoinsieme di $\mathbb{R}$. Una \textit{successione di funzioni} è un'applicazione matematica tale che:
   \[\{f_n\}_{n\in \NaturalNumbers}:n \in \mathbb{N} \to F_n(x)\]
@@ -40,5 +41,49 @@ Insomma, stiamo dicendo che data una successione di funzioni, se per ogni $x \in
   $f_n$ \textit{converge uniformemente} a $f(x)$ in $x$ se e solo se 
   \[\forall \epsilon>0, \exists \nu = \nu_\epsilon: \forall n> \nu, |f_n(x)-f(x)|<\epsilon, \;\;\; \forall x \in X\]
 \end{definition}
-Dunque per convergenza uniforme si intende che dopo un certo indice $\nu$, dipendente unicamente da $\epsilon$, la distanza tra la successione di funzioni e la funzione limite è minore di $\epsilon$, non più in un unico punto $x_0$, ma su tutto l'intervallo
+Dunque per convergenza uniforme si intende che dopo un certo indice $\nu$, dipendente unicamente da $\epsilon$, la distanza tra la successione di funzioni e la funzione limite è minore di $\epsilon$, non più in un unico punto $x_0$, ma su tutto l'intervallo. Si noti che l'uniforme convergenza implica la convergenza puntuale, ma l'inverso non è sempre valido
+\begin{theorem}[Criterio di Cauchy convergenza uniforme]
+  $f_n(x)\to f$ uniformemente in $X$ se e solo se
+    \[\forall \epsilon > 0, \exists \nu = \nu_\epsilon: \sup_{x\in X}|f_n(x)-f(x)|\leq \epsilon\]
+\end{theorem}
+In altre parole, una successione di funzioni converge uniformemente se e solo se il limite per $n\to\infty$ del suo estremo superiore tende a $0$
+\begin{theorem}[Continuità del limite]
+  Sia $\{f_n\}$ una successione di funzioni. Se $f_n \to f$ uniformemente in $X$ e $f_n$ è continua $\Rightarrow f$ è continua in $X$ 
+\end{theorem}
+\begin{theorem}[Passaggio al limite sotto il segno di derivata]
+Sia $f_n$ una successione di funzione continua in [a,b], con $f_n \to f$ uniformemente in $[a,b]$ allora
+\[\lim_{n\to\infty} \int_{a}^{b} f_n(x)dx = \int_{a}^{b} \lim_{n\to\infty} f_n(x)dx\]  
+\end{theorem}
+\begin{theorem}[Criterio di Cauchy uniforme]
+  $f_n \to f$ uniformemente in $X$ se e solo se 
+  \[\forall \epsilon > 0, \exists \nu = \nu_\epsilon: |f_n(x)-f_m(x)<\epsilon, \;\;\; \forall m,n > \nu_\epsilon, \forall x\in X\]
+\end{theorem}
+\begin{theorem}
+  Sia $\{f_n\}$ una successione di funzioni (derivabile con derivate continue). Se
+  \begin{itemize}
+    \item $\exists x_0 \in [a,b]: f_n (x_0)$ converge
+    \item $f'n$ converge uniformemente in $[a,b]$ ad una funzione $g$
+  \end{itemize}
+  Allora $f_n$ converge uniformemente ad una funzione $f$ con derivata continua in $[a,b]$ e 
+  \[\lim_n f_n'(x)=f'(x)=(\lim_n f_n (x))'\]
+\end{theorem}
+\subsection{Serie di funzioni}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 \end{document}

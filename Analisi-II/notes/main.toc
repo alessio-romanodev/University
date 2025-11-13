@@ -1,1 +1,3 @@
-\contentsline {section}{\numberline {1}Successioni di Funzioni}{3}{section.1}%
+\contentsline {section}{\numberline {1}Successioni e Serie di Funzioni}{3}{section.1}%
+\contentsline {subsection}{\numberline {1.1}Successioni di funzioni}{3}{subsection.1.1}%
+\contentsline {subsection}{\numberline {1.2}Serie di funzioni}{4}{subsection.1.2}%
