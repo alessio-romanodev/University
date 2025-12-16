@@ -1,5 +1,5 @@
 # Fdb version 4
-["pdflatex"] 1763045088.22256 "main.tex" "main.pdf" "main" 1763045089.19832 0
+["pdflatex"] 1763370825.63291 "main.tex" "main.pdf" "main" 1763370826.78687 0
   "/usr/local/texlive/2025/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc" 1254269338 2375 baa924870cfb487815765f9094cf3728 ""
   "/usr/local/texlive/2025/texmf-dist/fonts/enc/dvips/lm/lm-mathex.enc" 1202520719 3486 c7eadf5dcc57b3b2d11736679f6636ba ""
   "/usr/local/texlive/2025/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc" 1202520719 2405 5dcf2c1b967ee25cc46c58cd52244aed ""
@@ -212,10 +212,10 @@
   "/usr/local/texlive/2025/texmf-var/web2c/pdftex/pdflatex.fmt" 1763032216 3345743 590ba3482d682b84769cfb93b4fa93d6 ""
   "/usr/local/texlive/2025/texmf.cnf" 1741450484 577 418a7058ec8e006d8704f60ecd22c938 ""
   "header.tex" 1762872310.79579 2348 d88c24b3b06dbbc53c19b8e17607cf59 ""
-  "main.aux" 1763045089.09055 544 6dcb8c6bb90ab17ee688dbae5bc559f9 "pdflatex"
-  "main.out" 1763045089.0934 536 ac19e0bb17df55e9c1dd41e54b182f58 "pdflatex"
-  "main.tex" 1763045086.75071 4046 9fda90b8be078d22db641eec79c44319 ""
-  "main.toc" 1763045089.09387 259 ba1c9f302de32f5094e25b761b09f6d0 "pdflatex"
+  "main.aux" 1763370826.66614 544 6dcb8c6bb90ab17ee688dbae5bc559f9 "pdflatex"
+  "main.out" 1763370826.66652 536 ac19e0bb17df55e9c1dd41e54b182f58 "pdflatex"
+  "main.tex" 1763370825.12578 5481 f7085694863f3480b59308df9775b60f ""
+  "main.toc" 1763370826.66886 259 ba1c9f302de32f5094e25b761b09f6d0 "pdflatex"
   (generated)
   "main.aux"
   "main.log"

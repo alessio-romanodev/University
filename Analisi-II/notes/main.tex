@@ -68,10 +68,29 @@ Sia $f_n$ una successione di funzione continua in [a,b], con $f_n \to f$ uniform
   \[\lim_n f_n'(x)=f'(x)=(\lim_n f_n (x))'\]
 \end{theorem}
 \subsection{Serie di funzioni}
-
-
-
-
+\begin{definition}[Serie di funzioni]
+  Una serie di funzioni è un oggetto della forma
+  \[\sum_{n=1}^{\infty} f_n(x)\]
+  Ossia una somma infinita di funzioni $f_n: A\to\Real$ definite sull'insieme $A$. Data la successione di \textbf{somme parziali}, $s_1,s_2,...,s_n$:
+  \[s_1(x)=f_1(x)\]
+  \[s_2(x)=f_1(x)+f_2(x)\]
+  \[...\]
+  \[s_n(x)=f_1(x)+f_2(x)+...+f_n(x)\]
+  Si definisce $s_n$ come la \textbf{Serie di funzioni} associata alla successione $f_n(x)$. Se questa serie converge, convergerà ad una certa funzione $F(x)$, dove:
+  \[\sum_{n=1}^{+\infty}f_n(x)= F(x)\]
+\end{definition}
+Procediamo definendo i due tipi di convergenza a cui una serie di funzioni può essere soggetta:
+\begin{definition}[Convergenza Puntuale]
+  Data una serie di funzioni $\sum_{n=1}^{+\infty}f_n(x)$ Fissato un valore numerico per $x = x_0 \in \Real$, si viene a formare una serie numerica
+  \[\sum_{n=1}^{+\infty}f_n(x_0)\]
+\end{definition}
+Se converge, la serie di partenza converge in $x_0$, l'insieme dei valori di $x$ che rendono la serie convergente è detto \textbf{Insieme di convergenza}
+\begin{definition}
+  Consideriamo una serie di funzioni 
+  \[\sum_{n=1}^{+\infty}f_n(x)\]
+  Quest'ultima converge uniformemente su un insieme $A$, se le sue somme parziali, convergono uniformemente alla funzione limite $F(x)$, ossia:
+  \[\forall \epsilon>0, \exists \nu \in \mathbb{N}: \forall n>\nu, \forall x \in A |s_n(x)-F(x)|>\epsilon\]
+\end{definition}
 
 
 

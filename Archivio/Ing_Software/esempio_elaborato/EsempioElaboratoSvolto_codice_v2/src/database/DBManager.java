@@ -7,9 +7,11 @@ import java.sql.SQLException;
 
 public class DBManager {
 	
-private static Connection conn = null;
-	
-	private DBManager() {}
+private static Connection conn;
+
+	private DBManager() {
+		this.conn = null;
+	}
 	
 	public static Connection getConnection() throws SQLException {
 			
